@@ -30,4 +30,4 @@ jobs:
     - name: Install dependencies
       run: cd scansmart-api && bundle install
     - name: Run tests
-      run: bundle exec rake
+      run: cd scansmart-api && bundle exec rake
