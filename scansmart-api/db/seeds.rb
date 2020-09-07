@@ -17,3 +17,7 @@ end
   FactoryBot.create(:user, type: "Staff",
                            email: "staff_#{count+1}@example.com")
 end
+
+3.times do
+  FactoryBot.create(:store)
+end
