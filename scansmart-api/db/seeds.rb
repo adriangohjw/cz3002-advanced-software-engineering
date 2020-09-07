@@ -9,5 +9,11 @@
 require 'factory_bot_rails'
 
 10.times do |count|
-  FactoryBot.create(:user, email: "user_#{count}@example.com")
+  FactoryBot.create(:user, type: "Shopper",
+                           email: "shopper_#{count+1}@example.com")
+end
+
+3.times do |count|
+  FactoryBot.create(:user, type: "Staff",
+                           email: "staff_#{count+1}@example.com")
 end
