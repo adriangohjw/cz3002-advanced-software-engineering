@@ -56,4 +56,4 @@ jobs:
         RAILS_ENV: test
       run: |
         cd scansmart-api
-        bundle exec rake
+        bundle exec rspec
