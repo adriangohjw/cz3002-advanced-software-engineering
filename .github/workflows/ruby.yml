@@ -20,13 +20,9 @@ jobs:
 
     services:
       postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: password
-          POSTGRES_USER: adria
+        image: postgres:11.5
+        ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        ports:
-          - 5432:5432
 
     steps:
     - uses: actions/checkout@v2
@@ -37,19 +33,27 @@ jobs:
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.5.1
+
     - name: Install library for postgres
-      run: sudo apt-get install libpq-dev
+      run: |
+        sudo apt-get -yqq install libpq-dev
+
     - name: Install dependencies
-      run: cd scansmart-api && bundle install
-    - name: Database setup
+      env:
+        PGHOST: localhost
+        PGUSER: adria
+        RAILS_ENV: test
       run: |
         cd scansmart-api
-        sudo service postgresql start
-        bin/rails db:schema:load --trace
-      env:
-        POSTGRES_PASSWORD: password
-        POSTGRES_USER: adria
-        POSTGRES_PORT: 5432
-        RAILS_ENV: test
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bin/rails db:setup
+
     - name: Run tests
-      run: cd scansmart-api && bundle exec rake
+      env:
+        PGHOST: localhost
+        PGUSER: adria
+        RAILS_ENV: test
+      run: |
+        cd scansmart-api
+        bundle exec rake
