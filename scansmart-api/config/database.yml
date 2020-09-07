@@ -13,7 +13,7 @@ development:
   <<: *default
   database: cz3002_development
   port: 5432
-  username: adria
+  username: postgres
   password: password
 
 # Warning: The database defined as "test" will be erased and
@@ -23,7 +23,7 @@ test:
   <<: *default
   database: cz3002_test
   port: 5432
-  username: adria
+  username: postgres
   password: password
 
 production:
