@@ -1,0 +1,2 @@
+class Shopper < User
+end
