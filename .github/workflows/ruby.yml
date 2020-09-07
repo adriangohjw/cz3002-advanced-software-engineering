@@ -18,6 +18,12 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:11.5
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -27,7 +33,27 @@ jobs:
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.5.1
+
+    - name: Install library for postgres
+      run: |
+        sudo apt-get -yqq install libpq-dev
+
     - name: Install dependencies
-      run: cd scansmart-api && bundle install
+      env:
+        PGHOST: localhost
+        PGUSER: postgres
+        RAILS_ENV: test
+      run: |
+        cd scansmart-api
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bin/rails db:setup
+        
     - name: Run tests
-      run: cd scansmart-api && bundle exec rake
+      env:
+        PGHOST: localhost
+        PGUSER: postgres
+        RAILS_ENV: test
+      run: |
+        cd scansmart-api
+        bundle exec rspec
