@@ -44,6 +44,7 @@ jobs:
     - name: Database setup
       run: |
         cd scansmart-api
+        psql "postgresql://adria:password@localhost:5432/cz3002_test?host=/tmp"
         bin/rails db:schema:load --trace
       env:
         POSTGRES_PASSWORD: password
