@@ -41,7 +41,7 @@ jobs:
     - name: Install dependencies
       env:
         PGHOST: localhost
-        PGUSER: adria
+        PGUSER: postgres
         RAILS_ENV: test
       run: |
         cd scansmart-api
@@ -52,7 +52,7 @@ jobs:
     - name: Run tests
       env:
         PGHOST: localhost
-        PGUSER: adria
+        PGUSER: postgres
         RAILS_ENV: test
       run: |
         cd scansmart-api
