@@ -37,11 +37,17 @@ jobs:
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.5.1
+    - name: Install library for postgres
+      run: sudo apt-get install libpq-dev
     - name: Install dependencies
       run: cd scansmart-api && bundle install
     - name: Database setup
       run: |
         cd scansmart-api
         bin/rails db:schema:load --trace
+      env:
+        POSTGRES_PASSWORD: password
+        POSTGRES_USER: adria
+        RAILS_ENV: test
     - name: Run tests
       run: cd scansmart-api && bundle exec rake
