@@ -18,6 +18,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:12.1
+          env:
+            POSTGRES_PASSWORD: password
+            POSTGRES_USER: adria
+          options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+          ports:
+            - 5432:5432
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -30,6 +40,8 @@ jobs:
     - name: Install dependencies
       run: cd scansmart-api && bundle install
     - name: Database setup
-      run: cd scansmart-api && bin/rails db:schema:load --trace
+      run: |
+        cd scansmart-api
+=        bin/rails db:schema:load --trace
     - name: Run tests
       run: cd scansmart-api && bundle exec rake
