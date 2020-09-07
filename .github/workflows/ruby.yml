@@ -29,8 +29,7 @@ jobs:
         ruby-version: 2.5.1
     - name: Install dependencies
       run: cd scansmart-api && bundle install
-    - run:
-        name: Database setup
-        command: bin/rails db:schema:load --trace
+    - name: Database setup
+      run: cd scansmart-api && bin/rails db:schema:load --trace
     - name: Run tests
       run: cd scansmart-api && bundle exec rake
