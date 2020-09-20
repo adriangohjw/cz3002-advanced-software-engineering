@@ -12,6 +12,15 @@ require 'factory_bot_rails'
   FactoryBot.create(:store)
 end
 
+ProductCategory::OPTIONS.each do |category|
+  product_category = FactoryBot.create(:product_category, name: category[1][:name],
+                                                          check_required: category[1][:check_required])
+
+  10.times do
+    FactoryBot.create(:product, product_category: product_category)
+  end
+end
+
 10.times do |count|
   shopper = FactoryBot.create(:user, type: "Shopper",
                                      email: "shopper_#{count+1}@example.com",
@@ -19,6 +28,12 @@ end
   rand(1..5).times do 
     FactoryBot.create(:order, user: shopper,
                               store: Store.find(rand(1..Store.count)))
+  end
+
+  products_in_cart = Product.all.sample(rand(0..5))
+  products_in_cart.each do |product|
+    FactoryBot.create(:cart_product, user: shopper,
+                                     product: product)
   end
 end
 
@@ -28,11 +43,3 @@ end
                            password: "password")
 end
 
-ProductCategory::OPTIONS.each do |category|
-  product_category = FactoryBot.create(:product_category, name: category[1][:name],
-                                                          check_required: category[1][:check_required])
-
-  10.times do
-    FactoryBot.create(:product, product_category: product_category)
-  end
-end
