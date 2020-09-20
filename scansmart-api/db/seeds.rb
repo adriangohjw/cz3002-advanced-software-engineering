@@ -21,7 +21,10 @@ ProductCategory::OPTIONS.each do |category|
     product = FactoryBot.create(:product, product_category: product_category)
 
     if rand(0..100)/100.0 < 0.1   # 10% chance of creating discount
-      FactoryBot.create(:discount, product: product)
+      if [true, false].sample
+        FactoryBot.create(:discount_single, product: product,
+                                            price: product.price * rand(50...100)/100.0)   # discount ranges from 1% - 50%
+      end
     end
 
     stores.each do |store|

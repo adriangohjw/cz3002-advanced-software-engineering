@@ -1,0 +1,2 @@
+class DiscountSingle < Discount
+end
