@@ -12,6 +12,7 @@ require 'factory_bot_rails'
   FactoryBot.create(:store)
 end
 
+stores = Store.all
 ProductCategory::OPTIONS.each do |category|
   product_category = FactoryBot.create(:product_category, name: category[1][:name],
                                                           check_required: category[1][:check_required])
@@ -19,8 +20,16 @@ ProductCategory::OPTIONS.each do |category|
   10.times do
     product = FactoryBot.create(:product, product_category: product_category)
 
-    if rand(0..100)/100.0 < 0.1   # 10% change of creating discount
+    if rand(0..100)/100.0 < 0.1   # 10% chance of creating discount
       FactoryBot.create(:discount, product: product)
+    end
+
+    stores.each do |store|
+      if rand(0..100)/100.0 > 0.2   # 80% chance of product found in a particular store
+        FactoryBot.create(:inventory, product: product,
+                                      store: store,
+                                      quantity: rand(1..100))
+      end
     end
   end
 end
