@@ -27,3 +27,8 @@ end
                            email: "staff_#{count+1}@example.com",
                            password: "password")
 end
+
+ProductCategory::OPTIONS.each do |category|
+  FactoryBot.create(:product_category, name: category[1][:name],
+                                       check_required: category[1][:check_required])
+end
