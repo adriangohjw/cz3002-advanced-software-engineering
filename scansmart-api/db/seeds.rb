@@ -24,6 +24,11 @@ ProductCategory::OPTIONS.each do |category|
       if [true, false].sample
         FactoryBot.create(:discount_single, product: product,
                                             price: product.price * rand(50...100)/100.0)   # discount ranges from 1% - 50%
+      else
+        bulk_quantity = rand(2..5)
+        FactoryBot.create(:discount_bulk, product: product,
+                                          bulk_quantity: bulk_quantity,
+                                          bulk_price: product.price * bulk_quantity * rand(50...100)/100.0)   # discount ranges from 1% - 50%
       end
     end
 

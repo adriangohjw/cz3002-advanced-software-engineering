@@ -1,0 +1,2 @@
+class DiscountBulk < Discount
+end
