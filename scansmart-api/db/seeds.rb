@@ -47,8 +47,18 @@ end
                                      email: "shopper_#{count+1}@example.com",
                                      password: "password")
   rand(1..5).times do 
-    FactoryBot.create(:order, user: shopper,
-                              store: Store.find(rand(1..Store.count)))
+    order = FactoryBot.create(:order, user: shopper,
+                                      store: Store.find(rand(1..Store.count)))
+
+    rand(1..10).times do
+      product = Product.all.sample
+      quantity = rand(1..3)
+      FactoryBot.create(:order_product, order: order,
+                                        product: product,
+                                        quantity: rand(1..3),
+                                        total_undiscounted_product_price: (product.price * quantity).round(2))
+
+    end
   end
 
   products_in_cart = Product.all.sample(rand(0..5))
