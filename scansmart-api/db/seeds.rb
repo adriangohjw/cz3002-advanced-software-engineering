@@ -29,6 +29,10 @@ end
 end
 
 ProductCategory::OPTIONS.each do |category|
-  FactoryBot.create(:product_category, name: category[1][:name],
-                                       check_required: category[1][:check_required])
+  product_category = FactoryBot.create(:product_category, name: category[1][:name],
+                                                          check_required: category[1][:check_required])
+
+  10.times do
+    FactoryBot.create(:product, product_category: product_category)
+  end
 end
