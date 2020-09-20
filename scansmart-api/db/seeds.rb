@@ -17,7 +17,11 @@ ProductCategory::OPTIONS.each do |category|
                                                           check_required: category[1][:check_required])
 
   10.times do
-    FactoryBot.create(:product, product_category: product_category)
+    product = FactoryBot.create(:product, product_category: product_category)
+
+    if rand(0..100)/100.0 < 0.1   # 10% change of creating discount
+      FactoryBot.create(:discount, product: product)
+    end
   end
 end
 
