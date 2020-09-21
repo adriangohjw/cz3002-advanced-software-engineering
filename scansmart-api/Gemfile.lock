@@ -75,6 +75,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    json (2.3.1)
     jwt (1.5.6)
     knock (2.1.1)
       bcrypt (~> 3.1)
@@ -183,6 +184,7 @@ DEPENDENCIES
   factory_bot_rails
   faker!
   jbuilder (~> 2.5)
+  json
   knock
   listen (>= 3.0.5, < 3.2)
   pg

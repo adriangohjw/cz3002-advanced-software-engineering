@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  get 'users/authenticate' => 'users#authenticate'
+  get 'users/' => 'users#show'
+  get 'users/:id' => 'users#show'
+  post 'users/' => 'users#create'
+  put 'users/' => 'users#update'
+
 end
