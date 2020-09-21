@@ -136,6 +136,9 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    responders (3.0.1)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rspec-core (3.9.2)
       rspec-support (~> 3.9.3)
     rspec-expectations (3.9.2)
@@ -165,6 +168,11 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (5.25.0)
+    stripe-rails (2.0.0)
+      rails (>= 5.1)
+      responders
+      stripe (>= 3.15.0)
     thor (1.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
@@ -194,6 +202,8 @@ DEPENDENCIES
   rspec-rails
   spring
   spring-watcher-listen (~> 2.0.0)
+  stripe
+  stripe-rails
   tzinfo-data
 
 RUBY VERSION
