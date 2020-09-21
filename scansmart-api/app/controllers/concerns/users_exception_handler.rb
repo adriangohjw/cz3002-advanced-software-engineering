@@ -8,6 +8,10 @@ module UsersExceptionHandler
       json_response({ message: e.message }, e.status)
     end
 
+    rescue_from UsersException::StripeCustomerEmailExistError do |e|
+      json_response({ message: e.message }, e.status)
+    end
+
     rescue_from UsersException::IncorrectPasswordError do |e|
       json_response({ message: e.message }, e.status)
     end
