@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   post 'users/' => 'users#create'
   put 'users/' => 'users#update'
 
+  post 'movements/' => 'movements#create'
+
 end
