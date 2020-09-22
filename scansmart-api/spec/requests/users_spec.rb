@@ -4,9 +4,10 @@ require 'json'
 
 RSpec.describe 'Users API', type: :request do
   before do
-    @user = FactoryBot.create(:user, name: "Adrian",
-                                     email: "test@example.com",
-                                     password: "password")
+    StripeModule.delete_all_customers
+    @user = User.create_user_including_stripe(name: "Adrian", 
+                                              email: "test@example.com",
+                                              password: "password")
   end
 
   describe "GET /users/:id" do
@@ -47,6 +48,10 @@ RSpec.describe 'Users API', type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response["name"]).to eq("Adrian")
         expect(json_response["email"]).to eq("new_user@example.com")
+      end
+
+      it 'creates Stripe Customer object' do
+        expect(StripeModule.customer_exist(email: "new_user@example.com")).to be true
       end
 
       it 'returns status code 200' do

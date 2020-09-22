@@ -27,6 +27,12 @@ PostgreSQL is the relational DBMS of choice in this project
     
 Reference: [Set Up a PostgreSQL Database on Windows](https://www.microfocus.com/documentation/idol/IDOL_12_0/MediaServer/Guides/html/English/Content/Getting_Started/Configure/_TRN_Set_up_PostgreSQL.htm)
 
+
+## Setting up Stripe test account
+
+1. Create a new stripe account [here](https://dashboard.stripe.com/register)
+2. Add your Publishable key and Secret key to your environment
+
 # For contributors
 
 ## Git
