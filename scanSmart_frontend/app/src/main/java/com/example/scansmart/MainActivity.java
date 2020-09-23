@@ -2,6 +2,8 @@ package com.example.scansmart;
 
 
 import android.os.Bundle;
+import androidx.appcompat.widget.Toolbar;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -17,15 +19,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         ViewPager viewPager = findViewById(R.id.viewPager);
 
         AuthenticationPagerAdapter pagerAdapter = new AuthenticationPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragmet(new LoginFragment());
-        pagerAdapter.addFragmet(new RegisterFragment());
+        pagerAdapter.addFragment(new LoginFragment());
+        pagerAdapter.addFragment(new RegisterFragment());
         viewPager.setAdapter(pagerAdapter);
+
     }
 
-    class AuthenticationPagerAdapter extends FragmentPagerAdapter {
+
+        class AuthenticationPagerAdapter extends FragmentPagerAdapter {
         private ArrayList<Fragment> fragmentList = new ArrayList<>();
 
         public AuthenticationPagerAdapter(FragmentManager fm) {
@@ -42,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
             return fragmentList.size();
         }
 
-        void addFragmet(Fragment fragment) {
+        void addFragment(Fragment fragment) {
             fragmentList.add(fragment);
         }
+
+
+
     }
 }

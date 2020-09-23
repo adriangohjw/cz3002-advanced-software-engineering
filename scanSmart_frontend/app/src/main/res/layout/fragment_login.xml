@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".LoginFragment">
 
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
@@ -63,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/et_password"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="120dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/btn_custom"
         android:fontFamily="sans-serif"
