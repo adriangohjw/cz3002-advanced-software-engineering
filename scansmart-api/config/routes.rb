@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   get 'orders/' => 'orders#show'
   get 'users/:user_id/orders' => 'orders#show_all_for_shopper'
 
+  get 'users/:id/cart' => 'cart_products#show_all_for_shopper'
+  delete 'users/:id/cart' => 'cart_products#clear_all'
+  put 'cart_products/:id/increase' => 'cart_products#increase_quantity'
+  put 'cart_products/:id/decrease' => 'cart_products#decrease_quantity'
+
   post 'movements/' => 'movements#create'
 
 end
