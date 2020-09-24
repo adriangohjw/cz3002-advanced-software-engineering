@@ -1,8 +1,4 @@
-require_relative './exceptions/cart_products_exceptions'
-
 class CartProductsController < ApplicationController
-  include CartProductsExceptionHandler
-
   def show_all_for_shopper
     shopper = Shopper.find(params[:id])
     cart_products = shopper.cart_products.includes(product: [:discounts])
