@@ -5,4 +5,8 @@ class Product < ApplicationRecord
   has_many :order_products, class_name: "OrderProduct", foreign_key: "product_id"
   has_many :inventories, class_name: "Inventory", foreign_key: "product_id"
   has_many :cart_products, class_name: "CartProduct", foreign_key: "product_id"
+
+  def latest_discount
+    self.discounts.order(created_at: :desc).first
+  end
 end
