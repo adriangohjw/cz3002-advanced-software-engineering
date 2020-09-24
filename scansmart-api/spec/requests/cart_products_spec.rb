@@ -95,6 +95,65 @@ RSpec.describe 'Cart Products API', type: :request do
     end
   end
 
+  describe "POST /cart_products" do
+    let (:shopper_id) { @shopper.id }
+    let (:product_id) { @product_1.id }  
+
+    context "record with the same shopper_id and product_id does not exist" do
+      it "should create record" do
+        CartProduct.all.destroy_all
+        expect(CartProduct.all.count).to eq 0
+
+        post "/cart_products?shopper_id=#{shopper_id}&product_id=#{product_id}"
+
+        expect(CartProduct.all.count).to eq 1
+      end
+
+      it 'returns the CartProduct record' do
+        CartProduct.all.destroy_all
+        post "/cart_products?shopper_id=#{shopper_id}&product_id=#{product_id}"
+        
+        json_response = JSON.parse(response.body)
+        expect(json_response["user_id"]).to eq @shopper.id
+        expect(json_response["product_id"]).to eq @product_1.id
+        expect(json_response["quantity"]).to eq 1
+      end
+      
+      it 'returns status code 201' do
+        CartProduct.all.destroy_all
+        post "/cart_products?shopper_id=#{shopper_id}&product_id=#{product_id}"
+
+        expect(response).to have_http_status(201)
+      end
+    end
+    
+    context "record with the same shopper_id and product_id already exist" do
+      it 'returns status code 412' do
+        post "/cart_products?shopper_id=#{shopper_id}&product_id=#{product_id}"
+
+        expect(response).to have_http_status(412)
+      end
+    end
+  end
+
+  describe "DELETE /cart_products/:id" do
+    let (:id) { @cart_product_1.id }
+
+    it 'should delete record' do
+      expect(CartProduct.where(id: id).blank?).to be false
+
+      delete "/cart_products/#{id}"
+
+      expect(CartProduct.where(id: id).blank?).to be true
+    end
+
+    it 'returns status code 200' do
+      delete "/cart_products/#{id}"
+      
+      expect(response).to have_http_status(200)
+    end
+  end
+
   describe "PUT /cart_products/:id/increase" do
     let (:id) { @cart_product_1.id }
 

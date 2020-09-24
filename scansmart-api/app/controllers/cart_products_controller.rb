@@ -1,4 +1,8 @@
+require_relative './exceptions/cart_products_exceptions'
+
 class CartProductsController < ApplicationController
+  include CartProductsExceptionHandler
+
   def show_all_for_shopper
     shopper = Shopper.find(params[:id])
     cart_products = shopper.cart_products.includes(product: [:discounts])
@@ -47,6 +51,29 @@ class CartProductsController < ApplicationController
     shopper.cart_products.destroy_all
 
     json_response("Successfully cleared shopper's cart")
+  end
+
+  def add_to_cart
+    shopper = Shopper.find(params[:shopper_id])
+    product = Product.find(params[:product_id])
+
+    raise CartProductsException::RecordExistError \
+      unless CartProduct.where(user: shopper,
+                               product: product)
+                        .blank?
+
+    cart_product = CartProduct.create!(user: shopper,
+                                       product: product,
+                                       quantity: 1)
+
+    json_response(cart_product, :created)
+  end
+
+  def remove_from_cart
+    cart_product = CartProduct.find(params[:id])
+    cart_product.destroy!
+    
+    json_response("Successfully deleted product")
   end
 
   def increase_quantity
