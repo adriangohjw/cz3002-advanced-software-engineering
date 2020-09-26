@@ -27,6 +27,8 @@ gem 'rack-cors'
 
 gem 'knock'
 
+gem 'kaminari'
+
 gem 'stripe'
 gem 'stripe-rails'
 
