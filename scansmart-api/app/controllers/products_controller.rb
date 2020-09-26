@@ -24,8 +24,18 @@ class ProductsController < ApplicationController
                                    .per(10)
 
     response = Hash.new
+    
     response[:total_results_count] = paginatable_products.count
-    response[:products] = paginatable_products
+
+    response[:products] = Array.new
+    paginatable_products.each do |product|
+      product_hash = Hash.new
+      product_hash[:id] = product.id
+      product_hash[:name] = product.name
+      product_hash[:price] = product.price
+      product_hash[:discounted_price] = product.latest_discount.price if product.latest_discount.instance_of?(DiscountSingle)
+      response[:products] << product_hash
+    end  
     
     json_response(response)
   end
