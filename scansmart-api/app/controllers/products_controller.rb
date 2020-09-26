@@ -2,22 +2,24 @@ class ProductsController < ApplicationController
   def index
     products = Product.all.to_a
 
-    products.each do |product|
-      if params[:category]
-        product_category_ids = convert_category_params_to_ids(names: params[:category])
-        products.delete_if { |product| !product_category_ids.include?(product.product_category_id) }
-      end
+    if params[:category]
+      product_category_ids = convert_category_params_to_ids(names: params[:category])
+      products.delete_if { |product| !product_category_ids.include?(product.product_category_id) }
+    end
 
+    product_ids_to_delete_array = Array.new
+    products.each do |product|
       if params[:min_price] || params[:max_price]
         if !product.discounts.blank? && product.latest_discount.instance_of?(DiscountSingle)
-          products.delete_if { |product| product.price - product.latest_discount.price < params[:min_price].to_f } if params[:min_price] 
-          products.delete_if { |product| product.price - product.latest_discount.price > params[:max_price].to_f } if params[:max_price] 
+          product_ids_to_delete_array << product.id if params[:min_price] && (product.latest_discount.price < params[:min_price].to_f)
+          product_ids_to_delete_array << product.id if params[:max_price] && (product.latest_discount.price > params[:max_price].to_f)
         else
-          products.delete_if { |product| product.price < params[:min_price].to_f } if params[:min_price] 
-          products.delete_if { |product| product.price > params[:max_price].to_f } if params[:max_price] 
+          product_ids_to_delete_array << product.id if params[:min_price] && (product.price < params[:min_price].to_f)
+          product_ids_to_delete_array << product.id if params[:max_price] && (product.price > params[:max_price].to_f)
         end
       end
     end
+    products.delete_if { |product| product_ids_to_delete_array.include?(product.id) }
 
     paginatable_products = Kaminari.paginate_array(products)
                                    .page(params[:page])
