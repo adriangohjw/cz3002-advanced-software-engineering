@@ -11,4 +11,13 @@
     <string name="register">Register</string>
     <string name="re_type_password">Re-type Password</string>
     <string name="your_name">Full Name</string>
+    <string name="title_activity_cart_items">MainActivity</string>
+    <string name="title_discover">Discover</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_history">History</string>
+    <string name="title_account">Account</string>
+    <string name="title_activity_main3">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
