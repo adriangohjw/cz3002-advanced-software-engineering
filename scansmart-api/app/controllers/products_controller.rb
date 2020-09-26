@@ -19,9 +19,13 @@ class ProductsController < ApplicationController
       end
     end
 
+    paginatable_products = Kaminari.paginate_array(products)
+                                   .page(params[:page])
+                                   .per(10)
+
     response = Hash.new
-    response[:total_results_count] = products.count
-    response[:products] = products
+    response[:total_results_count] = paginatable_products.count
+    response[:products] = paginatable_products
     
     json_response(response)
   end
