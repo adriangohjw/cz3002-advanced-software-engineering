@@ -4,6 +4,14 @@ require 'json'
 
 RSpec.describe 'Products API', type: :request do
   before do
+    # not the best practices, but solves an unknown clash that only happens on Github Actions and not locally
+    Discount.destroy_all
+    Inventory.destroy_all
+    OrderProduct.destroy_all
+    CartProduct.destroy_all
+    Product.destroy_all    
+    ProductCategory.destroy_all
+
     @product_category_options = ProductCategory::OPTIONS.values.sample(2).pluck(:name)
     @product_category_1 = FactoryBot.create(:product_category, name: @product_category_options.first)
     @product_category_2 = FactoryBot.create(:product_category, name: @product_category_options.second)
