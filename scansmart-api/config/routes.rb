@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   post 'users/' => 'users#create'
   put 'users/' => 'users#update'
 
+  get 'users/:id/cards' => 'cards#index' 
+  post 'users/:id/cards' => 'cards#post' 
+  delete 'users/:id/cards' => 'cards#destroy'
+
   get 'orders/' => 'orders#show'
   get 'users/:user_id/orders' => 'orders#show_all_for_shopper'
 
