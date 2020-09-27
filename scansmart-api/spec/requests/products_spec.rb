@@ -4,9 +4,12 @@ require 'json'
 
 RSpec.describe 'Products API', type: :request do
   before do
-    ProductCategory.all.destroy_all
-    Product.destroy_all
     Discount.destroy_all
+    Inventory.destroy_all
+    OrderProduct.destroy_all
+    CartProduct.destroy_all
+    ProductCategory.destroy_all
+    Product.destroy_all    
 
     @product_category_options = ProductCategory::OPTIONS.values.sample(2).pluck(:name)
     @product_category_1 = FactoryBot.create(:product_category, name: @product_category_options.first)
