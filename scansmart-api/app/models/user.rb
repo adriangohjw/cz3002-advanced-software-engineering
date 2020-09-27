@@ -12,6 +12,15 @@ class User < ApplicationRecord
     return user
   end
 
+  def self.get_stripe_customer_by_email(email:)
+    stripe_customers = Stripe::Customer.list(email: email)
+
+    raise UsersException::StripeCustomerEmailDoesNotExistError \
+      if stripe_customers["data"].count == 0 
+    
+    return stripe_customers["data"][0]["id"]
+  end
+
   private
 
   def self.create_stripe_customer(email:)
