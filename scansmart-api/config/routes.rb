@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   put 'users/' => 'users#update'
 
   get 'products/' => 'products#index'
+  get 'products/:id' => 'products#show'
 
   get 'orders/' => 'orders#show'
   get 'users/:user_id/orders' => 'orders#show_all_for_shopper'

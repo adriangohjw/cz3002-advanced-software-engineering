@@ -42,6 +42,43 @@ class ProductsController < ApplicationController
     json_response(response)
   end
 
+  def show
+    begin
+      product = Product.find(params[:id])
+      latest_discount = product.latest_discount
+
+      response = Hash.new
+
+      response[:id] = product.id
+      response[:name] = product.name
+      response[:category] = product.product_category.name
+      response[:undiscounted_price] = product.price
+
+      response[:discount] = Hash.new
+      unless latest_discount.nil?
+        response[:discount][:type] = latest_discount.type
+        case latest_discount.type
+        when DiscountSingle.to_s
+          response[:discount][:price] = latest_discount.price
+        when DiscountBulk.to_s
+          response[:discount][:bulk_quantity] = latest_discount.bulk_quantity
+          response[:discount][:bulk_price] = latest_discount.bulk_price
+        end
+      end
+
+      total_quantity_purchased_last_30_days = \
+        OrderProduct.where(product: product)
+                    .last_30_days
+                    .map { |x| x.quantity }
+                    .inject(0) { |sum, x| sum + x }
+      response[:total_quantity_purchased_last_30_days] = total_quantity_purchased_last_30_days
+
+      json_response(response)
+    rescue => exception
+      json_response(exception, :bad_request)
+    end
+  end
+
   private
 
   def convert_category_params_to_ids(names:)
