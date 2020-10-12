@@ -19,6 +19,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import org.json.JSONObject;
 
+import okhttp3.OkHttpClient;
+
 /**
  * A simple {@link Fragment} subclass.
 
@@ -47,6 +49,12 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_register, container, false);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(false)
+                .build();
+
+
+        AndroidNetworking.initialize(getActivity().getApplicationContext(),client);
 
         etUsername = root.findViewById(R.id.et_name);
         etPassword = root.findViewById(R.id.et_password);
@@ -82,11 +90,11 @@ public class RegisterFragment extends Fragment {
         private void registerUser() {
         Log.v("lol",username);
 
+
             AndroidNetworking.post("http://localhost:3000/users/")
                     .addQueryParameter("email",email)
                     .addQueryParameter("name", username)
                     .addQueryParameter("password",password)
-                    .addQueryParameter("stripe_customer_identifier", "")
                     .setTag("test")
                     .setPriority(Priority.MEDIUM)
                     .build()
