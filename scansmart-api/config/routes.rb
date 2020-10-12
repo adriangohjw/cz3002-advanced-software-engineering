@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   get 'orders/' => 'orders#show'
   get 'users/:user_id/orders' => 'orders#show_all_for_shopper'
+  post 'users/:user_id/orders' => 'orders#post'
+
+  get 'charges' => 'charges#show'
+  post 'charges' => 'charges#post'
 
   get 'users/:id/cart' => 'cart_products#show_all_for_shopper'
   delete 'users/:id/cart' => 'cart_products#clear_all'
