@@ -56,4 +56,37 @@ class OrdersController < ApplicationController
 
     json_response(response)
   end
+
+  def post
+    shopper = Shopper.find(params[:user_id])
+    store = Store.find(params[:store_id])
+
+    begin
+      ActiveRecord::Base.transaction do
+        @order = Order.create!(user: shopper,
+                               store: store,
+                               stripe_charge_id: params[:charge_id])
+
+        cart_products = shopper.cart_products
+
+        cart_products.each do |cart_product|
+          total_undiscounted_product_price = cart_product.quantity * cart_product.product.price
+          total_discounted_price = Discount.compute_total_discounted_price(product: cart_product.product, 
+                                                                           quantity: cart_product.quantity)
+          OrderProduct.create!(order: @order,
+                               product: cart_product.product,
+                               total_undiscounted_product_price: total_undiscounted_product_price,
+                               quantity: cart_product.quantity,
+                               total_discount_amount: total_undiscounted_product_price - total_discounted_price)
+        end
+
+        cart_products.destroy_all
+      end
+      
+      json_response(@order, :created)
+
+    rescue => exception
+      json_response(exception.message, :bad_request)
+    end
+  end
 end
