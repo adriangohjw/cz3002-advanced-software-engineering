@@ -1,23 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.account.AccountFragment">
+    android:background="#fff"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/text_account"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_profile_photo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_below="@+id/header_cover_image"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/profile"
+            android:elevation="5dp"
+            android:scaleType="center"
+            app:civ_border_color="#FFF"
+            app:civ_border_width="5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="-60dp"
+            android:layout_marginRight="30dp"
+            android:background="#D0F6DB"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="30dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginBottom="7dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/user_profile" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="20dp"
+                            android:textStyle="italic"
+                            android:textSize="20sp"
+                            tools:text="Profile Details"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginRight="11dp"
+                    android:layout_marginBottom="7dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/card" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="20dp"
+                            android:textStyle="italic"
+                            android:textSize="20sp"
+                            tools:text="Card Details"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginTop="20sp"
+                    android:background="@android:color/holo_red_dark"
+                    android:textStyle="bold"
+                    android:id="@+id/logout"
+                    android:textColor="@android:color/white"
+                    android:text="Log out"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Having troubles? Contact us at abc@gmail.com"
+            android:textStyle="italic"
+            android:paddingLeft="25dp"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+</LinearLayout>
