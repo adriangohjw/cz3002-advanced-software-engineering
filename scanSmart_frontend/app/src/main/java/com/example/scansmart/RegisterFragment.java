@@ -1,7 +1,9 @@
 package com.example.scansmart;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -15,11 +17,23 @@ import android.widget.EditText;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.example.scansmart.ui.User;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -87,31 +101,33 @@ public class RegisterFragment extends Fragment {
         });
         return root;
     }
+
+
         private void registerUser() {
-        Log.v("lol",username);
+        Log.v("lol", username);
 
+        AndroidNetworking.post("http://localhost:3000/users/")
+                .addQueryParameter("name", username)
+                .addQueryParameter("email", email)
+                .addQueryParameter("password", password)
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                    }
 
-            AndroidNetworking.post("http://localhost:3000/users/")
-                    .addQueryParameter("email",email)
-                    .addQueryParameter("name", username)
-                    .addQueryParameter("password",password)
-                    .setTag("test")
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
+                    @Override
+                    public void onError(ANError error) {
+                        // handle error
+                    }
+                });
 
+    }
 
-                        }
-                        @Override
-                        public void onError(ANError error) {
-                            // handle error
-                        }
-                    });
+                // form parameters
 
-
-        }
 
 
 

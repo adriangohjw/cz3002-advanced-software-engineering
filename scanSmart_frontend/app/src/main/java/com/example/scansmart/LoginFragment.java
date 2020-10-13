@@ -20,6 +20,8 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import okhttp3.OkHttpClient;
+
 public class LoginFragment extends Fragment {
     private static final String KEY_EMPTY = "";
     private EditText etEmail;
@@ -37,6 +39,14 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(false)
+                .build();
+
+
+        AndroidNetworking.initialize(getActivity().getApplicationContext(),client);
+
 
 
         super.onCreate(savedInstanceState);
@@ -59,6 +69,8 @@ public class LoginFragment extends Fragment {
                 password = etPassword.getText().toString().trim();
                 if (validateInputs()) {
                     loginUser();
+                    Intent nextIntent = new Intent(getActivity(),MainActivity2.class);
+                    startActivity(nextIntent);
                 }
 
             }
@@ -77,8 +89,7 @@ public class LoginFragment extends Fragment {
                 .getAsJSONArray(new JSONArrayRequestListener() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Intent nextIntent = new Intent(getActivity(),MainActivity2.class);
-                        startActivity(nextIntent);
+
                     }
                     @Override
                     public void onError(ANError error) {
