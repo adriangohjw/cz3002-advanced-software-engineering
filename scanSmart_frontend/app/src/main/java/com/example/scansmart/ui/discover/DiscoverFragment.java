@@ -58,6 +58,18 @@ public class DiscoverFragment extends Fragment {
         prod3.setDisc_price("$7.99");
         prod3.setOriginal_price("$12.99");
         results.add(prod3);
+        ListItem prod4 = new ListItem();
+        prod4.setImageUrl(R.drawable.icon4);
+        prod4.setName("Plant");
+        prod4.setDisc_price("$10.99");
+        prod4.setOriginal_price("$11.99");
+        results.add(prod4);
+        ListItem prod5 = new ListItem();
+        prod5.setImageUrl(R.drawable.icon5);
+        prod5.setName("Lipstick");
+        prod5.setDisc_price("$7.99");
+        prod5.setOriginal_price("$10.99");
+        results.add(prod5);
         return results;
     }
 

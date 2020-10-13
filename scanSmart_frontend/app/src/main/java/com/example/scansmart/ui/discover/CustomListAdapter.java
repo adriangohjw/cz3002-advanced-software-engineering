@@ -11,9 +11,7 @@ import android.widget.TextView;
 import com.example.scansmart.R;
 
 import java.util.ArrayList;
-/**
- * Created by tutlane on 23-08-2017.
- */
+
 public class CustomListAdapter extends BaseAdapter {
     private ArrayList<ListItem> listData;
     private LayoutInflater layoutInflater;

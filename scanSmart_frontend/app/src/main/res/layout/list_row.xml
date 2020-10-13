@@ -3,27 +3,34 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dip" >
+    android:padding="10dip" >
 
     <ImageView
         android:id="@+id/prod_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/icon1" />
-
     <TextView
         android:id="@+id/prod_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/prod_icon"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="7dp"
         android:textStyle="bold"
         android:textSize="17dp" />
+
+
+
 
     <TextView
         android:id="@+id/disc_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/prod_name"
-        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/prod_icon"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="7dp"
         android:textColor="#343434"
         android:textSize="14dp" />
 
@@ -32,7 +39,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/disc_price"
-        android:layout_marginTop="7dp"
+        android:layout_toRightOf="@id/prod_icon"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="7dp"
         android:textColor="#343434"
         android:textSize="14dp" />
 
