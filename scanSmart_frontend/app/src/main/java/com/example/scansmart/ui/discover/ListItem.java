@@ -2,24 +2,24 @@ package com.example.scansmart.ui.discover;
 
 public  class ListItem {
     private String name;
-    private String designation;
-    private String location;
+    private String original_price;
+    private String disc_price;
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
-    public String getDesignation() {
-        return designation;
+    public String getOriginal_price() {
+        return original_price;
     }
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public void setOriginal_price(String original_price) {
+        this.original_price = original_price;
     }
-    public String getLocation() {
-        return location;
+    public String getDisc_price() {
+        return disc_price;
     }
-    public void setLocation(String location) {
-        this.location = location;
+    public void setDisc_price(String disc_price) {
+        this.disc_price = disc_price;
     }
 }

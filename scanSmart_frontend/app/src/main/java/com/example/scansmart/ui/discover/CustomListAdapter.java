@@ -36,21 +36,21 @@ public class CustomListAdapter extends BaseAdapter {
         if (v == null) {
             v = layoutInflater.inflate(R.layout.list_row, null);
             holder = new ViewHolder();
-            holder.uName = (TextView) v.findViewById(R.id.name);
-            holder.uDesignation = (TextView) v.findViewById(R.id.designation);
-            holder.uLocation = (TextView) v.findViewById(R.id.location);
+            holder.uName = (TextView) v.findViewById(R.id.prod_name);
+            holder.uDiscPrice = (TextView) v.findViewById(R.id.disc_price);
+            holder.uOriginalPrice = (TextView) v.findViewById(R.id.original_price);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
         }
         holder.uName.setText(listData.get(position).getName());
-        holder.uDesignation.setText(listData.get(position).getDesignation());
-        holder.uLocation.setText(listData.get(position).getLocation());
+        holder.uDiscPrice.setText(listData.get(position).getDisc_price());
+        holder.uOriginalPrice.setText(listData.get(position).getOriginal_price());
         return v;
     }
     static class ViewHolder {
         TextView uName;
-        TextView uDesignation;
-        TextView uLocation;
+        TextView uDiscPrice;
+        TextView uOriginalPrice;
     }
 }

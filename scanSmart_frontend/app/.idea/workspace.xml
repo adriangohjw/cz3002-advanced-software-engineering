@@ -5,8 +5,29 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6d87efa-8d72-4a32-b92d-4ccf06a07e60" name="Default Changelist" comment="" />
+    <list default="true" id="f6d87efa-8d72-4a32-b92d-4ccf06a07e60" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_amitshekhar_android_rx2_android_networking_1_0_2_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxandroid_2_0_2_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxjava_2_1_12_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_reactivestreams_reactive_streams_1_0_2_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/DiscoverFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/LoginFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/LoginFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/RegisterFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/RegisterFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/CustomListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/CustomListAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/ListItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/ListItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/list_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/list_row.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +46,18 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="ProjectId" id="1hrnGLUbHgKExLhemNB7dPNsDvq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -33,6 +65,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -45,7 +78,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -109,5 +142,31 @@
       <updated>1600777981307</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1398" height="-5" key="GridCell.Tab.0.bottom" timestamp="1602558961630">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state width="1398" height="-5" key="GridCell.Tab.0.bottom/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
+    <state width="1398" height="128" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1602547801969" />
+    <state width="1398" height="-5" key="GridCell.Tab.0.center" timestamp="1602558961630">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state width="1398" height="-5" key="GridCell.Tab.0.center/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
+    <state width="1398" height="128" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1602547801968" />
+    <state width="1398" height="-5" key="GridCell.Tab.0.left" timestamp="1602558961630">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state width="1398" height="-5" key="GridCell.Tab.0.left/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
+    <state width="1398" height="128" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1602547801967" />
+    <state width="1398" height="-5" key="GridCell.Tab.0.right" timestamp="1602558961630">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state width="1398" height="-5" key="GridCell.Tab.0.right/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
+    <state width="1398" height="128" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1602547801969" />
+    <state x="514" y="206" key="com.intellij.ide.util.TipDialog" timestamp="1602510548313">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state x="514" y="206" key="com.intellij.ide.util.TipDialog/0.0.1440.855@0.0.1440.855" timestamp="1602510548313" />
   </component>
 </project>
