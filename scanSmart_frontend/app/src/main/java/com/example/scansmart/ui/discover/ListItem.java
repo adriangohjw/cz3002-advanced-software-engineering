@@ -1,9 +1,23 @@
 package com.example.scansmart.ui.discover;
 
+import com.google.gson.annotations.SerializedName;
+
 public  class ListItem {
     private String name;
     private String original_price;
     private String disc_price;
+    @SerializedName("image")
+    private int imageUrl;
+
+
+    public int getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(int imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getName() {
         return name;
     }

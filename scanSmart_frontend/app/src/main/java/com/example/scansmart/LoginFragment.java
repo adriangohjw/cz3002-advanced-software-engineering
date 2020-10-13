@@ -69,7 +69,7 @@ public class LoginFragment extends Fragment {
                 password = etPassword.getText().toString().trim();
                 if (validateInputs()) {
                     loginUser();
-                    Intent nextIntent = new Intent(getActivity(),MainActivity2.class);
+                    Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
                     startActivity(nextIntent);
                 }
 

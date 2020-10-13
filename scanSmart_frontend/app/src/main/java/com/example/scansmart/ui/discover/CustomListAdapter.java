@@ -1,9 +1,11 @@
 package com.example.scansmart.ui.discover;
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.scansmart.R;
@@ -39,6 +41,7 @@ public class CustomListAdapter extends BaseAdapter {
             holder.uName = (TextView) v.findViewById(R.id.prod_name);
             holder.uDiscPrice = (TextView) v.findViewById(R.id.disc_price);
             holder.uOriginalPrice = (TextView) v.findViewById(R.id.original_price);
+            holder.uProdImage  = (ImageView) v.findViewById(R.id.prod_icon);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
@@ -46,11 +49,13 @@ public class CustomListAdapter extends BaseAdapter {
         holder.uName.setText(listData.get(position).getName());
         holder.uDiscPrice.setText(listData.get(position).getDisc_price());
         holder.uOriginalPrice.setText(listData.get(position).getOriginal_price());
+        holder.uProdImage.setImageResource(listData.get(position).getImageUrl());
         return v;
     }
     static class ViewHolder {
         TextView uName;
         TextView uDiscPrice;
         TextView uOriginalPrice;
+        ImageView uProdImage;
     }
 }
