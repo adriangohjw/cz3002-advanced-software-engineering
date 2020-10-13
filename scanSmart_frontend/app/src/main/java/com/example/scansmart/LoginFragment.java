@@ -1,16 +1,22 @@
 package com.example.scansmart;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -26,8 +32,6 @@ public class LoginFragment extends Fragment {
     private EditText etPassword;
     private String email;
     private String password;
-    private String login_url = "http://localhost:3000/users/authenticate";
-
 
     public LoginFragment() {
         // Required empty public constructor
@@ -42,14 +46,13 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
-
+        AndroidNetworking.initialize(getActivity().getApplicationContext());
 
         etEmail = root.findViewById(R.id.et_loginemail);
         etPassword = root.findViewById(R.id.et_loginpassword);
 
         Button login = root.findViewById(R.id.btn_login);
         // Inflate the layout for this fragment
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,28 +71,32 @@ public class LoginFragment extends Fragment {
     }
 
     private void loginUser() {
-        AndroidNetworking.get("http://localhost:3000/users/authenticate")
-                .addQueryParameter("email", email)
-                .addQueryParameter("password", password)
-                .setTag("test")
-                .setPriority(Priority.LOW)
-                .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/authenticate?email=%1$s&password=%2$s",
+                email,
+                password);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        Intent nextIntent = new Intent(getActivity(),MainActivity2.class);
-                        startActivity(nextIntent);
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.v("Yay", "Yay");
+                        Intent i = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(i);
+                        ((Activity) getActivity()).overridePendingTransition(0, 0);
                     }
-                    @Override
-                    public void onError(ANError error) {
-                        // handle error
-                    }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error" , "error");
+            }
 
+
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
 
     }
-
-
 
     private boolean validateInputs() {
         if(KEY_EMPTY.equals(email)){

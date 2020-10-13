@@ -1,4 +1,6 @@
 package com.example.scansmart;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
@@ -21,7 +27,7 @@ import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
-
+ * <p>
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
@@ -34,8 +40,6 @@ public class RegisterFragment extends Fragment {
     private String password;
     private String confirmPassword;
     private String email;
-    private String register_url = "http://localhost:3000/users/";
-
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -66,84 +70,68 @@ public class RegisterFragment extends Fragment {
                 email = etEmail.getText().toString().trim();
                 if (validateInputs()) {
                     registerUser();
-                    Log.v("fml",username);
-                    Fragment fragment = new LoginFragment();
-                    FragmentManager fragmentManager = getFragmentManager();
-
-                    fragmentManager.beginTransaction().replace(R.id.viewPager,fragment).commit();
-                    Log.v("FML AGAIN", username);
-
                 }
-
             }
         });
         return root;
     }
-        private void registerUser() {
-        Log.v("lol",username);
 
-            AndroidNetworking.post("http://localhost:3000/users/")
-                    .addQueryParameter("email",email)
-                    .addQueryParameter("name", username)
-                    .addQueryParameter("password",password)
-                    .addQueryParameter("stripe_customer_identifier", "")
-                    .setTag("test")
-                    .setPriority(Priority.MEDIUM)
-                    .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-
-                        }
-                        @Override
-                        public void onError(ANError error) {
-                            // handle error
-                        }
-                    });
-
-
-        }
-
-
-
-        private boolean validateInputs() {
-            if (KEY_EMPTY.equals(email)) {
-                etEmail.setError("email cannot be empty");
-                etEmail.requestFocus();
-                return false;
-
+    private void registerUser() {
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/?name=%1$s&password=%2$s&email=%3$s",
+                username,
+                password,
+                email);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("Yay", "Yay");
+                        Intent i = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(i);
+                        ((Activity) getActivity()).overridePendingTransition(0, 0);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error" , "error");
             }
-            if (KEY_EMPTY.equals(username)) {
-                etUsername.setError("Username cannot be empty");
-                etUsername.requestFocus();
-                return false;
-            }
-            if (KEY_EMPTY.equals(password)) {
-                etPassword.setError("Password cannot be empty");
-                etPassword.requestFocus();
-                return false;
-            }
-
-            if (KEY_EMPTY.equals(confirmPassword)) {
-                etConfirmPassword.setError("Confirm Password cannot be empty");
-                etConfirmPassword.requestFocus();
-                return false;
-            }
-            if (!password.equals(confirmPassword)) {
-                etConfirmPassword.setError("Password and Confirm Password does not match");
-                etConfirmPassword.requestFocus();
-                return false;
-            }
-
-            return true;
-        }
-
-
-
-        // Inflate the layout for this fragment
-
-
-
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
+
+    private boolean validateInputs() {
+        if (KEY_EMPTY.equals(email)) {
+            etEmail.setError("email cannot be empty");
+            etEmail.requestFocus();
+            return false;
+
+        }
+        if (KEY_EMPTY.equals(username)) {
+            etUsername.setError("Username cannot be empty");
+            etUsername.requestFocus();
+            return false;
+        }
+        if (KEY_EMPTY.equals(password)) {
+            etPassword.setError("Password cannot be empty");
+            etPassword.requestFocus();
+            return false;
+        }
+
+        if (KEY_EMPTY.equals(confirmPassword)) {
+            etConfirmPassword.setError("Confirm Password cannot be empty");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
+        if (!password.equals(confirmPassword)) {
+            etConfirmPassword.setError("Password and Confirm Password does not match");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+}
 

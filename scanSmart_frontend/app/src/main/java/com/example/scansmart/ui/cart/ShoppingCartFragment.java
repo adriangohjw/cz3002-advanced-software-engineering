@@ -29,7 +29,7 @@ public class ShoppingCartFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
 
-        Button clearthedata = root.findViewById(R.id.clearthedatabase);
+        Button clearthedata = root.findViewById(R.id.clear);
 
         clearthedata.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +39,8 @@ public class ShoppingCartFragment extends Fragment {
         });
 
         ListView listView = root.findViewById(R.id.list);
-        mAdapter = new CartAdapter(getActivity(), null);
-        listView.setAdapter(mAdapter);
+//        mAdapter = new CartAdapter(getActivity(), null);
+//        listView.setAdapter(mAdapter);
 
         return root;
     }
