@@ -41,16 +41,19 @@ public class DiscoverFragment extends Fragment {
     private ArrayList getListData() {
         ArrayList<ListItem> results = new ArrayList<>();
         ListItem prod1 = new ListItem();
+        prod1.setImageUrl(R.drawable.icon1);
         prod1.setName("Alarm clock");
         prod1.setDisc_price("$5.99");
         prod1.setOriginal_price("$10.99");
         results.add(prod1);
         ListItem prod2 = new ListItem();
+        prod2.setImageUrl(R.drawable.icon2);
         prod2.setName("Weird Avocado");
         prod2.setDisc_price("$4.99");
         prod2.setOriginal_price("$5.99");
         results.add(prod2);
         ListItem prod3 = new ListItem();
+        prod3.setImageUrl(R.drawable.icon3);
         prod3.setName("Cereal");
         prod3.setDisc_price("$7.99");
         prod3.setOriginal_price("$12.99");

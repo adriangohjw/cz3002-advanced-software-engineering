@@ -12,6 +12,7 @@ public class User {
     String email;
     Date sessionExpiryDate;
 
+
     public void setUsername(String username) {
         this.username = username;
     }
