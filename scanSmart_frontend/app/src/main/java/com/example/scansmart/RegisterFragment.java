@@ -1,11 +1,20 @@
 package com.example.scansmart;
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,26 +23,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.ParsedRequestListener;
-import com.example.scansmart.ui.User;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,14 +50,16 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+       // OkHttpClient client = new OkHttpClient.Builder()
+       //         .retryOnConnectionFailure(false)
+       //         .build();
+       // AndroidNetworking.initialize(getActivity().getApplicationContext(),client);
 
         View root = inflater.inflate(R.layout.fragment_register, container, false);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .retryOnConnectionFailure(false)
-                .build();
 
 
-        AndroidNetworking.initialize(getActivity().getApplicationContext(),client);
+
+
 
         etUsername = root.findViewById(R.id.et_name);
         etPassword = root.findViewById(R.id.et_password);
@@ -106,26 +97,69 @@ public class RegisterFragment extends Fragment {
         private void registerUser() {
         Log.v("lol", username);
 
-        AndroidNetworking.post("http://localhost:3000/users/")
-                .addQueryParameter("name", username)
-                .addQueryParameter("email", email)
-                .addQueryParameter("password", password)
-                .setTag("test")
+/*
+        AndroidNetworking.post("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/")
+                .addBodyParameter("name", username)
+                .addBodyParameter("email", email)
+                .addBodyParameter("password", password)
+                //.setTag("test")
                 .setPriority(Priority.MEDIUM)
                 .build()
                 .getAsJSONArray(new JSONArrayRequestListener() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.v("success",username);
+
                     }
 
                     @Override
                     public void onError(ANError error) {
+
+                        if (error.getErrorCode() != 0) {
+                            // received error from server
+                            // error.getErrorCode() - the error code from server
+                            // error.getErrorBody() - the error body from server
+                            // error.getErrorDetail() - just an error detail
+                            Log.d("T1", "onError errorCode : " + error.getErrorCode());
+                            Log.d("T2", "onError errorBody : " + error.getErrorBody());
+                            Log.d("T3", "onError errorDetail : " + error.getErrorDetail());
+                            // get parsed error object (If ApiError is your class)
+                            //ApiError apiError = error.getErrorAsObject(ApiError.class);
+                        } else {
+                            // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                            Log.d("t4", "onError errorDetail : " + error.getErrorDetail());
+                        }
                         // handle error
                     }
                 });
+*/
 
+            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/?name=%1$s&password=%2$s&email=%3$s",
+                    username,
+                    password,
+                    email);
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Log.v("Yay", "Yay");
+                            Intent i = new Intent(getActivity(), MainActivity2.class);
+                            startActivity(i);
+                            ((Activity) getActivity()).overridePendingTransition(0, 0);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.v("error" , "error");
+                }
+
+
+            });
+            // Add the request to the RequestQueue.
+            RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
-
                 // form parameters
 
 
