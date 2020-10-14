@@ -10,7 +10,7 @@ public class AccountViewModel extends ViewModel {
 
     public AccountViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is account fragment");
+        mText.setValue("Account");
     }
 
     public LiveData<String> getText() {
