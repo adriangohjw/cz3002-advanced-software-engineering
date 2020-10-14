@@ -79,7 +79,7 @@ public class CartBarcodeFragment extends Fragment {
 //        userID = ((MainActivity2) getActivity()).getUserID();
         userID = 1;
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
-        surfaceView = root.findViewById(R.id.surfaceView);
+        surfaceView = root.findViewById(R.id.surfaceView1);
         btnAction = root.findViewById(R.id.btnAction);
         AndroidNetworking.initialize(getActivity().getApplicationContext());
         btnAction.setOnClickListener(new View.OnClickListener() {
@@ -163,14 +163,15 @@ public class CartBarcodeFragment extends Fragment {
                             intentData = barcodes.valueAt(0).displayValue;
                             //displays value of qr code in a runnable because barcodes are detected in a background thread
                             txtBarcodeValue.setText(intentData);
-                            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/products/%1$s",
-                                    intentData);
+//                            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/products/%1$s",
+////                                    intentData);
+                            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/products/10");
                             // Request a string response from the provided URL.
-                            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
-                                            Log.v("Yay", "Yay");
+                                            Log.wtf("Yay", "Yay");
                                             try {
                                                 JSONObject obj = new JSONObject(response);
                                                 int productID = Integer.parseInt(obj.getString("id"));
@@ -208,21 +209,23 @@ public class CartBarcodeFragment extends Fragment {
     }
 
     public void addItem(int productID){
-        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products?shopper_id=%1$s&product_id=%2$s",
-                userID,
-                productID);
+//        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products?shopper_id=%1$s&product_id=%2$s",
+////                userID,
+////                productID);
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products?shopper_id=%1$s&product_id=10",
+                userID);
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
-                        Log.v("Yay", "Yay");
+                        Log.wtf("Yay2", "Yay2");
                         //go back to shopping cart
                         Fragment fragment = new ShoppingCartFragment();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.add(R.id.fragment_cartbarcode, fragment);
+                        fragmentTransaction.replace(R.id.fragment_cartbarcode, fragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     }

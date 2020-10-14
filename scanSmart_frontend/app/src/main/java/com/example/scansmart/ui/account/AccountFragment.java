@@ -21,7 +21,7 @@ public class AccountFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_account, container, false);
-        
+
         return root;
     }
 }
