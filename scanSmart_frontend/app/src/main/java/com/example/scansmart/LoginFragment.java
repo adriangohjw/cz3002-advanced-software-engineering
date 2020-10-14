@@ -65,6 +65,7 @@ public class LoginFragment extends Fragment  {
         user = gson.fromJson(userString, User.class);
         */
 
+
         // Inflate the layout for this fragment
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +75,10 @@ public class LoginFragment extends Fragment  {
                 password = etPassword.getText().toString();
                 if (validateInputs()) {
                     user = new User(email, password);
+                    saveUser(user);
+
+
+
                     loginUser(user);
                     Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
                     startActivity(nextIntent);
@@ -81,6 +86,15 @@ public class LoginFragment extends Fragment  {
             }
         });
         return root;
+    }
+
+    private void saveUser(User user) {
+        SharedPreferences preferences = getContext().getSharedPreferences("loginPref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("name", user.getUsername());
+        editor.putString("email", user.getEmail());
+        editor.putString("password", user.getPassword());
+        editor.apply();
     }
 
 

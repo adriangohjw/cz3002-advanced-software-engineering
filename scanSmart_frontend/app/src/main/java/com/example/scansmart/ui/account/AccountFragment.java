@@ -50,8 +50,13 @@ public class AccountFragment extends Fragment {
                 fragmentTransaction.replace(R.id.account_page, fragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+
+                }
+            });
+
             }
         });
+
         return root;
 
 
