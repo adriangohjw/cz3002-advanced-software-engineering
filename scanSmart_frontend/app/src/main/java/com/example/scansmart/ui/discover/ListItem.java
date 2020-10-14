@@ -1,21 +1,22 @@
 package com.example.scansmart.ui.discover;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
+
 public  class ListItem {
-    private String name;
-    private String original_price;
-    private String disc_price;
+    private String name ;
+    private String price;
+    private String discounted_price;
     @SerializedName("image")
     private int imageUrl;
 
-
     public int getImageUrl() {
-        return imageUrl;
-    }
+        return imageUrl; }
 
-    public void setImageUrl(int imageUrl) {
-        this.imageUrl = imageUrl;
+   public void setImageUrl(int imageUrl) {
+       this.imageUrl = imageUrl;
     }
 
     public String getName() {
@@ -24,16 +25,17 @@ public  class ListItem {
     public void setName(String name) {
         this.name = name;
     }
-    public String getOriginal_price() {
-        return original_price;
+
+    public String getPrice() {
+        return price;
     }
-    public void setOriginal_price(String original_price) {
-        this.original_price = original_price;
+    public void setPrice(String price) {
+        this.price = price;
     }
-    public String getDisc_price() {
-        return disc_price;
+    public String getDiscounted_price() {
+        return discounted_price;
     }
-    public void setDisc_price(String disc_price) {
-        this.disc_price = disc_price;
+    public void setDiscounted_price(String discounted_price) {
+        this.discounted_price = discounted_price;
     }
 }

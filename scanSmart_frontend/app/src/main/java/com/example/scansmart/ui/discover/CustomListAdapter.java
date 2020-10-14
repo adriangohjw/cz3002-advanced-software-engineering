@@ -1,6 +1,8 @@
 package com.example.scansmart.ui.discover;
 import android.content.Context;
+import android.graphics.Paint;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,22 +40,27 @@ public class CustomListAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.uName = (TextView) v.findViewById(R.id.prod_name);
             holder.uDiscPrice = (TextView) v.findViewById(R.id.disc_price);
-            holder.uOriginalPrice = (TextView) v.findViewById(R.id.original_price);
+            holder.uPrice = (TextView) v.findViewById(R.id.original_price);
+
             holder.uProdImage  = (ImageView) v.findViewById(R.id.prod_icon);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
         }
         holder.uName.setText(listData.get(position).getName());
-        holder.uDiscPrice.setText(listData.get(position).getDisc_price());
-        holder.uOriginalPrice.setText(listData.get(position).getOriginal_price());
-        holder.uProdImage.setImageResource(listData.get(position).getImageUrl());
+        holder.uDiscPrice.setText(listData.get(position).getDiscounted_price());
+        holder.uPrice.setText(listData.get(position).getPrice());
+        if (listData.get(position).getDiscounted_price()!=null )
+        {holder.uPrice.setPaintFlags(holder.uPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);}
+        //holder.uProdImage.setImageResource(listData.get(position).getImageUrl());
+        holder.uProdImage.setImageResource(R.drawable.icon1);
+
         return v;
     }
     static class ViewHolder {
         TextView uName;
         TextView uDiscPrice;
-        TextView uOriginalPrice;
+        TextView uPrice;
         ImageView uProdImage;
     }
 }
