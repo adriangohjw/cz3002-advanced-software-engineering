@@ -1,9 +1,16 @@
 package com.example.scansmart.ui.account;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+
+
+
+import android.content.SharedPreferences;
+import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +46,7 @@ public class ProfileFragment extends Fragment {
         password = root.findViewById(R.id.et_edit_password);
 
 
+
         SharedPreferences preferences = getContext().getSharedPreferences("loginPref", Context.MODE_PRIVATE);
         String name_ = preferences.getString("name", "No name defined");
         String email_ = preferences.getString("email", "No name defined");
@@ -59,4 +67,18 @@ public class ProfileFragment extends Fragment {
     }
 }
 
+
+
+        String userString;
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getContext().getSharedPreferences("Preferences", 0);
+        userString = sharedPreferences.getString("User", "");
+        User user = gson.fromJson(userString, User.class);
+
+        name.setText(user.getUsername());
+        email.setText(user.getEmail());
+        password.setText(user.getPassword());
+        return root;
+    }
+}
 

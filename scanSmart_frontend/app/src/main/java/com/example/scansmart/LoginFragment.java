@@ -1,5 +1,4 @@
 package com.example.scansmart;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -101,45 +100,45 @@ public class LoginFragment extends Fragment  {
 
     private void loginUser (User user) {
 
-      Call<UserResult> call = RestClient.getRestService(getContext()).login(user);
-      call.enqueue(new Callback<UserResult>() {
-          @Override
-          public void onResponse(Call<UserResult> call, Response<UserResult> response) {
+        Call<UserResult> call = RestClient.getRestService(getContext()).login(user);
+        call.enqueue(new Callback<UserResult>() {
+            @Override
+            public void onResponse(Call<UserResult> call, Response<UserResult> response) {
 
-              Log.d("Response :=>", response + "");
-              if (response != null) {
-
-
-                  UserResult userResult = response.body();
-                  if (userResult.getCode() == 200) {
-                      Log.v("ok","great");
-
-                      //Toast.makeText(getContext(), userResult.getStatus(), Toast.LENGTH_LONG).show();
-                      //startActivity(new Intent(getContext(), MainActivity2.class));
-                      //getActivity().finish();
-                  } else {
-                      //new CustomToast().Show_Toast(getContext(), root,
-                             // userResult.getStatus());
-                  }
-
-              } else {
-                  new CustomToast().Show_Toast(getActivity(), root,
-                          "Please Enter Correct Data");
-              }
+                Log.d("Response :=>", response + "");
+                if (response != null) {
 
 
-          }
+                    UserResult userResult = response.body();
+                    if (userResult.getCode() == 200) {
+                        Log.v("ok","great");
 
-          @Override
-          public void onFailure(Call<UserResult> call, Throwable t) {
-              Log.d("Error==> ", t.getMessage());
+                        //Toast.makeText(getContext(), userResult.getStatus(), Toast.LENGTH_LONG).show();
+                        //startActivity(new Intent(getContext(), MainActivity2.class));
+                        //getActivity().finish();
+                    } else {
+                        //new CustomToast().Show_Toast(getContext(), root,
+                        // userResult.getStatus());
+                    }
 
-          }
-      });
+                } else {
+                    new CustomToast().Show_Toast(getActivity(), root,
+                            "Please Enter Correct Data");
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<UserResult> call, Throwable t) {
+                Log.d("Error==> ", t.getMessage());
+
+            }
+        });
 
 
 
-        }
+    }
 
     private boolean validateInputs() {
         if(KEY_EMPTY.equals(email)){

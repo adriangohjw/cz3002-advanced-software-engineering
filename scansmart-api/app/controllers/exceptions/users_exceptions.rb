@@ -20,6 +20,16 @@ module UsersException
     end
   end
 
+  class StripeCustomerEmailDoesNotExistError < StandardError
+    def message
+      "Customer email does not exist in Stripe"
+    end
+
+    def status
+      :not_found
+    end
+  end
+
   class IncorrectPasswordError < StandardError
     def message
       "Your password was incorrect"

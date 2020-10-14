@@ -95,4 +95,72 @@ RSpec.describe 'Orders API', type: :request do
       end
     end
   end
+
+  describe "POST /users/:user_id/orders" do
+    before do
+      OrderProduct.destroy_all
+      Order.destroy_all
+      
+      @cart_product_1 = FactoryBot.create(:cart_product, user: @shopper,
+                                                         product: @product_1,
+                                                         quantity: 2)
+      @cart_product_2 = FactoryBot.create(:cart_product, user: @shopper,
+                                                         product: @product_2,
+                                                         quantity: 2)
+    end
+
+    context "parameters are valid" do
+      let(:user_id) { @shopper.id }
+      let(:store_id) { @store.id }
+      let(:charge_id) { "ch_123456789" }
+
+      it "create Order record belonging to the user" do
+        expect(@shopper.orders.count).to eq(0)
+
+        post "/users/#{user_id}/orders?store_id=#{store_id}&charge_id=#{charge_id}"
+
+        expect(@shopper.orders.count).to eq(1)
+        expect(@shopper.orders.first[:store_id]).to eq(@store.id)
+      end
+
+      it "create OrderProduct records belonging to the user" do
+        order_products_before_count = 0
+        orders_before_request = Order.where(user: @shopper)
+        orders_before_request.each { |order| order_products_before_count += order.order_products.count }
+        expect(order_products_before_count).to eq(0)
+
+        post "/users/#{user_id}/orders?store_id=#{store_id}&charge_id=#{charge_id}"
+
+        order_products_after_count = 0
+        orders_after_request = Order.where(user: @shopper)
+        orders_after_request.each { |order| order_products_after_count += order.order_products.count }
+        expect(order_products_after_count).to eq(2)
+      end
+
+      it "destroy all CartProduct records belonging to the user" do
+        expect(@shopper.cart_products.count).to eq(2)
+
+        post "/users/#{user_id}/orders?store_id=#{store_id}&charge_id=#{charge_id}"
+
+        expect(@shopper.cart_products.count).to eq(0)
+      end
+
+      it "returns status code 201" do
+        post "/users/#{user_id}/orders?store_id=#{store_id}"
+
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context "store does not exist" do
+      before { post "/users/#{user_id}/orders?store_id=#{store_id}" }
+      let(:user_id) { @shopper.id }
+      let(:store_id) { nil }
+      let(:charge_id) { "ch_123456789" }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+    end
+  end
 end
