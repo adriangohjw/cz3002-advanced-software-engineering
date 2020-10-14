@@ -1,7 +1,9 @@
 package com.example.scansmart.ui.account;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,16 +38,25 @@ public class ProfileFragment extends Fragment {
         email = root.findViewById(R.id.et_edit_email);
         password = root.findViewById(R.id.et_edit_password);
 
-        String userString;
-        SharedPreferences sharedPreferences;
-        sharedPreferences = getContext().getSharedPreferences("Preferences", 0);
-        userString = sharedPreferences.getString("User", "");
-        User user = gson.fromJson(userString, User.class);
 
-        name.setText(user.getUsername());
-        email.setText(user.getEmail());
-        password.setText(user.getPassword());
+        SharedPreferences preferences = getContext().getSharedPreferences("loginPref", Context.MODE_PRIVATE);
+        String name_ = preferences.getString("name", "No name defined");
+        String email_ = preferences.getString("email", "No name defined");
+        String password_ = preferences.getString("password", "No name defined");
+
+        name.setText(name_);
+        email.setText(email_);
+        password.setText(password_);
+
+        Log.v("namee", String.valueOf(name));
         return root;
     }
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //you can set the title for your toolbar here for different fragments different titles
+        getActivity().setTitle("Profile");
+    }
 }
+
 
