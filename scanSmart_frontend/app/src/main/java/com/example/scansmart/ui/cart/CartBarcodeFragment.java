@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,6 +20,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,15 +29,30 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.scansmart.MainActivity2;
 import com.example.scansmart.R;
+import com.example.scansmart.RequestSingleton;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -49,28 +66,29 @@ public class CartBarcodeFragment extends Fragment {
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
-    Button btnAction;
+    ImageButton btnAction;
     String intentData = "";
-    boolean isEmail = false;
+    boolean goNext;
+    int userID;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_cartbarcode, container, false);
+        userID = ((MainActivity2) getActivity()).getUserID();
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView);
         btnAction = root.findViewById(R.id.btnAction);
+        AndroidNetworking.initialize(getActivity().getApplicationContext());
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (intentData.length() > 0) {
-                    if (isEmail)
-                        startActivity(new Intent(getActivity(), CartFragment.class).putExtra("email_address", intentData));
-                    else {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(intentData)));
+                if (goNext) {
+                    if (intentData.length() > 0) {
                     }
+                } else {
+                    //notify users that qr not valid
                 }
             }
         });
@@ -78,8 +96,6 @@ public class CartBarcodeFragment extends Fragment {
     }
 
     private void initialiseDetectorsAndSources() {
-
-        //Toast.makeText(getActivity().getApplicationContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show();
 
         barcodeDetector = new BarcodeDetector.Builder(getActivity())
                 .setBarcodeFormats(Barcode.ALL_FORMATS)
@@ -138,35 +154,38 @@ public class CartBarcodeFragment extends Fragment {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
 
-
                     txtBarcodeValue.post(new Runnable() {
 
                         @Override
                         public void run() {
 
-                            //either launch the URL or send an email to the relevant email address detected from the QR Code
-                            if (barcodes.valueAt(0).email != null) {
-                                txtBarcodeValue.removeCallbacks(null);
-                                intentData = barcodes.valueAt(0).email.address;
-                                //displays value of qr code in a runnable because barcodes are detected in a background thread
-                                txtBarcodeValue.setText(intentData);
-                                isEmail = true;
-                                btnAction.setText("ADD CONTENT TO THE MAIL");
-                            } else {
-                                isEmail = false;
-                                btnAction.setText("LAUNCH URL");
-                                intentData = barcodes.valueAt(0).displayValue;
-                                txtBarcodeValue.setText(intentData);
-
-                            }
+                            intentData = barcodes.valueAt(0).displayValue;
+                            //displays value of qr code in a runnable because barcodes are detected in a background thread
+                            txtBarcodeValue.setText(intentData);
+                            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/movements/?user_id=%1$s&store_id=%2$s&movement_type=Entry",
+                                    userID,
+                                    intentData);
+                            // Request a string response from the provided URL.
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            Log.v("Yay", "Yay");
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.v("error", "error");
+                                }
+                            });
+                            // Add the request to the RequestQueue.
+                            RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
                         }
                     });
-
                 }
             }
         });
     }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -177,7 +196,6 @@ public class CartBarcodeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initialiseDetectorsAndSources();
-
-
     }
 }
+

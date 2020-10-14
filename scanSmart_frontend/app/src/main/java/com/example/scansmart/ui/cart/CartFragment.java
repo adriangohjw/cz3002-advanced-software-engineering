@@ -20,6 +20,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,17 +34,24 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.scansmart.MainActivity2;
 import com.example.scansmart.R;
+import com.example.scansmart.RequestSingleton;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -58,15 +66,17 @@ public class CartFragment extends Fragment {
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
-    Button btnAction;
+    ImageButton btnAction;
     String intentData = "";
     boolean goNext;
+    int userID;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_cart, container, false);
+        userID = ((MainActivity2) getActivity()).getUserID();
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView);
         btnAction = root.findViewById(R.id.btnAction);
@@ -74,7 +84,7 @@ public class CartFragment extends Fragment {
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(goNext) {
+                if (goNext) {
                     if (intentData.length() > 0) {
                         CartBarcodeFragment nextFrag = new CartBarcodeFragment();
                         getActivity().getSupportFragmentManager().beginTransaction()
@@ -82,7 +92,7 @@ public class CartFragment extends Fragment {
                                 .addToBackStack(null)
                                 .commit();
                     }
-                }else{
+                } else {
                     //notify users that qr not valid
                 }
             }
@@ -157,33 +167,37 @@ public class CartFragment extends Fragment {
                             intentData = barcodes.valueAt(0).displayValue;
                             //displays value of qr code in a runnable because barcodes are detected in a background thread
                             txtBarcodeValue.setText(intentData);
-
-                            AndroidNetworking.post("http://localhost:3000/movements/")
-                                    .addBodyParameter("movement_type", "Entry")
-                                    .addBodyParameter("user_id", "1")
-                                    .addBodyParameter("store_id", intentData)
-                                    .setTag("test")
-                                    .setPriority(Priority.MEDIUM)
-                                    .build()
-                                    .getAsJSONObject(new JSONObjectRequestListener() {
+                            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/movements/?user_id=%1$s&store_id=%2$s&movement_type=Entry",
+                                    userID,
+                                    intentData);
+                            // Request a string response from the provided URL.
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                                    new Response.Listener<String>() {
                                         @Override
-                                        public void onResponse(JSONObject response) {
-                                            goNext = true;
+                                        public void onResponse(String response) {
+                                            Log.v("Yay", "Yay");
+                                            //move to another fragment
+                                            Fragment fragment = new ShoppingCartFragment();
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            fragmentTransaction.replace(R.id.fragment_cart, fragment);
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.commit();
                                         }
-                                        @Override
-                                        public void onError(ANError error) {
-                                            goNext = false;
-                                        }
-                                    });
-
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.v("error", "error");
+                                }
+                            });
+                            // Add the request to the RequestQueue.
+                            RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
                         }
                     });
-
                 }
             }
         });
     }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -196,3 +210,4 @@ public class CartFragment extends Fragment {
         initialiseDetectorsAndSources();
     }
 }
+

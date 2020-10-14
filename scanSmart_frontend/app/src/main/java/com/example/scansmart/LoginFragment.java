@@ -24,6 +24,7 @@ import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginFragment extends Fragment {
@@ -81,9 +82,18 @@ public class LoginFragment extends Fragment {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.v("Yay", "Yay");
-                        Intent i = new Intent(getActivity(), MainActivity2.class);
-                        startActivity(i);
-                        ((Activity) getActivity()).overridePendingTransition(0, 0);
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            int id = Integer.parseInt(obj.getString("id"));
+                            Log.v("id", Integer.toString(id));
+                            Bundle b = new Bundle();
+                            b.putInt("userID", id);
+                            Intent i = new Intent(getActivity(), MainActivity2.class);
+                            i.putExtras(b);
+                            startActivity(i);
+                        } catch (JSONException e) {
+                            Log.v("cmi", "cmi lah");
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

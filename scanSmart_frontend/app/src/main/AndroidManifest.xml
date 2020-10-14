@@ -24,7 +24,6 @@
             android:name=".MainActivity2"
             android:exported="true"
             android:label="@string/app_name" >
-
         </activity>
 
         <activity

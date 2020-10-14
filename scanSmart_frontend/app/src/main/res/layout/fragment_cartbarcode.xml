@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_cartbarcode"
+    android:background="#ffffff">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +17,7 @@
             <SurfaceView
                 android:id="@+id/surfaceView"
                 android:layout_width="match_parent"
-                android:layout_height="550dp"
+                android:layout_height="400dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true" />
 
@@ -28,33 +30,23 @@
                     android:id="@+id/txtBarcodeValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No Barcode Detected"
+                    android:text="No QR Detected"
                     android:textSize="20sp" />
 
                 <ImageView
-                    android:layout_width="380dp"
-                    android:layout_height="380dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:gravity="center"
                     android:scaleType="fitXY"
                     android:src="@drawable/barcode" />
 
                 <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:text="Please scan the barcode of the product."
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:text="Align the camera with the barcode."
+                    android:text="Scan product barcode"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -68,29 +60,28 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="OR"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="25dp">
+                android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/item_id"
-                    android:layout_width="300dp"
+                    android:id="@+id/store_id"
+                    android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
                     android:background="#EAE2E2"
                     android:fontFamily="sans-serif"
-                    android:hint="Enter item ID"
+                    android:hint="Enter product ID"
                     android:padding="15dp"
                     android:textSize="15sp" />
 
@@ -108,4 +99,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

@@ -1,61 +1,89 @@
 package com.example.scansmart.ui.cart;
 
 import android.content.Context;
-import android.database.Cursor;
+import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.scansmart.R;
 
-import org.json.JSONArray;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.zip.Inflater;
 
-public class CartAdapter{
+public class CartAdapter extends BaseAdapter {
+    Context context;
+    ArrayList<String> productName;
+    ArrayList<Integer> price;
+    ArrayList<Integer> quantity;
+    LayoutInflater inflter;
 
-
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(R.layout.cartlist, parent, false);
-    }
-
-
-    public void bindView(View view, Context context, Cursor cursor) {
-
-        // getting theviews
-
-        TextView productName, price, quantity;
-
-        productName = view.findViewById(R.id.productName);
-        price = view.findViewById(R.id.price);
-        quantity = view.findViewById(R.id.quantity);
-
-        AndroidNetworking.get("http://localhost:3000/movements/")
-                .addPathParameter("pageNumber", "0")
-                .addQueryParameter("limit", "3")
-                .setTag("test")
-                .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // do anything with response
-//                        String nameofproduct =
-//                        String pricesofproduct =
-//                        String quantitysofproduct =
-                    }
-                    @Override
-                    public void onError(ANError error) {
-                        // handle error
-                    }
-                });
-
-//        productName.setText(nameofproduct);
-//        price.setText(pricesofproduct);
-//        quantity.setText(quantitysofproduct);
-
+    public CartAdapter(Context applicationContext, ArrayList<String> productName, ArrayList<Integer> price, ArrayList<Integer> quantity) {
+        this.context = context;
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+        inflter = (LayoutInflater.from(applicationContext));
 
     }
+
+    @Override
+    public int getCount() {
+        return productName.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
+    public View getView(int position, View v, ViewGroup vg) {
+        ViewHolder holder;
+
+        if (v == null) {
+            v = inflter.inflate(R.layout.cartlist, null);
+
+            holder = new ViewHolder();
+            holder.productName_tv = (TextView) v.findViewById(R.id.productName);
+            holder.price_tv = (TextView) v.findViewById(R.id.price);
+            holder.quantity_tv  = (TextView) v.findViewById(R.id.quantity);
+            v.setTag(holder);
+        } else {
+            holder = (ViewHolder) v.getTag();
+        }
+        holder.productName_tv.setText(productName.get(position));
+        holder.price_tv.setText(Integer.toString(price.get(position)));
+        holder.quantity_tv.setText(Integer.toString(quantity.get(position)));
+
+        return v;
+    }
+    static class ViewHolder {
+        TextView productName_tv;
+        TextView price_tv;
+        TextView quantity_tv;
+    }
+
 }
+
+
+
+
+
+
+
