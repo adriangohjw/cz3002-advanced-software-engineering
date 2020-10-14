@@ -12,9 +12,9 @@ class UsersController < ApplicationController
     raise UsersException::EmailExistError \
       if is_email_invalid(email: params[:email])
 
-    @user = User.create_user_including_stripe(name: params[:name], 
-                                              email: params[:email], 
-                                              password: params[:password])
+    @user = User.create_shopper_including_stripe(name: params[:name], 
+                                                 email: params[:email], 
+                                                 password: params[:password])
 
     json_response(@user, :created)
   end
