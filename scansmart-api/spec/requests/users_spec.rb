@@ -5,9 +5,9 @@ require 'json'
 RSpec.describe 'Users API', type: :request do
   before do
     StripeModule.delete_all_customers
-    @user = User.create_user_including_stripe(name: "Adrian", 
-                                              email: "test@example.com",
-                                              password: "password")
+    @user = User.create_shopper_including_stripe(name: "Adrian", 
+                                                 email: "test@example.com",
+                                                 password: "password")
   end
 
   describe "GET /users/:id" do

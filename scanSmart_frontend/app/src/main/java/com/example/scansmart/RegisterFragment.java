@@ -1,4 +1,5 @@
 package com.example.scansmart;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -58,7 +59,7 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-         root = inflater.inflate(R.layout.fragment_register, container, false);
+        root = inflater.inflate(R.layout.fragment_register, container, false);
 
 
 
@@ -99,93 +100,93 @@ public class RegisterFragment extends Fragment {
     }
 
 
-        private void registerUser(User userString) {
+    private void registerUser(User userString) {
 
-            Call<UserResult> call = RestClient.getRestService(getContext()).register(userString);
-            call.enqueue(new Callback<UserResult>() {
-                @Override
-                public void onResponse(Call<UserResult> call, Response<UserResult> response) {
-                    Log.d("Response :=>", response + "");
-                    if (response != null ) {
+        Call<UserResult> call = RestClient.getRestService(getContext()).register(userString);
+        call.enqueue(new Callback<UserResult>() {
+            @Override
+            public void onResponse(Call<UserResult> call, Response<UserResult> response) {
+                Log.d("Response :=>", response + "");
+                if (response != null ) {
 
-                        UserResult userResult = response.body();
-                        Log.d("user result is:", String.valueOf(userResult));
-
-
-                        if (userResult != null) {
-                            if (userResult.getCode() == 201) {
-                                Log.v("great", "yay");
-
-                                //startActivity(new Intent(getContext(), MainActivity.class));
-                                //getActivity().finish();
-                            } else {
-                                Log.isLoggable("yea", userResult.getCode());
-                                new CustomToast().Show_Toast(getActivity(), root,
-                                        userResult.getStatus());
-                                //   "Errorr");
-
-                            }
+                    UserResult userResult = response.body();
+                    Log.d("user result is:", String.valueOf(userResult));
 
 
-                        } }
-                        else {
-                            Log.v("wro2", "enter cor");
+                    if (userResult != null) {
+                        if (userResult.getCode() == 201) {
+                            Log.v("great", "yay");
+
+                            //startActivity(new Intent(getContext(), MainActivity.class));
+                            //getActivity().finish();
+                        } else {
+                            Log.isLoggable("yea", userResult.getCode());
                             new CustomToast().Show_Toast(getActivity(), root,
-                                    "Please Enter Correct Data");
+                                    userResult.getStatus());
+                            //   "Errorr");
+
                         }
 
 
-
+                    } }
+                else {
+                    Log.v("wro2", "enter cor");
+                    new CustomToast().Show_Toast(getActivity(), root,
+                            "Please Enter Correct Data");
                 }
 
-                @Override
-                public void onFailure(Call<UserResult> call, Throwable t) {
-                    Log.d("Error==> ", t.getMessage());
 
-                }
-            });
-                         }
-                // form parameters
-
-
-
-
-        private boolean validateInputs() {
-            if (KEY_EMPTY.equals(email)) {
-                etEmail.setError("email cannot be empty");
-                etEmail.requestFocus();
-                return false;
 
             }
-            if (KEY_EMPTY.equals(name)) {
-                etUsername.setError("Username cannot be empty");
-                etUsername.requestFocus();
-                return false;
-            }
-            if (KEY_EMPTY.equals(password)) {
-                etPassword.setError("Password cannot be empty");
-                etPassword.requestFocus();
-                return false;
-            }
 
-            if (KEY_EMPTY.equals(confirmPassword)) {
-                etConfirmPassword.setError("Confirm Password cannot be empty");
-                etConfirmPassword.requestFocus();
-                return false;
-            }
-            if (!password.equals(confirmPassword)) {
-                etConfirmPassword.setError("Password and Confirm Password does not match");
-                etConfirmPassword.requestFocus();
-                return false;
-            }
+            @Override
+            public void onFailure(Call<UserResult> call, Throwable t) {
+                Log.d("Error==> ", t.getMessage());
 
-            return true;
+            }
+        });
+    }
+    // form parameters
+
+
+
+
+    private boolean validateInputs() {
+        if (KEY_EMPTY.equals(email)) {
+            etEmail.setError("email cannot be empty");
+            etEmail.requestFocus();
+            return false;
+
+        }
+        if (KEY_EMPTY.equals(name)) {
+            etUsername.setError("Username cannot be empty");
+            etUsername.requestFocus();
+            return false;
+        }
+        if (KEY_EMPTY.equals(password)) {
+            etPassword.setError("Password cannot be empty");
+            etPassword.requestFocus();
+            return false;
         }
 
+        if (KEY_EMPTY.equals(confirmPassword)) {
+            etConfirmPassword.setError("Confirm Password cannot be empty");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
+        if (!password.equals(confirmPassword)) {
+            etConfirmPassword.setError("Password and Confirm Password does not match");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
 
-
-        // Inflate the layout for this fragment
-
-
-
+        return true;
     }
+
+
+
+    // Inflate the layout for this fragment
+
+
+
+}
