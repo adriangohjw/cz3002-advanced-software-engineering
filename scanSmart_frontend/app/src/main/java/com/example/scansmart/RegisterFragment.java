@@ -1,4 +1,5 @@
 package com.example.scansmart;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,14 +24,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
-
+ * <p>
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
@@ -44,9 +56,11 @@ public class RegisterFragment extends Fragment {
     private String password;
     private String confirmPassword;
     private String email;
+
     private String register_url = "http://localhost:3000/users/";
     Gson gson = new Gson();
     User user;
+
 
 
     public RegisterFragment() {
@@ -81,6 +95,9 @@ public class RegisterFragment extends Fragment {
                 confirmPassword = etConfirmPassword.getText().toString().trim();
                 email = etEmail.getText().toString().trim();
                 if (validateInputs()) {
+
+                    registerUser();
+
                     user = new User(name,email,password);
                     registerUser(user);
 
@@ -91,12 +108,34 @@ public class RegisterFragment extends Fragment {
 
                     Log.v("FML AGAIN", name);
 
-                }
 
+                }
             }
         });
         return root;
     }
+
+
+    private void registerUser() {
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/?name=%1$s&password=%2$s&email=%3$s",
+                username,
+                password,
+                email);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("Yay", "Yay");
+                        Intent i = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(i);
+                        ((Activity) getActivity()).overridePendingTransition(0, 0);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error" , "error");
+
 
 
         private void registerUser(User userString) {
@@ -166,26 +205,46 @@ public class RegisterFragment extends Fragment {
                 etPassword.setError("Password cannot be empty");
                 etPassword.requestFocus();
                 return false;
-            }
 
-            if (KEY_EMPTY.equals(confirmPassword)) {
-                etConfirmPassword.setError("Confirm Password cannot be empty");
-                etConfirmPassword.requestFocus();
-                return false;
             }
-            if (!password.equals(confirmPassword)) {
-                etConfirmPassword.setError("Password and Confirm Password does not match");
-                etConfirmPassword.requestFocus();
-                return false;
-            }
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
 
-            return true;
+    private boolean validateInputs() {
+        if (KEY_EMPTY.equals(email)) {
+            etEmail.setError("email cannot be empty");
+            etEmail.requestFocus();
+            return false;
+
+        }
+        if (KEY_EMPTY.equals(username)) {
+            etUsername.setError("Username cannot be empty");
+            etUsername.requestFocus();
+            return false;
+        }
+        if (KEY_EMPTY.equals(password)) {
+            etPassword.setError("Password cannot be empty");
+            etPassword.requestFocus();
+            return false;
         }
 
+        if (KEY_EMPTY.equals(confirmPassword)) {
+            etConfirmPassword.setError("Confirm Password cannot be empty");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
+        if (!password.equals(confirmPassword)) {
+            etConfirmPassword.setError("Password and Confirm Password does not match");
+            etConfirmPassword.requestFocus();
+            return false;
+        }
 
-
-        // Inflate the layout for this fragment
-
-
-
+        return true;
     }
+
+
+}
+
+

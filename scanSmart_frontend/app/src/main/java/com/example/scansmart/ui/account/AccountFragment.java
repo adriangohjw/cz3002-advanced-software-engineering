@@ -17,13 +17,11 @@ import com.example.scansmart.R;
 
 public class AccountFragment extends Fragment {
 
-    private AccountViewModel accountViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        accountViewModel =
-                ViewModelProviders.of(this).get(AccountViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_account, container, false);
+
         //refer pls
         final TextView textView = root.findViewById(R.id.tv_account);
         accountViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -32,6 +30,7 @@ public class AccountFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
         return root;
     }
 }
