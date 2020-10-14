@@ -69,16 +69,5 @@ public class ProfileFragment extends Fragment {
 
 
 
-        String userString;
-        SharedPreferences sharedPreferences;
-        sharedPreferences = getContext().getSharedPreferences("Preferences", 0);
-        userString = sharedPreferences.getString("User", "");
-        User user = gson.fromJson(userString, User.class);
 
-        name.setText(user.getUsername());
-        email.setText(user.getEmail());
-        password.setText(user.getPassword());
-        return root;
-    }
-}
 
