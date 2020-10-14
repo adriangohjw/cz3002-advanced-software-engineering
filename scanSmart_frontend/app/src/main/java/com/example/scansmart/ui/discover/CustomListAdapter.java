@@ -1,17 +1,19 @@
 package com.example.scansmart.ui.discover;
 import android.content.Context;
+import android.graphics.Paint;
+import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.scansmart.R;
 
 import java.util.ArrayList;
-/**
- * Created by tutlane on 23-08-2017.
- */
+
 public class CustomListAdapter extends BaseAdapter {
     private ArrayList<ListItem> listData;
     private LayoutInflater layoutInflater;
@@ -36,21 +38,29 @@ public class CustomListAdapter extends BaseAdapter {
         if (v == null) {
             v = layoutInflater.inflate(R.layout.list_row, null);
             holder = new ViewHolder();
-            holder.uName = (TextView) v.findViewById(R.id.name);
-            holder.uDesignation = (TextView) v.findViewById(R.id.designation);
-            holder.uLocation = (TextView) v.findViewById(R.id.location);
+            holder.uName = (TextView) v.findViewById(R.id.prod_name);
+            holder.uDiscPrice = (TextView) v.findViewById(R.id.disc_price);
+            holder.uPrice = (TextView) v.findViewById(R.id.original_price);
+
+            holder.uProdImage  = (ImageView) v.findViewById(R.id.prod_icon);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
         }
         holder.uName.setText(listData.get(position).getName());
-        holder.uDesignation.setText(listData.get(position).getDesignation());
-        holder.uLocation.setText(listData.get(position).getLocation());
+        holder.uDiscPrice.setText(listData.get(position).getDiscounted_price());
+        holder.uPrice.setText(listData.get(position).getPrice());
+        if (listData.get(position).getDiscounted_price()!=null )
+        {holder.uPrice.setPaintFlags(holder.uPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);}
+        //holder.uProdImage.setImageResource(listData.get(position).getImageUrl());
+        holder.uProdImage.setImageResource(R.drawable.icon1);
+
         return v;
     }
     static class ViewHolder {
         TextView uName;
-        TextView uDesignation;
-        TextView uLocation;
+        TextView uDiscPrice;
+        TextView uPrice;
+        ImageView uProdImage;
     }
 }

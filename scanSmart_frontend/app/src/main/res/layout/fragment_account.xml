@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
 <!--        <de.hdodenhof.circleimageview.CircleImageView-->
 <!--            android:id="@+id/user_profile_photo"-->
 <!--            android:layout_width="120dp"-->
@@ -25,22 +26,47 @@
 <!--            app:civ_border_color="#FFF"-->
 <!--            app:civ_border_width="5dp" />-->
 
+
+
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+
             android:layout_marginTop="-60dp"
+
+            android:layout_marginTop="60dp"
+
             android:layout_marginRight="30dp"
             android:background="#D0F6DB"
             android:elevation="4dp"
             android:orientation="vertical"
             android:padding="20dp">
 
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="30dp">
+
+                <TextView
+                    android:id="@+id/tv_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_horizontal"
+                    android:text="Account"
+                    android:textAlignment="center"
+                    android:textColor="#070707"
+                    android:textSize="40sp" />
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -62,7 +88,11 @@
                             android:layout_height="25dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="15dp"
+
                             android:src="@drawable/user_profile" />
+
+                            android:src="@drawable/icon1" />
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -97,7 +127,11 @@
                             android:layout_height="25dp"
                             android:layout_marginTop="20dp"
                             android:layout_marginLeft="15dp"
+
                             android:src="@drawable/card" />
+
+                            android:src="@drawable/icon2" />
+
 
                         <TextView
                             android:layout_width="wrap_content"

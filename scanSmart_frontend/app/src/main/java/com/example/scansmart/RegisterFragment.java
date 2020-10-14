@@ -6,6 +6,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import android.content.Context;
+import android.graphics.Bitmap;
+
+
+import com.example.scansmart.ui.CustomToast;
+import com.example.scansmart.ui.RestClient;
+import com.example.scansmart.ui.User;
+import com.example.scansmart.ui.UserResult;
+import com.google.gson.Gson;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -23,7 +34,11 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
-import org.json.JSONObject;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,14 +47,21 @@ import org.json.JSONObject;
  */
 public class RegisterFragment extends Fragment {
     private static final String KEY_EMPTY = "";
+    private static View root;
     private EditText etUsername;
     private EditText etPassword;
     private EditText etConfirmPassword;
     private EditText etEmail;
-    private String username;
+    private String name;
     private String password;
     private String confirmPassword;
     private String email;
+
+    private String register_url = "http://localhost:3000/users/";
+    Gson gson = new Gson();
+    User user;
+
+
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -50,7 +72,11 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_register, container, false);
+         root = inflater.inflate(R.layout.fragment_register, container, false);
+
+
+
+
 
         etUsername = root.findViewById(R.id.et_name);
         etPassword = root.findViewById(R.id.et_password);
@@ -64,17 +90,31 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Retrieve the data entered in the edit texts
-                username = etUsername.getText().toString().trim();
+                name = etUsername.getText().toString().trim();
                 password = etPassword.getText().toString().trim();
                 confirmPassword = etConfirmPassword.getText().toString().trim();
                 email = etEmail.getText().toString().trim();
                 if (validateInputs()) {
+
                     registerUser();
+
+                    user = new User(name,email,password);
+                    registerUser(user);
+
+                    Log.v("fml",name);
+                    Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
+                    startActivity(nextIntent);
+
+
+                    Log.v("FML AGAIN", name);
+
+
                 }
             }
         });
         return root;
     }
+
 
     private void registerUser() {
         String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/?name=%1$s&password=%2$s&email=%3$s",
@@ -95,6 +135,77 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.v("error" , "error");
+
+
+
+        private void registerUser(User userString) {
+
+            Call<UserResult> call = RestClient.getRestService(getContext()).register(userString);
+            call.enqueue(new Callback<UserResult>() {
+                @Override
+                public void onResponse(Call<UserResult> call, Response<UserResult> response) {
+                    Log.d("Response :=>", response + "");
+                    if (response != null ) {
+
+                        UserResult userResult = response.body();
+                        Log.d("user result is:", String.valueOf(userResult));
+
+
+                        if (userResult != null) {
+                            if (userResult.getCode() == 201) {
+                                Log.v("great", "yay");
+
+                                //startActivity(new Intent(getContext(), MainActivity.class));
+                                //getActivity().finish();
+                            } else {
+                                Log.isLoggable("yea", userResult.getCode());
+                                new CustomToast().Show_Toast(getActivity(), root,
+                                        userResult.getStatus());
+                                //   "Errorr");
+
+                            }
+
+
+                        } }
+                        else {
+                            Log.v("wro2", "enter cor");
+                            new CustomToast().Show_Toast(getActivity(), root,
+                                    "Please Enter Correct Data");
+                        }
+
+
+
+                }
+
+                @Override
+                public void onFailure(Call<UserResult> call, Throwable t) {
+                    Log.d("Error==> ", t.getMessage());
+
+                }
+            });
+                         }
+                // form parameters
+
+
+
+
+        private boolean validateInputs() {
+            if (KEY_EMPTY.equals(email)) {
+                etEmail.setError("email cannot be empty");
+                etEmail.requestFocus();
+                return false;
+
+            }
+            if (KEY_EMPTY.equals(name)) {
+                etUsername.setError("Username cannot be empty");
+                etUsername.requestFocus();
+                return false;
+            }
+            if (KEY_EMPTY.equals(password)) {
+                etPassword.setError("Password cannot be empty");
+                etPassword.requestFocus();
+                return false;
+
             }
         });
         // Add the request to the RequestQueue.
@@ -133,5 +244,7 @@ public class RegisterFragment extends Fragment {
         return true;
     }
 
+
 }
+
 

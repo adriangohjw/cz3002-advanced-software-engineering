@@ -3,36 +3,51 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-/**
- * Created by AndroidIgniter on 23 Mar 2019 020.
- */
-
 public class User {
-    String username;
+
+    String name;
     String email;
-    Date sessionExpiryDate;
+    String password;
 
-    public void setUsername(String username) {
-        this.username = username;
+    public User() {
     }
 
-    public void setEmail(String email) {
+    public User(String email, String password) {
         this.email = email;
+        this.password = password;
+    }
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
-    public void setSessionExpiryDate(Date sessionExpiryDate) {
-        this.sessionExpiryDate = sessionExpiryDate;
-    }
+
+
 
     public String getUsername() {
-        return username;
+        return name;
+    }
+
+    public void setUsername(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public Date getSessionExpiryDate() {
-        return sessionExpiryDate;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
+
 }
