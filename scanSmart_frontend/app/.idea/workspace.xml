@@ -11,50 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f6d87efa-8d72-4a32-b92d-4ccf06a07e60" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_6_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_converter_gson_2_6_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_retrofit_2_6_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/PaymentFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/CustomToast.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/LoggingInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/ProductResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/RestClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/RestService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/ToStringConverterFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/UserResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/bg_ccv.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/bg_pay.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/error.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_confirm_unselect.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_credit_card.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_placeholder_select.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/master.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/visa.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/custom_toast.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_payment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/layout/profile_details.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_2_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_10_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_14_0_jar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/LoginFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/LoginFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/RegisterFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/RegisterFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/RequestSingleton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/account/AccountFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/account/AccountFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/CustomListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/CustomListAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/DiscoverFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/DiscoverFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/ListItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/discover/ListItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_account.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_discover.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/list_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/list_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
