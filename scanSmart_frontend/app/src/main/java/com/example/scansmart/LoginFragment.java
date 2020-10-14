@@ -42,6 +42,7 @@ public class LoginFragment extends Fragment  {
     View progress;
     String userString;
     User user;
+    int a =1;
 
 
 
@@ -74,20 +75,18 @@ public class LoginFragment extends Fragment  {
                 email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
                 if (validateInputs()) {
-                    user = new User(email, password);
-                    saveUser(user);
+                   // saveUser(user);
+                    loginUser(email,password);
 
+                    //Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
+                    //startActivity(nextIntent);
 
-
-                    loginUser(user);
-                    Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
-                    startActivity(nextIntent);
                 }
             }
         });
         return root;
     }
-
+/*
     private void saveUser(User user) {
         SharedPreferences preferences = getContext().getSharedPreferences("loginPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -96,11 +95,11 @@ public class LoginFragment extends Fragment  {
         editor.putString("password", user.getPassword());
         editor.apply();
     }
+*/
 
+    private void loginUser (String email,String password) {
 
-    private void loginUser (User user) {
-
-        Call<UserResult> call = RestClient.getRestService(getContext()).login(user);
+        Call<UserResult> call = RestClient.getRestService(getContext()).login(email,password);
         call.enqueue(new Callback<UserResult>() {
             @Override
             public void onResponse(Call<UserResult> call, Response<UserResult> response) {
@@ -110,20 +109,37 @@ public class LoginFragment extends Fragment  {
 
 
                     UserResult userResult = response.body();
-                    if (userResult.getCode() == 200) {
+                    Log.v("userresult", String.valueOf(userResult));
+                    if (String.valueOf(userResult)!=null  && userResult!=null)
+                    { if(userResult.getCode() == 200) {
                         Log.v("ok","great");
+                       a=1;
+                        Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(nextIntent);
 
                         //Toast.makeText(getContext(), userResult.getStatus(), Toast.LENGTH_LONG).show();
                         //startActivity(new Intent(getContext(), MainActivity2.class));
                         //getActivity().finish();
-                    } else {
+                    } else if(userResult.getCode()!=200) {
+                        Log.v("congrats","sarcastic");
+                        a=0;
+                        Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(nextIntent);
+
                         //new CustomToast().Show_Toast(getContext(), root,
                         // userResult.getStatus());
+                    }} else if(String.valueOf(userResult) ==  null || userResult==null){
+                        Log.v("lool","help");
+                        Toast.makeText(getContext(), "Please enter correct details" , Toast.LENGTH_SHORT).show();
+                        a=0;
+
                     }
 
                 } else {
-                    new CustomToast().Show_Toast(getActivity(), root,
-                            "Please Enter Correct Data");
+                    //new CustomToast().Show_Toast(getActivity(), root,
+                            //"Please Enter Correct Data");
+                    Toast.makeText(getContext(), "Please enter correct details" , Toast.LENGTH_SHORT).show();
+                    a=0;
                 }
 
 

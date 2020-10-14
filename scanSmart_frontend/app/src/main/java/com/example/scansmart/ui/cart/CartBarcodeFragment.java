@@ -81,7 +81,7 @@ public class CartBarcodeFragment extends Fragment {
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView);
         btnAction = root.findViewById(R.id.btnAction);
-        AndroidNetworking.initialize(getActivity().getApplicationContext());
+        //AndroidNetworking.initialize(getActivity().getApplicationContext());
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

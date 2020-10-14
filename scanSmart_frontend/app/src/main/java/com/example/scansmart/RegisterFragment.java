@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 
@@ -14,6 +16,7 @@ import com.example.scansmart.ui.CustomToast;
 import com.example.scansmart.ui.RestClient;
 import com.example.scansmart.ui.User;
 import com.example.scansmart.ui.UserResult;
+import com.example.scansmart.ui.account.ProfileFragment;
 import com.google.gson.Gson;
 
 import android.util.Log;
@@ -48,7 +51,7 @@ public class RegisterFragment extends Fragment {
     private String register_url = "http://localhost:3000/users/";
     Gson gson = new Gson();
     User user;
-
+    int a=0;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -85,12 +88,6 @@ public class RegisterFragment extends Fragment {
                     user = new User(name,email,password);
                     registerUser(user);
 
-                    Log.v("fml",name);
-                    Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
-                    startActivity(nextIntent);
-
-
-                    Log.v("FML AGAIN", name);
 
                 }
 
@@ -113,26 +110,44 @@ public class RegisterFragment extends Fragment {
                     Log.d("user result is:", String.valueOf(userResult));
 
 
-                    if (userResult != null) {
+                    if (String.valueOf(userResult)!=null && userResult != null) {
                         if (userResult.getCode() == 201) {
                             Log.v("great", "yay");
 
                             //startActivity(new Intent(getContext(), MainActivity.class));
                             //getActivity().finish();
-                        } else {
-                            Log.isLoggable("yea", userResult.getCode());
-                            new CustomToast().Show_Toast(getActivity(), root,
-                                    userResult.getStatus());
-                            //   "Errorr");
+                            Toast.makeText(getContext(), "You've registered successfully" , Toast.LENGTH_SHORT).show();
+                            a=1;
 
-                        }
+                        } else if(userResult.getCode() !=201) {
+                            Log.v("w2","w2");
+                            Toast.makeText(getContext(), "You've registered successfully" , Toast.LENGTH_SHORT).show();
+                            a=1;
+
+                            Fragment fragment = new LoginFragment();
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.registerr, fragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
 
 
-                    } }
+
+
+                        } } else if(String.valueOf(userResult)==null || userResult==null){
+                        Log.v("w3","w3");
+                        Toast.makeText(getContext(), "Please enter correct details" , Toast.LENGTH_SHORT).show();
+                        a=0;
+
+                    }
+
+
+                    }
                 else {
-                    Log.v("wro2", "enter cor");
-                    new CustomToast().Show_Toast(getActivity(), root,
-                            "Please Enter Correct Data");
+                    a=0;
+                    Log.v("w4","w4");
+                    Toast.makeText(getContext(), "Please enter correct details" , Toast.LENGTH_SHORT).show();
+
                 }
 
 
