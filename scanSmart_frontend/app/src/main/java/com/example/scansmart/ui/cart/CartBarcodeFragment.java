@@ -76,7 +76,8 @@ public class CartBarcodeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_cartbarcode, container, false);
-        userID = ((MainActivity2) getActivity()).getUserID();
+//        userID = ((MainActivity2) getActivity()).getUserID();
+        userID = 1;
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView);
         btnAction = root.findViewById(R.id.btnAction);
@@ -221,7 +222,7 @@ public class CartBarcodeFragment extends Fragment {
                         Fragment fragment = new ShoppingCartFragment();
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_cartbarcode, fragment);
+                        fragmentTransaction.add(R.id.fragment_cartbarcode, fragment);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                     }

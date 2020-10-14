@@ -76,7 +76,8 @@ public class CartFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_cart, container, false);
-        userID = ((MainActivity2) getActivity()).getUserID();
+//        userID = ((MainActivity2) getActivity()).getUserID();
+        userID = 1;
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView);
         btnAction = root.findViewById(R.id.btnAction);
