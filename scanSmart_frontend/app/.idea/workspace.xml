@@ -6,10 +6,16 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6d87efa-8d72-4a32-b92d-4ccf06a07e60" name="Default Changelist" comment="" />
+    <list default="true" id="f6d87efa-8d72-4a32-b92d-4ccf06a07e60" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/account/AccountFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/scansmart/ui/account/AccountFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/fragment_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/fragment_account.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,6 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="layoutResourceFile" />
+        <option value="resourceFile" />
         <option value="Class" />
       </list>
     </option>
@@ -46,13 +54,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_5X_API_29_x86" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-13T11:40:54.049Z" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/com/example/scansmart" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/res/drawable" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalTools" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/res/drawable" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/res/drawable" />
     </key>
@@ -131,33 +146,70 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1398" height="-5" key="GridCell.Tab.0.bottom" timestamp="1602558961630">
+    <state x="0" y="288" key="#com.intellij.ide.util.MemberChooser" timestamp="1602667369514">
       <screen x="0" y="0" width="1440" height="855" />
     </state>
-    <state width="1398" height="-5" key="GridCell.Tab.0.bottom/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
-    <state width="1398" height="128" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1602547801969" />
-    <state width="1398" height="-5" key="GridCell.Tab.0.center" timestamp="1602558961630">
+    <state x="0" y="288" key="#com.intellij.ide.util.MemberChooser/0.0.1440.855@0.0.1440.855" timestamp="1602667369514" />
+    <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602604699333">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="458" y="204" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1440.900@0.0.1440.900" timestamp="1602604699333" />
+    <state x="324" y="347" key="AndroidCreateResourceFileDialog" timestamp="1602635812791">
       <screen x="0" y="0" width="1440" height="855" />
     </state>
-    <state width="1398" height="-5" key="GridCell.Tab.0.center/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
-    <state width="1398" height="128" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1602547801968" />
-    <state width="1398" height="-5" key="GridCell.Tab.0.left" timestamp="1602558961630">
+    <state x="324" y="347" key="AndroidCreateResourceFileDialog/0.0.1440.855@0.0.1440.855" timestamp="1602635812791" />
+    <state x="626" y="333" key="AndroidCreateXmlResourceDialog" timestamp="1602662813477">
       <screen x="0" y="0" width="1440" height="855" />
     </state>
-    <state width="1398" height="-5" key="GridCell.Tab.0.left/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
-    <state width="1398" height="128" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1602547801967" />
-    <state width="1398" height="-5" key="GridCell.Tab.0.right" timestamp="1602558961630">
+    <state x="626" y="333" key="AndroidCreateXmlResourceDialog/0.0.1440.855@0.0.1440.855" timestamp="1602662813477" />
+    <state width="1398" height="156" key="GridCell.Tab.0.bottom" timestamp="1602670618337">
       <screen x="0" y="0" width="1440" height="855" />
     </state>
-    <state width="1398" height="-5" key="GridCell.Tab.0.right/0.0.1440.855@0.0.1440.855" timestamp="1602558961630" />
-    <state width="1398" height="128" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1602547801969" />
-    <state x="514" y="206" key="com.intellij.ide.util.TipDialog" timestamp="1602510548313">
+    <state width="1398" height="156" key="GridCell.Tab.0.bottom/0.0.1440.855@0.0.1440.855" timestamp="1602670618337" />
+    <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1602581146792" />
+    <state width="1398" height="156" key="GridCell.Tab.0.center" timestamp="1602670618336">
       <screen x="0" y="0" width="1440" height="855" />
     </state>
-    <state x="514" y="206" key="com.intellij.ide.util.TipDialog/0.0.1440.855@0.0.1440.855" timestamp="1602510548313" />
+    <state width="1398" height="156" key="GridCell.Tab.0.center/0.0.1440.855@0.0.1440.855" timestamp="1602670618336" />
+    <state width="1398" height="214" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1602581146791" />
+    <state width="1398" height="156" key="GridCell.Tab.0.left" timestamp="1602670618335">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state width="1398" height="156" key="GridCell.Tab.0.left/0.0.1440.855@0.0.1440.855" timestamp="1602670618335" />
+    <state width="1398" height="214" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1602581146790" />
+    <state width="1398" height="156" key="GridCell.Tab.0.right" timestamp="1602670618336">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state width="1398" height="156" key="GridCell.Tab.0.right/0.0.1440.855@0.0.1440.855" timestamp="1602670618336" />
+    <state width="1398" height="214" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1602581146791" />
+    <state x="221" y="57" key="SettingsEditor" timestamp="1602585352718">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state x="221" y="57" key="SettingsEditor/0.0.1440.855@0.0.1440.855" timestamp="1602585352718" />
+    <state x="497" y="223" key="chooseDestDirectoryDialog" timestamp="1602605323060">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state x="497" y="223" key="chooseDestDirectoryDialog/0.0.1440.855@0.0.1440.855" timestamp="1602605323060" />
+    <state x="497" y="235" key="chooseDestDirectoryDialog/0.0.1440.900@0.0.1440.900" timestamp="1602605015201" />
+    <state x="76" y="0" width="1240" height="448" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1602657019354">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state x="76" y="0" width="1240" height="448" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1440.855@0.0.1440.855" timestamp="1602657019354" />
+    <state x="514" y="206" key="com.intellij.ide.util.TipDialog" timestamp="1602584938355">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state x="514" y="206" key="com.intellij.ide.util.TipDialog/0.0.1440.855@0.0.1440.855" timestamp="1602584938355" />
+    <state x="526" y="163" width="695" height="486" key="find.popup" timestamp="1602643003812">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state x="526" y="163" width="695" height="486" key="find.popup/0.0.1440.855@0.0.1440.855" timestamp="1602643003812" />
     <state x="422" y="73" key="refactoring.ChangeSignatureDialog" timestamp="1602566010414">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="422" y="73" key="refactoring.ChangeSignatureDialog/0.0.1440.900@0.0.1440.900" timestamp="1602566010414" />
+    <state x="341" y="179" width="670" height="676" key="search.everywhere.popup" timestamp="1602603211551">
+      <screen x="0" y="0" width="1440" height="855" />
+    </state>
+    <state x="341" y="179" width="670" height="676" key="search.everywhere.popup/0.0.1440.855@0.0.1440.855" timestamp="1602603211551" />
   </component>
 </project>

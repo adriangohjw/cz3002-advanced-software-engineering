@@ -1,11 +1,19 @@
 package com.example.scansmart;
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import android.content.Context;
+import android.graphics.Bitmap;
+
+
+import com.example.scansmart.ui.CustomToast;
+import com.example.scansmart.ui.RestClient;
+import com.example.scansmart.ui.User;
+import com.example.scansmart.ui.UserResult;
+import com.google.gson.Gson;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,27 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.androidnetworking.interfaces.ParsedRequestListener;
-import com.example.scansmart.ui.User;
-import com.google.gson.reflect.TypeToken;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,15 +35,18 @@ import okhttp3.Response;
  */
 public class RegisterFragment extends Fragment {
     private static final String KEY_EMPTY = "";
+    private static View root;
     private EditText etUsername;
     private EditText etPassword;
     private EditText etConfirmPassword;
     private EditText etEmail;
-    private String username;
+    private String name;
     private String password;
     private String confirmPassword;
     private String email;
     private String register_url = "http://localhost:3000/users/";
+    Gson gson = new Gson();
+    User user;
 
 
     public RegisterFragment() {
@@ -62,13 +58,11 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_register, container, false);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .retryOnConnectionFailure(false)
-                .build();
+         root = inflater.inflate(R.layout.fragment_register, container, false);
 
 
-        AndroidNetworking.initialize(getActivity().getApplicationContext(),client);
+
+
 
         etUsername = root.findViewById(R.id.et_name);
         etPassword = root.findViewById(R.id.et_password);
@@ -82,18 +76,20 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //Retrieve the data entered in the edit texts
-                username = etUsername.getText().toString().trim();
+                name = etUsername.getText().toString().trim();
                 password = etPassword.getText().toString().trim();
                 confirmPassword = etConfirmPassword.getText().toString().trim();
                 email = etEmail.getText().toString().trim();
                 if (validateInputs()) {
-                    registerUser();
-                    Log.v("fml",username);
-                    Fragment fragment = new LoginFragment();
-                    FragmentManager fragmentManager = getFragmentManager();
+                    user = new User(name,email,password);
+                    registerUser(user);
 
-                    fragmentManager.beginTransaction().replace(R.id.viewPager,fragment).commit();
-                    Log.v("FML AGAIN", username);
+                    Log.v("fml",name);
+                    Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
+                    startActivity(nextIntent);
+
+
+                    Log.v("FML AGAIN", name);
 
                 }
 
@@ -103,29 +99,52 @@ public class RegisterFragment extends Fragment {
     }
 
 
-        private void registerUser() {
-        Log.v("lol", username);
+        private void registerUser(User userString) {
 
-        AndroidNetworking.post("http://localhost:3000/users/")
-                .addQueryParameter("name", username)
-                .addQueryParameter("email", email)
-                .addQueryParameter("password", password)
-                .setTag("test")
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                    }
+            Call<UserResult> call = RestClient.getRestService(getContext()).register(userString);
+            call.enqueue(new Callback<UserResult>() {
+                @Override
+                public void onResponse(Call<UserResult> call, Response<UserResult> response) {
+                    Log.d("Response :=>", response + "");
+                    if (response != null ) {
 
-                    @Override
-                    public void onError(ANError error) {
-                        // handle error
-                    }
-                });
+                        UserResult userResult = response.body();
+                        Log.d("user result is:", String.valueOf(userResult));
 
-    }
 
+                        if (userResult != null) {
+                            if (userResult.getCode() == 201) {
+                                Log.v("great", "yay");
+
+                                //startActivity(new Intent(getContext(), MainActivity.class));
+                                //getActivity().finish();
+                            } else {
+                                Log.isLoggable("yea", userResult.getCode());
+                                new CustomToast().Show_Toast(getActivity(), root,
+                                        userResult.getStatus());
+                                //   "Errorr");
+
+                            }
+
+
+                        } }
+                        else {
+                            Log.v("wro2", "enter cor");
+                            new CustomToast().Show_Toast(getActivity(), root,
+                                    "Please Enter Correct Data");
+                        }
+
+
+
+                }
+
+                @Override
+                public void onFailure(Call<UserResult> call, Throwable t) {
+                    Log.d("Error==> ", t.getMessage());
+
+                }
+            });
+                         }
                 // form parameters
 
 
@@ -138,7 +157,7 @@ public class RegisterFragment extends Fragment {
                 return false;
 
             }
-            if (KEY_EMPTY.equals(username)) {
+            if (KEY_EMPTY.equals(name)) {
                 etUsername.setError("Username cannot be empty");
                 etUsername.requestFocus();
                 return false;
@@ -170,4 +189,3 @@ public class RegisterFragment extends Fragment {
 
 
     }
-
