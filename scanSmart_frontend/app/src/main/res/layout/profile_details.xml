@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+
     android:background="#fff"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
-
-
 
 
         <RelativeLayout
@@ -27,8 +26,6 @@
             android:elevation="4dp"
             android:orientation="vertical"
             android:padding="20dp">
-
-
 
 
             <LinearLayout
@@ -53,19 +50,18 @@
                     android:textSize="40sp" />
 
 
-
-                    <EditText
-                android:id="@+id/et_edit_email"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/et_custom"
-                android:fontFamily="sans-serif"
-                android:hint="@string/e_mail"
-                android:inputType="textEmailAddress"
-                android:padding="15dp"
-                android:textSize="15sp" />
+                <EditText
+                    android:id="@+id/et_edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/et_custom"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/e_mail"
+                    android:inputType="textEmailAddress"
+                    android:padding="15dp"
+                    android:textSize="15sp" />
 
 
                 <EditText
@@ -98,20 +94,19 @@
 
 
                 <Button
+                    android:id="@+id/logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="110dp"
                     android:layout_marginTop="100sp"
                     android:background="@android:color/holo_red_dark"
-                    android:textStyle="bold"
-                    android:id="@+id/logout"
+                    android:text="Save"
                     android:textColor="@android:color/white"
-                    android:text="Save"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
         </RelativeLayout>
-
 
 
     </LinearLayout>
