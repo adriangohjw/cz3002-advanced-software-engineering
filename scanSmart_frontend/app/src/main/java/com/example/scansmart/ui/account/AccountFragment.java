@@ -51,15 +51,12 @@ public class AccountFragment extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
-                }
-            });
-
             }
         });
 
+
         return root;
-
-
-
     }
+
+
 }
