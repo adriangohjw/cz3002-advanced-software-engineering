@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical"
+    android:id="@+id/account_page"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -13,30 +14,10 @@
         android:orientation="vertical">
 
 
-<!--        <de.hdodenhof.circleimageview.CircleImageView-->
-<!--            android:id="@+id/user_profile_photo"-->
-<!--            android:layout_width="120dp"-->
-<!--            android:layout_height="120dp"-->
-<!--            android:layout_below="@+id/header_cover_image"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:layout_marginTop="60dp"-->
-<!--            android:background="@drawable/profile"-->
-<!--            android:elevation="5dp"-->
-<!--            android:scaleType="center"-->
-<!--            app:civ_border_color="#FFF"-->
-<!--            app:civ_border_width="5dp" />-->
-
-
-
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-
-            android:layout_marginTop="-60dp"
-
             android:layout_marginRight="30dp"
             android:background="#D0F6DB"
             android:elevation="4dp"
@@ -65,7 +46,6 @@
                     android:textColor="#070707"
                     android:textSize="40sp" />
 
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
@@ -77,6 +57,8 @@
                     app:cardElevation="10dp">
 
                     <LinearLayout
+
+
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
@@ -84,22 +66,23 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="15dp"
-
-                            android:src="@drawable/user_profile" />
-
+                            android:layout_marginTop="20dp"
                             android:src="@drawable/icon1" />
 
 
-                        <TextView
+                        <Button
+                            android:id="@+id/profile_details"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginTop="20dp"
-                            android:textStyle="italic"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:text="Profile Details"
+
+                            android:textColor="#0C0000"
                             android:textSize="20sp"
-                            tools:text="Profile Details"/>
+                            android:textStyle="italic" />
 
                     </LinearLayout>
 
@@ -123,37 +106,37 @@
                         <ImageView
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_marginTop="20dp"
                             android:layout_marginLeft="15dp"
-
-                            android:src="@drawable/card" />
-
+                            android:layout_marginTop="20dp"
                             android:src="@drawable/icon2" />
 
-
-                        <TextView
+                        <Button
+                            android:id="@+id/card_details"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginTop="20dp"
-                            android:textStyle="italic"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/white"
+                            android:text="Card Details"
+
+                            android:textColor="#0C0000"
                             android:textSize="20sp"
-                            tools:text="Card Details"/>
+                            android:textStyle="italic" />
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <Button
+                    android:id="@+id/logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="110dp"
                     android:layout_marginTop="20sp"
                     android:background="@android:color/holo_red_dark"
-                    android:textStyle="bold"
-                    android:id="@+id/logout"
+                    android:text="Log out"
                     android:textColor="@android:color/white"
-                    android:text="Log out"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -163,10 +146,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Having troubles? Contact us at abc@gmail.com"
-            android:textStyle="italic"
             android:paddingLeft="25dp"
-            android:textSize="15sp" />
+            android:text="Having troubles? Contact us at abc@gmail.com"
+            android:textSize="15sp"
+            android:textStyle="italic" />
 
     </LinearLayout>
 </LinearLayout>
