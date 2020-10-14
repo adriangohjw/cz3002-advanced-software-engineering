@@ -35,25 +35,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartFragment extends Fragment {
-    int userID;
+    int userID = 8;
     ArrayList<String> productName;
     ArrayList<Integer> price;
     ArrayList<Integer> quantity;
     ListView simpleList;
     TextView itemCount;
     TextView price_count;
-    int length;
+    int total_items = 0;
     int final_price;
+    int product_id;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
-        userID = ((MainActivity2) getActivity()).getUserID();
+        //userID = ((MainActivity2) getActivity()).getUserID();
         //initialise lists
         productName = new ArrayList<String>();
         price = new ArrayList<Integer>();
         quantity = new ArrayList<Integer>();
+        getOrders();
 
         simpleList = (ListView) root.findViewById(R.id.list1);
         itemCount = (TextView) root.findViewById(R.id.total_items1);
@@ -87,10 +89,46 @@ public class ShoppingCartFragment extends Fragment {
             }
         });
 
+        Button clear = root.findViewById(R.id.clear);
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/%1$s/cart",
+                        userID);
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                simpleList.setAdapter(null);
+                                Log.v("Yay", "Yay");
+                                getOrders();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.v("error", "error");
+                    }
+
+
+                });
+                // Add the request to the RequestQueue.
+                RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+            }
+        });
+
+        return root;
+    }
+
+    public void getOrders() {
         //get orders
-//        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/:user_id/cart",
-//                userID);
-        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/3/cart");
+        productName.clear();
+        price.clear();
+        quantity.clear();
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/%1$s/cart",
+                userID);
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -99,27 +137,31 @@ public class ShoppingCartFragment extends Fragment {
                         Log.v("Yay", "Yay");
                         try {
                             JSONObject jsonObj = new JSONObject(response);
+                            Log.wtf("json", String.valueOf(jsonObj));
                             //Log.v("response", response);
                             final_price = jsonObj.getInt("total_discounted_cart_amount");
                             JSONArray ja_data = jsonObj.getJSONArray("cart_products");
-                            length = ja_data.length();
-                            for(int i=0; i<length; i++) {
+                            int length = ja_data.length();
+                            for (int i = 0; i < length; i++) {
                                 JSONObject orderjsonObj = ja_data.getJSONObject(i);
                                 //Log.v("object", String.valueOf(orderjsonObj));
+                                product_id = orderjsonObj.getInt("id");
+                                Log.wtf("product id", Integer.toString(product_id));
                                 int quantity_var = orderjsonObj.getInt("quantity");
+                                total_items += quantity_var;
                                 quantity.add(quantity_var);
                                 int price_var = orderjsonObj.getInt("total_discounted_price");
                                 price.add(price_var);
                                 JSONObject detailsJObject = orderjsonObj.getJSONObject("product");
                                 //Log.wtf("details", String.valueOf(detailsJObject));
-                                String name_var  = detailsJObject.getString("name");
+                                String name_var = detailsJObject.getString("name");
                                 productName.add(name_var);
                             }
-                            if (getActivity()!=null) {
-                                CartAdapter cartAdapter = new CartAdapter(getActivity().getApplicationContext(), productName, price, quantity);
+                            if (getActivity() != null) {
+                                CartAdapter cartAdapter = new CartAdapter(getActivity().getApplicationContext(), productName, price, quantity, product_id, userID);
                                 simpleList.setAdapter(cartAdapter);
 
-                                itemCount.setText(String.valueOf(length));
+                                itemCount.setText(String.valueOf(total_items));
                                 price_count.setText(String.valueOf(final_price));
                             }
                         } catch (JSONException e) {
@@ -129,12 +171,10 @@ public class ShoppingCartFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.v("error" , "error");
+                Log.v("error", "error");
             }
         });
         // Add the request to the RequestQueue.
         RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
-
-        return root;
     }
 }

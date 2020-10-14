@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_cart"
-        android:name="com.example.scansmart.ui.cart.CartFragment"
+        android:name="com.example.scansmart.ui.cart.ShoppingCartFragment"
         android:label="@string/title_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_shopping_cart" />
 
     <fragment
         android:id="@+id/navigation_history"

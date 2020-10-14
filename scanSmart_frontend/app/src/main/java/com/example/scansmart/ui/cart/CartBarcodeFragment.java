@@ -162,8 +162,7 @@ public class CartBarcodeFragment extends Fragment {
                             intentData = barcodes.valueAt(0).displayValue;
                             //displays value of qr code in a runnable because barcodes are detected in a background thread
                             txtBarcodeValue.setText(intentData);
-                            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/movements/?user_id=%1$s&store_id=%2$s&movement_type=Entry",
-                                    userID,
+                            String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/products/%1$s",
                                     intentData);
                             // Request a string response from the provided URL.
                             StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
@@ -171,6 +170,14 @@ public class CartBarcodeFragment extends Fragment {
                                         @Override
                                         public void onResponse(String response) {
                                             Log.v("Yay", "Yay");
+                                            try {
+                                                JSONObject obj = new JSONObject(response);
+                                                int productID = Integer.parseInt(obj.getString("id"));
+                                                //add item to shopping cart
+                                                addItem(productID);
+                                            } catch (JSONException e) {
+                                                Log.v("cmi", "cmi lah");
+                                            }
                                         }
                                     }, new Response.ErrorListener() {
                                 @Override
@@ -186,6 +193,7 @@ public class CartBarcodeFragment extends Fragment {
             }
         });
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -196,6 +204,37 @@ public class CartBarcodeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         initialiseDetectorsAndSources();
+    }
+
+    public void addItem(int productID){
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products?shopper_id=%1$s&product_id=%2$s",
+                userID,
+                productID);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.v("Yay", "Yay");
+                        //go back to shopping cart
+                        Fragment fragment = new ShoppingCartFragment();
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_cartbarcode, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error" , "error");
+            }
+
+
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
     }
 }
 
