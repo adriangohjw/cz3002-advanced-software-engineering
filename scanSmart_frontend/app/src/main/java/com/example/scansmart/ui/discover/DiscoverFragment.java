@@ -34,15 +34,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.scansmart.R;
 
-public class DiscoverFragment extends Fragment {
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.fragment_discover, container, false);
-        return root;
-    }
-}
+import java.util.List;
 
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -52,7 +44,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.scansmart.R;
 import com.example.scansmart.ui.ProductResult;
 import com.example.scansmart.ui.RestClient;
-import com.example.scansmart.ui.cart.CartViewModel;
+
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
