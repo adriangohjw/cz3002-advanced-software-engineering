@@ -75,9 +75,9 @@ public class CartFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        container.removeAllViews();
         View root = inflater.inflate(R.layout.fragment_cart, container, false);
-//        userID = ((MainActivity2) getActivity()).getUserID();
-        userID = 1;
+        userID = ((MainActivity2) getActivity()).getUserID();
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView);
         btnAction = root.findViewById(R.id.btnAction);
@@ -175,7 +175,7 @@ public class CartFragment extends Fragment {
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String response) {
-                                            Log.v("Yay", "Yay");
+//                                            Log.v("Yay", "Yay");
                                             //move to another fragment
                                             Fragment fragment = new ShoppingCartFragment();
                                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

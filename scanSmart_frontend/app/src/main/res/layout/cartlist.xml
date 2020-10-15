@@ -55,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/productName"
         android:orientation="vertical"
+        android:paddingLeft="10dp"
         android:paddingTop="20dp">
 
         <ImageButton

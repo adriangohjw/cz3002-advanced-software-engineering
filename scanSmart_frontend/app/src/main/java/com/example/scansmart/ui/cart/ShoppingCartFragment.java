@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartFragment extends Fragment {
-    int userID = 8;
+    int userID;
     ArrayList<String> productName;
     ArrayList<Integer> price;
     ArrayList<Integer> quantity;
@@ -49,13 +49,62 @@ public class ShoppingCartFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        container.removeAllViews();
         View root = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
-        //userID = ((MainActivity2) getActivity()).getUserID();
+        userID = ((MainActivity2) getActivity()).getUserID();
         //initialise lists
         productName = new ArrayList<String>();
         price = new ArrayList<Integer>();
         quantity = new ArrayList<Integer>();
-        getOrders();
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/%1$s/cart",
+                userID);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.v("Yay", "Yay");
+                        try {
+                            JSONObject jsonObj = new JSONObject(response);
+                            Log.wtf("json", String.valueOf(jsonObj));
+                            //Log.v("response", response);
+                            final_price = jsonObj.getInt("total_discounted_cart_amount");
+                            JSONArray ja_data = jsonObj.getJSONArray("cart_products");
+                            int length = ja_data.length();
+                            for (int i = 0; i < length; i++) {
+                                JSONObject orderjsonObj = ja_data.getJSONObject(i);
+                                //Log.v("object", String.valueOf(orderjsonObj));
+                                product_id = orderjsonObj.getInt("id");
+                                Log.wtf("product id", Integer.toString(product_id));
+                                int quantity_var = orderjsonObj.getInt("quantity");
+                                total_items += quantity_var;
+                                quantity.add(quantity_var);
+                                int price_var = orderjsonObj.getInt("total_discounted_price");
+                                price.add(price_var);
+                                JSONObject detailsJObject = orderjsonObj.getJSONObject("product");
+                                //Log.wtf("details", String.valueOf(detailsJObject));
+                                String name_var = detailsJObject.getString("name");
+                                productName.add(name_var);
+                            }
+                            if (getActivity() != null) {
+                                CartAdapter cartAdapter = new CartAdapter(getActivity().getApplicationContext(), productName, price, quantity, product_id, userID);
+                                simpleList.setAdapter(cartAdapter);
+
+                                itemCount.setText(String.valueOf(total_items));
+                                price_count.setText(String.valueOf(final_price));
+                            }
+                        } catch (JSONException e) {
+                            Log.v("cmi", "cmi lah");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error", "error");
+            }
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
 
         simpleList = (ListView) root.findViewById(R.id.list1);
         itemCount = (TextView) root.findViewById(R.id.total_items1);
@@ -77,18 +126,6 @@ public class ShoppingCartFragment extends Fragment {
 
         Button check_out = root.findViewById(R.id.check_out);
 
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new CartBarcodeFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.shopping_cart, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
         Button clear = root.findViewById(R.id.clear);
 
         clear.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +142,8 @@ public class ShoppingCartFragment extends Fragment {
                                 simpleList.setAdapter(null);
                                 Log.v("Yay", "Yay");
                                 getOrders();
+                                itemCount.setText(String.valueOf(0));
+                                price_count.setText(String.valueOf(0));
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -127,6 +166,7 @@ public class ShoppingCartFragment extends Fragment {
         productName.clear();
         price.clear();
         quantity.clear();
+        total_items = 0;
         String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/%1$s/cart",
                 userID);
         // Request a string response from the provided URL.

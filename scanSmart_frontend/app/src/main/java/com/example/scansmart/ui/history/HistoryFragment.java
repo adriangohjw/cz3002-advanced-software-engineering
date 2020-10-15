@@ -53,9 +53,8 @@ public class HistoryFragment extends Fragment {
         itemCount = (TextView) root.findViewById(R.id.total_items);
 
         //get orders
-//        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/%1$s/orders",
-//                userID);
-        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/2/orders");
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/%1$s/orders",
+                userID);
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

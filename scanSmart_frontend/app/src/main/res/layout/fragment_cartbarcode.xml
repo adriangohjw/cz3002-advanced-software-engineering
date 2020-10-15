@@ -37,7 +37,8 @@
                     android:layout_height="300dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
-                    android:src="@drawable/barcode" />
+                    android:src="@drawable/barcode1"
+                    android:alpha="0.6"/>
 
                 <TextView
                     android:id="@+id/textView"
