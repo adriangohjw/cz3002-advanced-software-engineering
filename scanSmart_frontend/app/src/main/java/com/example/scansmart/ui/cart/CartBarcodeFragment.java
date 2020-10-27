@@ -69,7 +69,7 @@ public class CartBarcodeFragment extends Fragment {
     ImageButton btnAction;
     String intentData = "";
     boolean goNext;
-    int userID=2;
+    int userID;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -77,7 +77,7 @@ public class CartBarcodeFragment extends Fragment {
 
         container.removeAllViews();
         View root = inflater.inflate(R.layout.fragment_cartbarcode, container, false);
-        //userID = ((MainActivity2) getActivity()).getUserID();
+        userID = ((MainActivity2) getActivity()).getUserID();
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView1);
         btnAction = root.findViewById(R.id.btnAction);

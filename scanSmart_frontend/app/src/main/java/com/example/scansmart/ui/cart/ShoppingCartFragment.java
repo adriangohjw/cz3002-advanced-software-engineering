@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartFragment extends Fragment implements CartAdapter.EventListener {
-    int userID = 2;
+    int userID ;
     ArrayList<String> productName;
     ArrayList<Integer> price;
     ArrayList<Integer> quantity;
@@ -52,7 +52,7 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
 
         container.removeAllViews();
         View root = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
-        //userID = ((MainActivity2) getActivity()).getUserID();
+        userID = ((MainActivity2) getActivity()).getUserID();
         //initialise lists
         productName = new ArrayList<String>();
         price = new ArrayList<Integer>();
