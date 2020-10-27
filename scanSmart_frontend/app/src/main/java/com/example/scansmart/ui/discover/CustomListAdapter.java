@@ -47,11 +47,14 @@ public class CustomListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) v.getTag();
         }
+
         holder.uName.setText(listData.get(position).getName());
         holder.uDiscPrice.setText(listData.get(position).getDiscounted_price());
         holder.uPrice.setText(listData.get(position).getPrice());
-        if (listData.get(position).getDiscounted_price()!=null )
-        {holder.uPrice.setPaintFlags(holder.uPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);}
+        if (listData.get(position).getDiscounted_price()!=null)
+        {holder.uPrice.setPaintFlags(holder.uPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.uPrice.setText("original price");
+        }
         //holder.uProdImage.setImageResource(listData.get(position).getImageUrl());
         holder.uProdImage.setImageResource(R.drawable.icon1);
 

@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment  {
                 email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
                 if (validateInputs()) {
-                   // saveUser(user);
+                   saveUser(user);
                     loginUser(email,password);
 
                     //Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
@@ -86,16 +86,18 @@ public class LoginFragment extends Fragment  {
         });
         return root;
     }
-/*
+
     private void saveUser(User user) {
         SharedPreferences preferences = getContext().getSharedPreferences("loginPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("name", user.getUsername());
         editor.putString("email", user.getEmail());
         editor.putString("password", user.getPassword());
+        editor.putString("stripe_customer_identifier", String.valueOf(user.getStripe_customer_identifier()));
         editor.apply();
+
     }
-*/
+
 
     private void loginUser (String email,String password) {
 
@@ -121,7 +123,7 @@ public class LoginFragment extends Fragment  {
                         //startActivity(new Intent(getContext(), MainActivity2.class));
                         //getActivity().finish();
                     } else if(userResult.getCode()!=200) {
-                        Log.v("congrats","sarcastic");
+
                         a=0;
                         Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(nextIntent);

@@ -1,22 +1,15 @@
 package com.example.scansmart;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 
-
-import com.example.scansmart.ui.CustomToast;
 import com.example.scansmart.ui.RestClient;
 import com.example.scansmart.ui.User;
 import com.example.scansmart.ui.UserResult;
-import com.example.scansmart.ui.account.ProfileFragment;
 import com.google.gson.Gson;
 
 import android.util.Log;
@@ -63,11 +56,6 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_register, container, false);
-
-
-
-
-
         etUsername = root.findViewById(R.id.et_name);
         etPassword = root.findViewById(R.id.et_password);
         etConfirmPassword = root.findViewById(R.id.et_repassword);
@@ -87,8 +75,6 @@ public class RegisterFragment extends Fragment {
                 if (validateInputs()) {
                     user = new User(name,email,password);
                     registerUser(user);
-
-
                 }
 
             }

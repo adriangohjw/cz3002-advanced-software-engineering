@@ -46,6 +46,17 @@
                     android:textColor="#070707"
                     android:textSize="40sp" />
 
+                <Button
+                    android:id="@+id/checkout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginTop="20sp"
+                    android:background="@android:color/holo_red_dark"
+                    android:text="checkout"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
@@ -55,6 +66,9 @@
                     android:layout_marginBottom="7dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="10dp">
+
+
+
 
                     <LinearLayout
 
@@ -72,7 +86,7 @@
 
 
                         <Button
-                            android:id="@+id/profile_details"
+                            android:id="@+id/btn_profile_details"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="15dp"
@@ -111,9 +125,9 @@
                             android:src="@drawable/icon2" />
 
                         <Button
-                            android:id="@+id/card_details"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_card_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="10dp"
                             android:background="@color/white"
@@ -130,7 +144,7 @@
                 <Button
                     android:id="@+id/logout"
                     android:layout_width="match_parent"
-                    android:layout_height="match-parent"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="110dp"
                     android:layout_marginTop="20sp"
                     android:background="@android:color/holo_red_dark"
