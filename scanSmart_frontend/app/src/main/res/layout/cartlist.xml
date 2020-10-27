@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:padding="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
         android:layout_width="90dp"
@@ -59,10 +60,11 @@
         android:paddingTop="20dp">
 
         <ImageButton
-            android:id="@+id/plus"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@drawable/plus" />
+            android:id="@+id/increase"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/plus"
+            android:focusable="false"/>
 
         <TextView
             android:id="@+id/quantity"
@@ -73,12 +75,13 @@
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/minus"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:id="@+id/decrease"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/minus"
-            android:text="Button" />
+            android:text="Button"
+            android:focusable="false"/>
 
     </LinearLayout>
 

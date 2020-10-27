@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,8 +35,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingCartFragment extends Fragment {
-    int userID;
+public class ShoppingCartFragment extends Fragment implements CartAdapter.EventListener {
+    int userID = 2;
     ArrayList<String> productName;
     ArrayList<Integer> price;
     ArrayList<Integer> quantity;
@@ -44,18 +45,19 @@ public class ShoppingCartFragment extends Fragment {
     TextView price_count;
     int total_items = 0;
     int final_price;
-    int product_id;
+    ArrayList<Integer> productId;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         container.removeAllViews();
         View root = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
-        userID = ((MainActivity2) getActivity()).getUserID();
+        //userID = ((MainActivity2) getActivity()).getUserID();
         //initialise lists
         productName = new ArrayList<String>();
         price = new ArrayList<Integer>();
         quantity = new ArrayList<Integer>();
+        productId = new ArrayList<Integer>();
         String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/%1$s/cart",
                 userID);
         // Request a string response from the provided URL.
@@ -74,7 +76,8 @@ public class ShoppingCartFragment extends Fragment {
                             for (int i = 0; i < length; i++) {
                                 JSONObject orderjsonObj = ja_data.getJSONObject(i);
                                 //Log.v("object", String.valueOf(orderjsonObj));
-                                product_id = orderjsonObj.getInt("id");
+                                int product_id = orderjsonObj.getInt("id");
+                                productId.add(product_id);
                                 Log.wtf("product id", Integer.toString(product_id));
                                 int quantity_var = orderjsonObj.getInt("quantity");
                                 total_items += quantity_var;
@@ -87,9 +90,7 @@ public class ShoppingCartFragment extends Fragment {
                                 productName.add(name_var);
                             }
                             if (getActivity() != null) {
-                                CartAdapter cartAdapter = new CartAdapter(getActivity().getApplicationContext(), productName, price, quantity, product_id, userID);
-                                simpleList.setAdapter(cartAdapter);
-
+                                setCartAdapter();
                                 itemCount.setText(String.valueOf(total_items));
                                 price_count.setText(String.valueOf(final_price));
                             }
@@ -161,6 +162,62 @@ public class ShoppingCartFragment extends Fragment {
         return root;
     }
 
+    public void onEvent(int productId, boolean increase) {
+        if (increase){
+            increaseItem(productId);
+        }else{
+            decreaseItem(productId);
+        }
+        //refresh fragment
+        ShoppingCartFragment fragment = new ShoppingCartFragment();
+        getFragmentManager().beginTransaction().replace(R.id.shopping_cart, fragment).commit();
+    }
+
+    public void increaseItem(int productId){
+        Log.wtf("id", Integer.toString(productId));
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products/%1$s/increase",
+                productId);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.wtf("increased", "item increased");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.wtf("error", "error");
+            }
+
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+    public void decreaseItem(int productId){
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products/%1$s/decrease",
+                productId);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.v("Yay", "Yay");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error", "error");
+            }
+
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
     public void getOrders() {
         //get orders
         productName.clear();
@@ -177,7 +234,7 @@ public class ShoppingCartFragment extends Fragment {
                         Log.v("Yay", "Yay");
                         try {
                             JSONObject jsonObj = new JSONObject(response);
-                            Log.wtf("json", String.valueOf(jsonObj));
+                            //Log.wtf("json", String.valueOf(jsonObj));
                             //Log.v("response", response);
                             final_price = jsonObj.getInt("total_discounted_cart_amount");
                             JSONArray ja_data = jsonObj.getJSONArray("cart_products");
@@ -185,8 +242,9 @@ public class ShoppingCartFragment extends Fragment {
                             for (int i = 0; i < length; i++) {
                                 JSONObject orderjsonObj = ja_data.getJSONObject(i);
                                 //Log.v("object", String.valueOf(orderjsonObj));
-                                product_id = orderjsonObj.getInt("id");
-                                Log.wtf("product id", Integer.toString(product_id));
+                                int product_id = orderjsonObj.getInt("id");
+                                //Log.wtf("product id", Integer.toString(product_id));
+                                productId.add(product_id);
                                 int quantity_var = orderjsonObj.getInt("quantity");
                                 total_items += quantity_var;
                                 quantity.add(quantity_var);
@@ -198,8 +256,7 @@ public class ShoppingCartFragment extends Fragment {
                                 productName.add(name_var);
                             }
                             if (getActivity() != null) {
-                                CartAdapter cartAdapter = new CartAdapter(getActivity().getApplicationContext(), productName, price, quantity, product_id, userID);
-                                simpleList.setAdapter(cartAdapter);
+                                setCartAdapter();
 
                                 itemCount.setText(String.valueOf(total_items));
                                 price_count.setText(String.valueOf(final_price));
@@ -216,5 +273,10 @@ public class ShoppingCartFragment extends Fragment {
         });
         // Add the request to the RequestQueue.
         RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+    public void setCartAdapter(){
+        final CartAdapter cartAdapter = new CartAdapter(getActivity().getApplicationContext(), productName, price, quantity, productId, userID, this);
+        simpleList.setAdapter(cartAdapter);
     }
 }

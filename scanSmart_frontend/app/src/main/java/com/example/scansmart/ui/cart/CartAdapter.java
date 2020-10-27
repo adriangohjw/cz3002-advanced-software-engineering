@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,25 +31,31 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EventListener;
 import java.util.zip.Inflater;
 
 public class CartAdapter extends BaseAdapter {
     Context context;
-    ViewGroup vgr;
     ArrayList<String> productName;
     ArrayList<Integer> price;
     ArrayList<Integer> quantity;
-    int productID;
+    ArrayList<Integer> productId;
     int userID;
     LayoutInflater inflter;
+    EventListener listener;
 
-    public CartAdapter(Context applicationContext, ArrayList<String> productName, ArrayList<Integer> price, ArrayList<Integer> quantity, int productID, int userID) {
+    public interface EventListener {
+        void onEvent(int productId, boolean increase);
+    }
+
+    public CartAdapter(Context applicationContext, ArrayList<String> productName, ArrayList<Integer> price, ArrayList<Integer> quantity, ArrayList<Integer> productId, int userID, EventListener listener) {
         this.context = context;
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
-        this.productID = productID;
+        this.productId = productId;
         this.userID = userID;
+        this.listener = listener;
         inflter = (LayoutInflater.from(applicationContext));
 
     }
@@ -70,47 +77,17 @@ public class CartAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View v, ViewGroup vg) {
-        ViewHolder holder;
-        vgr = vg;
+        final ViewHolder holder;
 
         if (v == null) {
             v = inflter.inflate(R.layout.cartlist, null);
-
-            //Handle buttons and add onClickListeners
-            Button add= (Button)v.findViewById(R.id.add);
-
-//            add.setOnClickListener(new View.OnClickListener(){
-//                @Override
-//                public void onClick(View v) {
-//                    //do something
-//                    String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products?shopper_id=%1$s&product_id=%2$s",
-//                            userID,
-//                            productID);
-//                    // Request a string response from the provided URL.
-//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-//                            new Response.Listener<String>() {
-//                                @Override
-//                                public void onResponse(String response) {
-//                                    // Display the first 500 characters of the response string.
-//                                    Log.v("Yay", "Yay");
-//                                }
-//                            }, new Response.ErrorListener() {
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            Log.v("error", "error");
-//                        }
-//
-//                    });
-//                    // Add the request to the RequestQueue.
-//                    RequestSingleton.getInstance(vgr.getActivity()).addToRequestQueue(stringRequest);
-//                }
-//
-//            });
 
             holder = new ViewHolder();
             holder.productName_tv = (TextView) v.findViewById(R.id.productName);
             holder.price_tv = (TextView) v.findViewById(R.id.price);
             holder.quantity_tv  = (TextView) v.findViewById(R.id.quantity);
+            holder.plus = (ImageButton) v.findViewById(R.id.increase);
+            holder.minus= (ImageButton) v.findViewById(R.id.decrease);
             v.setTag(holder);
         } else {
             holder = (ViewHolder) v.getTag();
@@ -118,6 +95,34 @@ public class CartAdapter extends BaseAdapter {
         holder.productName_tv.setText(productName.get(position));
         holder.price_tv.setText(Integer.toString(price.get(position)));
         holder.quantity_tv.setText(Integer.toString(quantity.get(position)));
+        holder.productId = productId.get(position);
+
+        //Handle buttons and add onClickListeners
+        holder.plus.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //do something
+                Log.wtf("plus", "plus clicked");
+                Log.wtf("product ID", Integer.toString(holder.productId));
+                listener.onEvent(holder.productId, true);
+            }
+
+        });
+
+        if (quantity.get(position) > 0){
+            holder.minus.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    //do something
+                    Log.wtf("minus clicked", "minus clicked");
+                    listener.onEvent(holder.productId, false);
+                }
+            });
+        }else{
+            holder.minus.setAlpha(.5f);
+            holder.minus.setClickable(false);
+        }
+
 
         return v;
     }
@@ -125,8 +130,10 @@ public class CartAdapter extends BaseAdapter {
         TextView productName_tv;
         TextView price_tv;
         TextView quantity_tv;
+        ImageButton plus;
+        ImageButton minus;
+        int productId;
     }
-
 }
 
 
