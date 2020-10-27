@@ -1,3 +1,4 @@
+
 package com.example.scansmart;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,9 +83,6 @@ public class CheckoutActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         System.out.println("SUCCESS");
 
-
-
-
                     }
                 },
                         new Response.ErrorListener() {
@@ -148,3 +146,4 @@ public class CheckoutActivity extends AppCompatActivity {
 
     }
 }
+

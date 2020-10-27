@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.scansmart.MainActivity2;
 import com.example.scansmart.R;
 import com.example.scansmart.ViewCardActivity;
+import com.example.scansmart.profiledetailsActivity;
 import com.example.scansmart.ui.cart.ShoppingCartFragment;
 
 public class AccountFragment extends Fragment {
@@ -43,13 +44,9 @@ public class AccountFragment extends Fragment {
         prof_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("clicked","profile");
-                Fragment fragment = new ProfileFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.tv_account, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+
+                    Intent nextIntent = new Intent(getActivity(), profiledetailsActivity.class);
+                    startActivity(nextIntent);
 
             }
         });

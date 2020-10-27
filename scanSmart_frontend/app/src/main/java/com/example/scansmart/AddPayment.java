@@ -1,3 +1,4 @@
+
 package com.example.scansmart;
 
 import android.content.Intent;
@@ -11,6 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.stripe.android.ApiResultCallback;
 import com.stripe.android.Stripe;
 import com.stripe.android.model.Token;
@@ -66,6 +71,7 @@ public class AddPayment  extends AppCompatActivity {
                 new ApiResultCallback<Token>() {
                     public void onSuccess(Token token) {
 
+
                         // Send token to your server
                         Log.e("Stripe Token", token.getId());
                         Intent intent = new Intent();
@@ -73,6 +79,11 @@ public class AddPayment  extends AppCompatActivity {
                         intent.putExtra("stripe_token",token.getId());
                         //intent.putExtra("donationInfo", extras);
                         intent.putExtra("cardtype",token.getCard().getBrand());
+
+
+                       // String createcardURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/:id" + token.getCard().getId();
+                       // RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                       // StringRequest stringRequest =  new StringRequest(Request.Method.POST, createcardURL,
 
                         setResult(0077,intent);
                         //return token.getId();
@@ -105,3 +116,5 @@ public class AddPayment  extends AppCompatActivity {
 
 
 }
+
+

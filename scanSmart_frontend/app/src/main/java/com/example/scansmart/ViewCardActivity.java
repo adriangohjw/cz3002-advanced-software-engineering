@@ -1,3 +1,4 @@
+
 package com.example.scansmart;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -129,3 +130,4 @@ public class ViewCardActivity extends AppCompatActivity {
 
 
 }
+

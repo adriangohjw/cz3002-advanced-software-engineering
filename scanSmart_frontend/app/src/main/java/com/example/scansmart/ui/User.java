@@ -22,6 +22,10 @@ public class User {
         this.email = email;
         this.password = password;
     }
+    public String getUsername1(String email, String password){
+        return name;
+
+    }
 
 
     public String getStripe_customer_identifier() {return stripe_customer_identifier;}

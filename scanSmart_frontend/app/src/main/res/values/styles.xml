@@ -12,8 +12,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.MaterialButton" parent="AppTheme">
-        <item name="colorButtonNormal">@color/colorPrimaryDark</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
-    </style>
 </resources>

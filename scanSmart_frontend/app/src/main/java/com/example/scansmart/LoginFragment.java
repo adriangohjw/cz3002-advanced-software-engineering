@@ -1,6 +1,7 @@
 package com.example.scansmart;
 import android.app.Activity;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -41,7 +42,7 @@ public class LoginFragment extends Fragment  {
     Gson gson = new Gson();
     View progress;
     String userString;
-    User user;
+    User user = new User();
     int a =1;
 
 
@@ -75,7 +76,7 @@ public class LoginFragment extends Fragment  {
                 email = etEmail.getText().toString();
                 password = etPassword.getText().toString();
                 if (validateInputs()) {
-                   saveUser(user);
+                    saveUser();
                     loginUser(email,password);
 
                     //Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
@@ -87,13 +88,16 @@ public class LoginFragment extends Fragment  {
         return root;
     }
 
-    private void saveUser(User user) {
+    private void saveUser() {
         SharedPreferences preferences = getContext().getSharedPreferences("loginPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("name", user.getUsername());
-        editor.putString("email", user.getEmail());
-        editor.putString("password", user.getPassword());
-        editor.putString("stripe_customer_identifier", String.valueOf(user.getStripe_customer_identifier()));
+        //editor.putString("name", name);
+        editor.putString("email", email);
+        editor.putString("password", password);
+        System.out.println("name is");
+        System.out.println(preferences.getString("name","0"));
+
+        //editor.putString("stripe_customer_identifier", String.valueOf(user.getStripe_customer_identifier()));
         editor.apply();
 
     }
@@ -116,8 +120,9 @@ public class LoginFragment extends Fragment  {
                     { if(userResult.getCode() == 200) {
                         Log.v("ok","great");
                        a=1;
+
                         Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
-                        startActivity(nextIntent);
+                       startActivity(nextIntent);
 
                         //Toast.makeText(getContext(), userResult.getStatus(), Toast.LENGTH_LONG).show();
                         //startActivity(new Intent(getContext(), MainActivity2.class));
@@ -125,6 +130,7 @@ public class LoginFragment extends Fragment  {
                     } else if(userResult.getCode()!=200) {
 
                         a=0;
+
                         Intent nextIntent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(nextIntent);
 

@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.scansmart"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -62,6 +62,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation "androidx.cardview:cardview:1.0.0"
+
 
 
 

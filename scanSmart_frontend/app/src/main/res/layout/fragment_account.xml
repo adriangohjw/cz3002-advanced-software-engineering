@@ -46,16 +46,6 @@
                     android:textColor="#070707"
                     android:textSize="40sp" />
 
-                <Button
-                    android:id="@+id/checkout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="110dp"
-                    android:layout_marginTop="20sp"
-                    android:background="@android:color/holo_red_dark"
-                    android:text="checkout"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
