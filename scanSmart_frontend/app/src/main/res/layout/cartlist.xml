@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/productName"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
+        android:paddingLeft="5dp"
         android:paddingTop="20dp">
 
         <ImageButton
@@ -64,11 +64,11 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/plus"
-            android:focusable="false"/>
+            android:focusable="false" />
 
         <TextView
             android:id="@+id/quantity"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:text="2"
             android:textColor="#000000"
@@ -81,7 +81,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/minus"
             android:text="Button"
-            android:focusable="false"/>
+            android:focusable="false" />
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,8 @@ import java.util.EventListener;
 import java.util.zip.Inflater;
 
 public class CartAdapter extends BaseAdapter {
+
+    private long mLastClickTime = 0;
     Context context;
     ArrayList<String> productName;
     ArrayList<Integer> price;
@@ -101,9 +104,14 @@ public class CartAdapter extends BaseAdapter {
         holder.plus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                // mis-clicking prevention, using threshold of 1000 ms
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 //do something
                 Log.wtf("plus", "plus clicked");
-                Log.wtf("product ID", Integer.toString(holder.productId));
+                Log.wtf("product ID added", Integer.toString(holder.productId));
                 listener.onEvent(holder.productId, true, false);
             }
 
@@ -113,8 +121,14 @@ public class CartAdapter extends BaseAdapter {
             holder.minus.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
+                    // mis-clicking prevention, using threshold of 1000 ms
+                    if (SystemClock.elapsedRealtime() - mLastClickTime < 2000){
+                        return;
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
                     //do something
                     Log.wtf("minus clicked", "minus clicked");
+                    Log.wtf("product ID minus", Integer.toString(holder.productId));
                     listener.onEvent(holder.productId, false, false);
                 }
             });

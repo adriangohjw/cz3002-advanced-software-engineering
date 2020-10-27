@@ -33,10 +33,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ShoppingCartFragment extends Fragment implements CartAdapter.EventListener {
-    int userID ;
+    int userID;
     ArrayList<String> productName;
     ArrayList<Integer> price;
     ArrayList<Integer> quantity;
@@ -127,6 +129,7 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
 
         Button check_out = root.findViewById(R.id.check_out);
 
+
         Button clear = root.findViewById(R.id.clear);
 
         clear.setOnClickListener(new View.OnClickListener() {
@@ -172,9 +175,6 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
                 decreaseItem(productId);
             }
         }
-        //refresh fragment
-        ShoppingCartFragment fragment = new ShoppingCartFragment();
-        getFragmentManager().beginTransaction().replace(R.id.shopping_cart, fragment).commit();
     }
 
     public void increaseItem(int productId){
@@ -188,6 +188,9 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.wtf("increased", "item increased");
+                        //refresh fragment
+                        ShoppingCartFragment fragment = new ShoppingCartFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.shopping_cart, fragment).commit();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -210,6 +213,9 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.v("Yay", "Yay");
+                        //refresh fragment
+                        ShoppingCartFragment fragment = new ShoppingCartFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.shopping_cart, fragment).commit();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -232,6 +238,9 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.v("Yay", "Yay");
+                        //refresh fragment
+                        ShoppingCartFragment fragment = new ShoppingCartFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.shopping_cart, fragment).commit();
                     }
                 }, new Response.ErrorListener() {
             @Override
