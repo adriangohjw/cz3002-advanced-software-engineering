@@ -162,11 +162,15 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
         return root;
     }
 
-    public void onEvent(int productId, boolean increase) {
+    public void onEvent(int productId, boolean increase, boolean isZero) {
         if (increase){
             increaseItem(productId);
         }else{
-            decreaseItem(productId);
+            if (isZero){
+                deleteItem(productId);
+            }else {
+                decreaseItem(productId);
+            }
         }
         //refresh fragment
         ShoppingCartFragment fragment = new ShoppingCartFragment();
@@ -189,6 +193,28 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.wtf("error", "error");
+            }
+
+        });
+        // Add the request to the RequestQueue.
+        RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+    }
+
+    public void deleteItem(int productId){
+        String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products/%1$s",
+                productId);
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.DELETE, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.v("Yay", "Yay");
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("error", "error");
             }
 
         });

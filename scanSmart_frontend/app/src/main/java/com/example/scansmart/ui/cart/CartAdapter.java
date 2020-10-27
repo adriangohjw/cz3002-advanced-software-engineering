@@ -45,7 +45,7 @@ public class CartAdapter extends BaseAdapter {
     EventListener listener;
 
     public interface EventListener {
-        void onEvent(int productId, boolean increase);
+        void onEvent(int productId, boolean increase, boolean isZero);
     }
 
     public CartAdapter(Context applicationContext, ArrayList<String> productName, ArrayList<Integer> price, ArrayList<Integer> quantity, ArrayList<Integer> productId, int userID, EventListener listener) {
@@ -104,7 +104,7 @@ public class CartAdapter extends BaseAdapter {
                 //do something
                 Log.wtf("plus", "plus clicked");
                 Log.wtf("product ID", Integer.toString(holder.productId));
-                listener.onEvent(holder.productId, true);
+                listener.onEvent(holder.productId, true, false);
             }
 
         });
@@ -115,10 +115,12 @@ public class CartAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     //do something
                     Log.wtf("minus clicked", "minus clicked");
-                    listener.onEvent(holder.productId, false);
+                    listener.onEvent(holder.productId, false, false);
                 }
             });
         }else{
+            //delete item
+            listener.onEvent(holder.productId, false, true);
             holder.minus.setAlpha(.5f);
             holder.minus.setClickable(false);
         }
