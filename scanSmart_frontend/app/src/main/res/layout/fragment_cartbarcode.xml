@@ -75,7 +75,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/store_id"
+                    android:id="@+id/product_id"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
@@ -86,7 +86,7 @@
                     android:textSize="15sp" />
 
                 <ImageButton
-                    android:id="@+id/btnAction"
+                    android:id="@+id/btnAction1"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:text="Button"

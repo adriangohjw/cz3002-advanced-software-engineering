@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -22,6 +24,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.scansmart.MainActivity2;
 import com.example.scansmart.R;
 import com.example.scansmart.RequestSingleton;
+import com.example.scansmart.ui.cart.CartAdapter;
+import com.example.scansmart.ui.cart.ShoppingCartFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,11 +34,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements HistoryList.EventListener {
     int userID;
     ArrayList<String> dateTime;
     ArrayList<String> store;
     ArrayList<Integer> item;
+    ArrayList<Integer> historyId;
     ListView simpleList;
     TextView itemCount;
     int length;
@@ -48,6 +53,7 @@ public class HistoryFragment extends Fragment {
         dateTime = new ArrayList<String>();
         store = new ArrayList<String>();
         item = new ArrayList<Integer>();
+        historyId = new ArrayList<Integer>();
 
         simpleList = (ListView) root.findViewById(R.id.list);
         itemCount = (TextView) root.findViewById(R.id.total_items);
@@ -69,6 +75,8 @@ public class HistoryFragment extends Fragment {
                             for(int i=0; i<length; i++) {
                                 JSONObject orderjsonObj = ja_data.getJSONObject(i);
                                 //Log.v("object", String.valueOf(orderjsonObj));
+                                Integer id_var  = orderjsonObj.getInt("id");
+                                historyId.add(id_var);
                                 JSONObject detailsJObject = orderjsonObj.getJSONObject("details");
                                 //Log.wtf("details", String.valueOf(detailsJObject));
                                 String dateTime_var  = detailsJObject.getString("created_at");
@@ -83,8 +91,7 @@ public class HistoryFragment extends Fragment {
                             }
                             if (getActivity()!=null) {
                                 //Log.wtf("dateTime", String.valueOf(dateTime));
-                                HistoryList historyList = new HistoryList(getActivity().getApplicationContext(), dateTime, store, item);
-                                simpleList.setAdapter(historyList);
+                                setAdapter();
 
                                 itemCount.setText(String.valueOf(length));
                             }
@@ -102,5 +109,23 @@ public class HistoryFragment extends Fragment {
         RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
 
         return root;
+    }
+
+    public void onEvent(int historyId) {
+        //move to another fragment
+        Bundle i = new Bundle();
+        i.putString("historyId", Integer.toString(historyId));
+        Fragment fragment = new IndividualHistoryFragment();
+        fragment.setArguments(i);
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_history, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void setAdapter(){
+        HistoryList historyList = new HistoryList(getActivity().getApplicationContext(), dateTime, store, item, historyId, this);
+        simpleList.setAdapter(historyList);
     }
 }

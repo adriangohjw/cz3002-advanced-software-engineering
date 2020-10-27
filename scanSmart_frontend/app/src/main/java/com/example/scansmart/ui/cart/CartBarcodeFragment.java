@@ -63,6 +63,7 @@ public class CartBarcodeFragment extends Fragment {
     //displays camera preview images
     SurfaceView surfaceView;
     TextView txtBarcodeValue;
+    TextView productId;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
     private static final int REQUEST_CAMERA_PERMISSION = 201;
@@ -80,19 +81,47 @@ public class CartBarcodeFragment extends Fragment {
         userID = ((MainActivity2) getActivity()).getUserID();
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
         surfaceView = root.findViewById(R.id.surfaceView1);
-        btnAction = root.findViewById(R.id.btnAction);
+        productId = (TextView) root.findViewById(R.id.product_id);
+        btnAction = root.findViewById(R.id.btnAction1);
         AndroidNetworking.initialize(getActivity().getApplicationContext());
+
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (goNext) {
-                    if (intentData.length() > 0) {
+
+                String product = productId.getText().toString();
+
+                String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/cart_products?shopper_id=%1$s&product_id=%2$s",
+                        userID,
+                        product);
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                // Display the first 500 characters of the response string.
+                                Log.wtf("Yay123", "Yay123");
+                                //go back to shopping cart
+                                Fragment fragment = new ShoppingCartFragment();
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.fragment_cartbarcode, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.v("error" , "error");
                     }
-                } else {
-                    //notify users that qr not valid
-                }
-            }
-        });
+
+
+                });
+                // Add the request to the RequestQueue.
+                RequestSingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+            }});
+
+
         return root;
     }
 

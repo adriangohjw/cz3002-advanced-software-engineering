@@ -32,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -92,6 +93,8 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
                                 productName.add(name_var);
                             }
                             if (getActivity() != null) {
+                                //sort lists
+                                sortLists();
                                 setCartAdapter();
                                 itemCount.setText(String.valueOf(total_items));
                                 price_count.setText(String.valueOf(final_price));
@@ -128,7 +131,6 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
         });
 
         Button check_out = root.findViewById(R.id.check_out);
-
 
         Button clear = root.findViewById(R.id.clear);
 
@@ -313,5 +315,27 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
     public void setCartAdapter(){
         final CartAdapter cartAdapter = new CartAdapter(getActivity().getApplicationContext(), productName, price, quantity, productId, userID, this);
         simpleList.setAdapter(cartAdapter);
+    }
+
+    public void sortLists(){
+        int length = productName.size();
+        for (int i = 1; i < length; ++i) {
+            int key1 = productId.get(i);
+            int key2 = price.get(i);
+            int key3 = quantity.get(i);
+            String temp = productName.get(i);
+            int j = i - 1;
+            while (j >= 0 && productId.get(j) > key1) {
+                productId.set(j+1, productId.get(j));
+                productName.set(j+1, productName.get(j));
+                price.set(j+1, price.get(j));
+                quantity.set(j+1, quantity.get(j));
+                j = j - 1;
+            }
+            productId.set(j+1,key1);
+            productName.set(j+1,temp);
+            price.set(j+1,key2);
+            quantity.set(j+1,key3);
+        }
     }
 }
