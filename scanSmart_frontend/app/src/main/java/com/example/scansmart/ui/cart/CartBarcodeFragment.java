@@ -239,3 +239,4 @@ public class CartBarcodeFragment extends Fragment {
         initialiseDetectorsAndSources();
     }
 }
+

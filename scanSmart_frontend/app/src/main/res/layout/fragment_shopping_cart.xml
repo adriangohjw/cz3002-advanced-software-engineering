@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="160dp"
                 android:background="@android:color/transparent"
                 android:text="Clear All"
                 android:textColor="@android:color/holo_red_dark" />
@@ -87,22 +87,22 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="Subtotal"
-                android:textSize="25sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="160dp"
                 android:text="$"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/price_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Price"
-                android:textSize="30sp"
+                android:text="0"
+                android:textSize="25sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -118,7 +118,7 @@
 
             <Button
                 android:id="@+id/scan"
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="30dp"
@@ -134,7 +134,7 @@
 
             <Button
                 android:id="@+id/check_out"
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="30dp"

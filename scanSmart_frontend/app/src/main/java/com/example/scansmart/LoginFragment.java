@@ -92,15 +92,15 @@ public class LoginFragment extends Fragment {
                             b.putInt("userID", id);
 
 
-                            String email_ = obj.getString("email");
-                            String stripe_customer_identifier = obj.getString("stripe_customer_identifier");
-                            String name =  obj.getString("name");
-                            String password = obj.getString("password_digest");
+                          String email_ = obj.getString("email");
+                           String stripe_customer_identifier = obj.getString("stripe_customer_identifier");
+                          String name =  obj.getString("name");
+                          String password = obj.getString("password_digest");
 
-                            b.putString("email",email_);
-                            b.putString("password",password);
-                            b.putString("name",name);
-                            b.putString("stripe_customer_identifier",stripe_customer_identifier);
+                           b.putString("email",email_);
+                           b.putString("password",password);
+                          b.putString("name",name);
+                          b.putString("stripe_customer_identifier",stripe_customer_identifier);
 
 
 
@@ -133,6 +133,4 @@ public class LoginFragment extends Fragment {
         }
         return true;
     }
-
-
 }

@@ -17,14 +17,18 @@ public interface RestService {
     @GET("users/authenticate")
     Call<UserResult> login(@Query("email") String email, @Query("password") String password);
 
+
     @PUT("users/")
     Call<UserResult> update(@Query("name") String name, @Query("email") String email, @Query("password") String password);
+
 
     @GET("products/")
     Call<ProductResult> Products();
 
+
     @GET("products/")
     Call<ProductResult> FilterByCategory(@Query("category[0]")String category);
+
 
 
 

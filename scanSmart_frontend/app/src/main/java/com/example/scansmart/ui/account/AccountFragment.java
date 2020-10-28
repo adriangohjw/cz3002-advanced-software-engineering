@@ -45,8 +45,8 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    Intent nextIntent = new Intent(getActivity(), profiledetailsActivity.class);
-                    startActivity(nextIntent);
+                Intent nextIntent = new Intent(getActivity(), profiledetailsActivity.class);
+                startActivity(nextIntent);
 
             }
         });

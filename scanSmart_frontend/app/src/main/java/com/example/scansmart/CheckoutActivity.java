@@ -1,4 +1,3 @@
-
 package com.example.scansmart;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -109,6 +108,8 @@ public class CheckoutActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        String customer_id = intent.getStringExtra("customer_id");
 
                         String customer_id = getIntent().getStringExtra("Stripe_customer_identifier");
 
@@ -123,7 +124,7 @@ public class CheckoutActivity extends AppCompatActivity {
                         params.put("customer_id",customer_id );
                         //params.put("source", extras.get("stripe_token").toString());
                         //params.put("source", "tok_amex");
-                        //params.put("description", "***");// enter a description of transaction
+                        //params.put("description", "*");// enter a description of transaction
 
                         Log.d("yayyy","yayyyy");
                         return params;
@@ -161,4 +162,3 @@ public class CheckoutActivity extends AppCompatActivity {
 
     }
 }
-

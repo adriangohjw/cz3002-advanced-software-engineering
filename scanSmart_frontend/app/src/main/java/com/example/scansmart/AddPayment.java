@@ -1,4 +1,3 @@
-
 package com.example.scansmart;
 
 import android.content.Intent;
@@ -86,6 +85,7 @@ public class AddPayment  extends AppCompatActivity {
                         intent.putExtra("stripe_token",token.getId());
                         //intent.putExtra("donationInfo", extras);
                         intent.putExtra("cardtype",token.getCard().getBrand());
+
                         int id_ = getIntent().getIntExtra("userID",0);
 
 
@@ -95,29 +95,29 @@ public class AddPayment  extends AppCompatActivity {
                        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                        StringRequest stringRequest =  new StringRequest(Request.Method.POST, createcardURL, new Response.Listener<String>() {
 
-                           @Override
-                           public void onResponse(String response) {
-                               System.out.println("SUCCESS");
+                            @Override
+                            public void onResponse(String response) {
+                                System.out.println("SUCCESS");
 
-                           }
-                       }, new Response.ErrorListener() {
-                           @Override
-                           public void onErrorResponse(VolleyError error) {
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
 
-                               System.out.println("FAILURE");
-                               error.getLocalizedMessage();
+                                System.out.println("FAILURE");
+                                error.getLocalizedMessage();
 
 
-                           }
-                       }) {
-                           @Override
-                           protected Map<String, String> getParams() {
-                               Map<String, String> params = new HashMap<>();
-                               params.put("card_token_id", token.getId());
-                               Log.d("yayyy","yayyyy");
-                               return params;
-                           }
-                       };
+                            }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("card_token_id", token.getId());
+                                Log.d("yayyy","yayyyy");
+                                return params;
+                            }
+                        };
 
                         queue.add(stringRequest);
                         setResult(0077,intent);
@@ -151,5 +151,3 @@ public class AddPayment  extends AppCompatActivity {
 
 
 }
-
-
