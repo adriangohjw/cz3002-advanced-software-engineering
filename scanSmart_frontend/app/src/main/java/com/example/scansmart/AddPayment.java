@@ -33,6 +33,8 @@ public class AddPayment  extends AppCompatActivity {
     Button save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         String tokenid;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_card);
@@ -84,9 +86,12 @@ public class AddPayment  extends AppCompatActivity {
                         intent.putExtra("stripe_token",token.getId());
                         //intent.putExtra("donationInfo", extras);
                         intent.putExtra("cardtype",token.getCard().getBrand());
+                        int id_ = getIntent().getIntExtra("userID",0);
 
 
-                       String createcardURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/" + "75"+"/cards";
+
+
+                       String createcardURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/" + id_ +"/cards";
                        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                        StringRequest stringRequest =  new StringRequest(Request.Method.POST, createcardURL, new Response.Listener<String>() {
 

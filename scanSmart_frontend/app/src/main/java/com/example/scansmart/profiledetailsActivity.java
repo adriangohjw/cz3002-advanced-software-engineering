@@ -3,6 +3,7 @@ package com.example.scansmart;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,14 +39,11 @@ public class profiledetailsActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_edit_name);
         etPassword = findViewById(R.id.et_edit_password);
         Button save = findViewById(R.id.save);
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 
-        SharedPreferences sharedPref = getSharedPreferences("loginPref",Context.MODE_PRIVATE);
-        String userName = sharedPref.getString("name", "0");
-        String email = sharedPref.getString("email", "0");
-        String password = sharedPref.getString("password", "0");
-        etName.setText(userName);
-        etEmail.setText(email);
-        etPassword.setText(password);
+        etEmail.setText(intent.getStringExtra("email"));
+        etName.setText(intent.getStringExtra("name"));
+        etPassword.setText(intent.getStringExtra("password"));
 
 
         save.setOnClickListener(v -> {

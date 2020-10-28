@@ -77,18 +77,6 @@ public class ShoppingCartFragment extends Fragment {
 
         Button check_out = root.findViewById(R.id.check_out);
 
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new CartBarcodeFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.shopping_cart, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
-
         Button clear = root.findViewById(R.id.clear);
 
         clear.setOnClickListener(new View.OnClickListener() {

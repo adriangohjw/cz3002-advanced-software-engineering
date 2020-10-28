@@ -20,6 +20,7 @@
         <activity android:name=".profiledetailsActivity"></activity>
         <activity android:name=".CheckoutActivity" />
         <activity android:name=".ViewCardActivity" />
+        <activity android:name=".AddPayment"/>
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

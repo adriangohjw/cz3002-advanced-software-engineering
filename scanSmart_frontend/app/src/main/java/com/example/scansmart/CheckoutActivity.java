@@ -109,8 +109,9 @@ public class CheckoutActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        String customer_id = intent.getStringExtra("customer_id");
+
+                        String customer_id = getIntent().getStringExtra("Stripe_customer_identifier");
+
 
 
                         //Integer intAmount = Integer.valueOf(amount_);
