@@ -109,6 +109,8 @@ public class CheckoutActivity extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        String customer_id = intent.getStringExtra("customer_id");
 
 
                         //Integer intAmount = Integer.valueOf(amount_);
@@ -117,7 +119,7 @@ public class CheckoutActivity extends AppCompatActivity {
                         params.put("amount", intAmount.toString());
                         //params.put("email", donationInfo.get("email").toString());
                         params.put("currency", "SGD");
-                        params.put("customer_id","cus_IGiLLCIxEOIvT7" );
+                        params.put("customer_id",customer_id );
                         //params.put("source", extras.get("stripe_token").toString());
                         //params.put("source", "tok_amex");
                         //params.put("description", "***");// enter a description of transaction
