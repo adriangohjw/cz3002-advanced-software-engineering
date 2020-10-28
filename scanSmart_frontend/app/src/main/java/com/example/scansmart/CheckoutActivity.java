@@ -3,6 +3,7 @@ package com.example.scansmart;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -110,7 +111,12 @@ public class CheckoutActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
 
 
-                        String customer_id = getIntent().getStringExtra("Stripe_customer_identifier");
+                        String customer_id;
+                        SharedPreferences pref =  getSharedPreferences("MyPref",MODE_PRIVATE);
+                        customer_id = pref.getString("stripe_customer_identifier","0");
+                        Log.e("yea","yea");
+                        System.out.println(customer_id);
+
 
                         //Integer intAmount = Integer.valueOf(amount_);
                         Integer intAmount = 1000;
