@@ -68,13 +68,15 @@ public class ViewCardActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 System.out.println("SUCCESS");
                 try {
-                    int month;
-                    int year;
+                    int month = 0;
+                    int year =0;
                     String cardNumber;
                     cardNumber = "";
-                    month = 0;
-                    year = 0;
-                    Log.e("card","card");
+                    String country;
+
+                    //month = null;
+                   // year = null;
+                    Log.e("card","cardd");
 
                     JSONObject jsonObj = new JSONObject(response);
                     JSONArray ja_data = jsonObj.getJSONArray("cards");
@@ -84,11 +86,14 @@ public class ViewCardActivity extends AppCompatActivity {
                          month = orderjsonObj.getInt("exp_month");
                          year = orderjsonObj.getInt("exp_year");
                          cardNumber = orderjsonObj.getString("last4");
+                         country =  orderjsonObj.getString("country");
+
+
 
                     }
 
 
-                    if(cardNumber.equals(null))
+                    if(cardNumber.equals(null) && month == 0  && year ==0)
                     {
                         //create new card using the value
                         Card card =  cardMultilineWidget.getCard();
@@ -104,7 +109,8 @@ public class ViewCardActivity extends AppCompatActivity {
                         }
 
                     }
-                    else if(!cardNumber.equals(null)){
+                    else if(!(cardNumber.equals(null)) &&  month!=0 &&  year!=0){
+
                         //SHOW CARD DETAILS
                         cardMultilineWidget.setCardNumber(cardNumber);
                         cardMultilineWidget.setCvcCode("***");
