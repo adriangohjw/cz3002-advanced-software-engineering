@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.scansmart.MainActivity;
 import com.example.scansmart.MainActivity2;
 import com.example.scansmart.R;
 import com.example.scansmart.ui.CustomToast;
@@ -69,6 +70,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setUp() {
+        Intent intent = new Intent(getContext(), MainActivity.class);
 
 
         etEmail = getView().findViewById(R.id.et_edit_email);
@@ -76,13 +78,13 @@ public class ProfileFragment extends Fragment {
         etPassword = getView().findViewById(R.id.et_edit_password);
         Button save = getView().findViewById(R.id.save);
 
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String userName = sharedPref.getString("userName", "0");
-        String email = sharedPref.getString("email", "0");
-        String password = sharedPref.getString("password", "0");
+        String userName = intent.getStringExtra("name");
+        String email = intent.getStringExtra("email");
+        String password = intent.getStringExtra("password");
         etName.setText(userName);
         etEmail.setText(email);
         etPassword.setText(password);
+
 
 
         save.setOnClickListener(v -> {
