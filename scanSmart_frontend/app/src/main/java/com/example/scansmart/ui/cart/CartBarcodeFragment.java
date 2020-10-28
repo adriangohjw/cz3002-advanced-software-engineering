@@ -80,10 +80,16 @@ public class CartBarcodeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_cartbarcode, container, false);
         userID = ((MainActivity2) getActivity()).getUserID();
         txtBarcodeValue = root.findViewById(R.id.txtBarcodeValue);
+
         surfaceView = root.findViewById(R.id.surfaceView1);
         productId = (TextView) root.findViewById(R.id.product_id);
         btnAction = root.findViewById(R.id.btnAction1);
         AndroidNetworking.initialize(getActivity().getApplicationContext());
+
+
+        surfaceView = root.findViewById(R.id.surfaceView);
+        btnAction = root.findViewById(R.id.btnAction);
+        //AndroidNetworking.initialize(getActivity().getApplicationContext());
 
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override

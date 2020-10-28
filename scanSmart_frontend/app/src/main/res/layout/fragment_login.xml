@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginFragment"
-    android:id="@+id/loginn"
     android:background="#ffffff">
+
+    android:id="@+id/loginn">
+
 
 
 

@@ -8,6 +8,7 @@ public class User {
     String name;
     String email;
     String password;
+    String stripe_customer_identifier;
 
     public User() {
     }
@@ -21,9 +22,13 @@ public class User {
         this.email = email;
         this.password = password;
     }
+    public String getUsername1(String email, String password){
+        return name;
+
+    }
 
 
-
+    public String getStripe_customer_identifier() {return stripe_customer_identifier;}
 
     public String getUsername() {
         return name;
@@ -40,6 +45,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void setStripe_customer_identifiert(Integer id){this.stripe_customer_identifier = stripe_customer_identifier;}
 
     public String getEmail() {
         return email;

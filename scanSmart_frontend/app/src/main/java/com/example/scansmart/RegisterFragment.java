@@ -1,18 +1,17 @@
 package com.example.scansmart;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 
 
-import com.example.scansmart.ui.CustomToast;
+
 import com.example.scansmart.ui.RestClient;
 import com.example.scansmart.ui.User;
 import com.example.scansmart.ui.UserResult;
@@ -61,11 +60,6 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         root = inflater.inflate(R.layout.fragment_register, container, false);
-
-
-
-
-
         etUsername = root.findViewById(R.id.et_name);
         etPassword = root.findViewById(R.id.et_password);
         etConfirmPassword = root.findViewById(R.id.et_repassword);
@@ -85,7 +79,6 @@ public class RegisterFragment extends Fragment {
                 if (validateInputs()) {
                     user = new User(name,email,password);
                     registerUser(user);
-
 
                 }
 
@@ -129,9 +122,6 @@ public class RegisterFragment extends Fragment {
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
 
-
-
-
                         } } else if(String.valueOf(userResult)==null || userResult==null){
                         Log.v("w3","w3");
                         Toast.makeText(getContext(), "Please enter correct details" , Toast.LENGTH_SHORT).show();
@@ -140,7 +130,11 @@ public class RegisterFragment extends Fragment {
                     }
 
 
+
                 }
+
+                    }
+
                 else {
                     a=0;
                     Log.v("w4","w4");

@@ -32,7 +32,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class LoginFragment extends Fragment {
     private static final String KEY_EMPTY = "";
     private static View root;
@@ -88,8 +87,27 @@ public class LoginFragment extends Fragment {
                         try {
                             JSONObject obj = new JSONObject(response);
                             int id = Integer.parseInt(obj.getString("id"));
+
                             Bundle b = new Bundle();
                             b.putInt("userID", id);
+
+
+                          String email_ = obj.getString("email");
+                           String stripe_customer_identifier = obj.getString("stripe_customer_identifier");
+                          String name =  obj.getString("name");
+                          String password = obj.getString("password");
+
+
+
+                            Bundle b = new Bundle();
+                            b.putInt("userID", id);
+                           b.putString("email",email_);
+                           b.putString("password",password);
+                          b.putString("name",name);
+                          b.putString("stripe_customer_identifier",stripe_customer_identifier);
+
+
+
                             Intent i = new Intent(getActivity(), MainActivity2.class);
                             i.putExtras(b);
                             startActivity(i);
@@ -120,6 +138,10 @@ public class LoginFragment extends Fragment {
         return true;
     }
 
+
 }
 
+
+
+}
 

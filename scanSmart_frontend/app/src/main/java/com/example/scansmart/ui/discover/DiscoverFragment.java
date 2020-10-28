@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.app.Activity;
@@ -58,17 +60,144 @@ import retrofit2.Response;
 
 
 public class DiscoverFragment extends Fragment {
+    ListView myListView;
+    Spinner mySpinner;
+    ArrayAdapter<ListItem> adapter;
+    String[] categories = {"All categories",
+            "Fruits & Vegetables",
+            "Meat & Seafood",
+            "Rice & Cooking Essentials",
+            "Beverages",
+            "Household",
+            "Mother & Baby",
+            "Dairy, Chilled & Eggs",
+            "Choco, Snacks, Sweets",
+            "Bakery & Breakfast",
+            "Wines, Beers & Spirits",
+            "Health",
+            "Pet Care",
+            "Beauty",
+            "Kitchen & Dining"};
+
 
 
     List<ListItem> productList = new ArrayList<>();
     View root;
 
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
             root = inflater.inflate(R.layout.fragment_discover, container, false);
-            getListData();
+           // getListData();
+            initializeView();
             return root;
+
+
+    }
+
+    private void initializeView()
+    {
+        mySpinner = root.findViewById(R.id.mySpinner);
+        mySpinner.setAdapter(new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,categories));
+        mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position>=0 && position<categories.length){
+                    getSelectedCategoryData(position);
+                } else {
+                    Toast.makeText(getContext(), "Selected Category Does not Exist!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+     private void getSelectedCategoryData (int categoryID) {
+
+        if(categoryID == 0)
+        {
+            getListData();
+        }
+        else {
+            if(categoryID==1)
+                getCategoryData("fruits_vegetables");
+            else if(categoryID==2)
+                getCategoryData("meat");
+            else if(categoryID==3)
+                getCategoryData("cooking_essentials");
+            else if(categoryID==4)
+                getCategoryData("beverages");
+            else if(categoryID==5)
+                getCategoryData("household");
+            else if(categoryID==6)
+                getCategoryData("mother_baby");
+            else if(categoryID==7)
+                getCategoryData("dairies");
+            else if(categoryID==8)
+                getCategoryData("snacks");
+            else if(categoryID==9)
+                getCategoryData("bakery");
+            else if(categoryID==10)
+                getCategoryData("alcohol");
+            else if(categoryID==11)
+                getCategoryData("health");
+            else if(categoryID==12)
+                getCategoryData("pets");
+            else if(categoryID==13)
+                getCategoryData("beauty");
+            else if(categoryID==14)
+                getCategoryData("kitchen");
+
+        }
+     }
+
+
+    private void getCategoryData(String category) {
+        Log.v("filter works","huhh");
+        Call<ProductResult> call = RestClient.getRestService(getContext()).FilterByCategory(category);
+        call.enqueue(new Callback<ProductResult>() {
+
+            @Override
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
+                Log.d("Response :=>", response.body() + "");
+                if (response != null) {
+
+                    ProductResult productResult = response.body();
+
+                    //if (productResult.getCode() == 200)
+                    {    productList = productResult.getProductList();
+                        ArrayList<ListItem> results = new ArrayList<>();
+
+                        Log.d("code","yea");
+
+                        for(int i =0;i<productList.size();i++)
+                        {ListItem prod = new ListItem();
+                            prod.setName(productList.get(i).getName());
+                            prod.setPrice(productList.get(i).getPrice());
+                            prod.setDiscounted_price(productList.get(i).getDiscounted_price());
+                            results.add(prod);
+                        }
+                        setUpRecyclerView(results);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductResult> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+
+
+            }
+
+
+        });
+
 
     }
 
@@ -114,6 +243,7 @@ public class DiscoverFragment extends Fragment {
 
 
     }
+
 
 
     private void  setUpRecyclerView(ArrayList prodlist) {
