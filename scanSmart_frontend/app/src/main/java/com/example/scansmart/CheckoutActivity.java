@@ -113,6 +113,9 @@ public class CheckoutActivity extends AppCompatActivity {
 
                         //Integer intAmount = Integer.valueOf(amount_);
                         Integer intAmount = 1000;
+                        //change amount here *100
+                        int amt;
+
 
                         params.put("amount", intAmount.toString());
                         //params.put("email", donationInfo.get("email").toString());
