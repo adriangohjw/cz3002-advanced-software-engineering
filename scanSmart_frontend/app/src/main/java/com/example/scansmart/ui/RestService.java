@@ -23,6 +23,11 @@ public interface RestService {
     @GET("products/")
     Call<ProductResult> Products();
 
+    @GET("products/")
+    Call<ProductResult> FilterByCategory(@Query("category[0]")String category);
+
+
+
 
 
 }

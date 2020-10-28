@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class CheckoutActivity extends AppCompatActivity {
 
@@ -75,13 +76,19 @@ public class CheckoutActivity extends AppCompatActivity {
                 Log.d("clicked","clickedd");
 
 
-                String chargeURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app" + "/charges";// for server validation of payment
+                String chargeURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app" + "/charges";
                 RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest stringRequest =  new StringRequest(Request.Method.POST, chargeURL, new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String response) {
                         System.out.println("SUCCESS");
+                        Toast.makeText(getApplicationContext(), "Payment successful!" , Toast.LENGTH_SHORT).show();
+                        if(Utility.alertSummoned == false){
+                            Utility.flag = "moneySent";
+                            //alert();
+                        }
+
 
                     }
                 },
@@ -91,6 +98,10 @@ public class CheckoutActivity extends AppCompatActivity {
 
                                 System.out.println("FAILURE");
                                 error.getLocalizedMessage();
+                                if(Utility.alertSummoned == false){
+                                    Utility.flag = "failure";
+                                    //alert();
+                                }
 
 
                             }
@@ -101,14 +112,15 @@ public class CheckoutActivity extends AppCompatActivity {
 
 
                         //Integer intAmount = Integer.valueOf(amount_);
-                        Integer intAmount = 1;
+                        Integer intAmount = 1000;
 
                         params.put("amount", intAmount.toString());
                         //params.put("email", donationInfo.get("email").toString());
                         params.put("currency", "SGD");
+                        params.put("customer_id","cus_IGiLLCIxEOIvT7" );
                         //params.put("source", extras.get("stripe_token").toString());
                         //params.put("source", "tok_amex");
-                        params.put("description", "***");// enter a description of transaction
+                        //params.put("description", "***");// enter a description of transaction
 
                         Log.d("yayyy","yayyyy");
                         return params;

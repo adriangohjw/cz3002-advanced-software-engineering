@@ -10,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.scansmart.R;
 
 import java.util.ArrayList;
@@ -17,10 +20,13 @@ import java.util.ArrayList;
 public class CustomListAdapter extends BaseAdapter {
     private ArrayList<ListItem> listData;
     private LayoutInflater layoutInflater;
+
     public CustomListAdapter(Context aContext, ArrayList<ListItem> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
+
     }
+
     @Override
     public int getCount() {
         return listData.size();
@@ -50,10 +56,11 @@ public class CustomListAdapter extends BaseAdapter {
 
         holder.uName.setText(listData.get(position).getName());
         holder.uDiscPrice.setText(listData.get(position).getDiscounted_price());
-        holder.uPrice.setText(listData.get(position).getPrice());
+        holder.uPrice.setText("price: " + listData.get(position).getPrice());
         if (listData.get(position).getDiscounted_price()!=null)
-        {holder.uPrice.setPaintFlags(holder.uPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.uPrice.setText("original price");
+        {//holder.uPrice.setPaintFlags(holder.uPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.uPrice.setText("original price: "+ listData.get(position).getPrice());
+        holder.uDiscPrice.setText("discounted price: "+listData.get(position).getPrice());
         }
         //holder.uProdImage.setImageResource(listData.get(position).getImageUrl());
         holder.uProdImage.setImageResource(R.drawable.icon1);

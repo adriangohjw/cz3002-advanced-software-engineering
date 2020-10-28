@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.stripe.android.ApiResultCallback;
@@ -22,6 +24,9 @@ import com.stripe.android.model.Token;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 import com.stripe.android.view.CardMultilineWidget;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddPayment  extends AppCompatActivity {
     CardMultilineWidget cardMultilineWidget;
@@ -65,7 +70,7 @@ public class AddPayment  extends AppCompatActivity {
     }
 
     private void CreateToken( Card card) {
-        Stripe stripe = new Stripe(getApplicationContext(), "pk_test_51HYA96CmbisokLBamubHNmnTR9FwaHgWxWlUPpRfR32mV9dgkPyCzmWNvZMQMRufsaNh1xRBRRJXpSNDY4hhJKP600jmttnVHP");
+        Stripe stripe = new Stripe(getApplicationContext(), "pk_test_51HbjJNFV0pkQC9JUBmdVKUqBfZPxOnUiLL1l2CP1H7Zu0MqvE3luqz8BxmliUiO7yhtmRaQ9scBx9j06TgrgXNVR00e0KZNUxm");
         stripe.createCardToken(
                 card,
                 new ApiResultCallback<Token>() {
@@ -81,13 +86,38 @@ public class AddPayment  extends AppCompatActivity {
                         intent.putExtra("cardtype",token.getCard().getBrand());
 
 
-                       // String createcardURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/:id" + token.getCard().getId();
-                       // RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                       // StringRequest stringRequest =  new StringRequest(Request.Method.POST, createcardURL,
+                       String createcardURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/" + "75"+"/cards";
+                       RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                       StringRequest stringRequest =  new StringRequest(Request.Method.POST, createcardURL, new Response.Listener<String>() {
 
+                           @Override
+                           public void onResponse(String response) {
+                               System.out.println("SUCCESS");
+
+                           }
+                       }, new Response.ErrorListener() {
+                           @Override
+                           public void onErrorResponse(VolleyError error) {
+
+                               System.out.println("FAILURE");
+                               error.getLocalizedMessage();
+
+
+                           }
+                       }) {
+                           @Override
+                           protected Map<String, String> getParams() {
+                               Map<String, String> params = new HashMap<>();
+                               params.put("card_token_id", token.getId());
+                               Log.d("yayyy","yayyyy");
+                               return params;
+                           }
+                       };
+
+                        queue.add(stringRequest);
                         setResult(0077,intent);
                         //return token.getId();
-                        finish();
+                        //finish();
                     }
                     public void onError(Exception error) {
 
