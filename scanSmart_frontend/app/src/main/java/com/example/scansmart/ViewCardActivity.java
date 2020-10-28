@@ -51,13 +51,16 @@ public class ViewCardActivity extends AppCompatActivity {
 
 
 
-        int id;
-        SharedPreferences pref = getSharedPreferences("MyPref",MODE_PRIVATE);
-        id = pref.getInt("userID'",0);
+
+        int id_;
+        SharedPreferences prefs = getSharedPreferences("MyPref",MODE_PRIVATE);
+        id_ = prefs.getInt("userID",0);
+        Log.e("lol","HOW");
+        System.out.println(id_);
 
 
 
-        String retrieveURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/:" + id + "/cards";
+        String retrieveURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/" + id_+ "/cards";
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest =  new StringRequest(Request.Method.GET, retrieveURL, new com.android.volley.Response.Listener<String>() {
 
@@ -71,6 +74,7 @@ public class ViewCardActivity extends AppCompatActivity {
                     cardNumber = "";
                     month = 0;
                     year = 0;
+                    Log.e("card","card");
 
                     JSONObject jsonObj = new JSONObject(response);
                     JSONArray ja_data = jsonObj.getJSONArray("cards");
@@ -85,7 +89,7 @@ public class ViewCardActivity extends AppCompatActivity {
 
 
                     if(cardNumber.equals(null))
-                    {/*
+                    {
                         //create new card using the value
                         Card card =  cardMultilineWidget.getCard();
                         if(card == null){
@@ -98,7 +102,7 @@ public class ViewCardActivity extends AppCompatActivity {
                                 CreateToken(card);
                             }
                         }
-                        */
+
                     }
                     else if(!cardNumber.equals(null)){
                         //SHOW CARD DETAILS
