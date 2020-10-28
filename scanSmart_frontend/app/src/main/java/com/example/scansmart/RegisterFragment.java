@@ -7,9 +7,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
+
+
 import com.example.scansmart.ui.RestClient;
 import com.example.scansmart.ui.User;
 import com.example.scansmart.ui.UserResult;
+import com.example.scansmart.ui.account.ProfileFragment;
 import com.google.gson.Gson;
 
 import android.util.Log;
@@ -27,7 +33,6 @@ import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
-
  * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
@@ -41,7 +46,6 @@ public class RegisterFragment extends Fragment {
     private String password;
     private String confirmPassword;
     private String email;
-    private String register_url = "http://localhost:3000/users/";
     Gson gson = new Gson();
     User user;
     int a=0;
@@ -75,6 +79,7 @@ public class RegisterFragment extends Fragment {
                 if (validateInputs()) {
                     user = new User(name,email,password);
                     registerUser(user);
+
                 }
 
             }
@@ -117,9 +122,6 @@ public class RegisterFragment extends Fragment {
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
 
-
-
-
                         } } else if(String.valueOf(userResult)==null || userResult==null){
                         Log.v("w3","w3");
                         Toast.makeText(getContext(), "Please enter correct details" , Toast.LENGTH_SHORT).show();
@@ -128,7 +130,11 @@ public class RegisterFragment extends Fragment {
                     }
 
 
+
+                }
+
                     }
+
                 else {
                     a=0;
                     Log.v("w4","w4");

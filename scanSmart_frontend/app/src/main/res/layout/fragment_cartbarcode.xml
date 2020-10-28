@@ -14,7 +14,7 @@
             android:layout_height="wrap_content">
 
             <SurfaceView
-                android:id="@+id/surfaceView"
+                android:id="@+id/surfaceView1"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_alignParentLeft="true"
@@ -37,7 +37,8 @@
                     android:layout_height="300dp"
                     android:gravity="center"
                     android:scaleType="fitXY"
-                    android:src="@drawable/barcode" />
+                    android:src="@drawable/barcode1"
+                    android:alpha="0.6"/>
 
                 <TextView
                     android:id="@+id/textView"
@@ -74,7 +75,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/store_id"
+                    android:id="@+id/product_id"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
@@ -85,7 +86,7 @@
                     android:textSize="15sp" />
 
                 <ImageButton
-                    android:id="@+id/btnAction"
+                    android:id="@+id/btnAction1"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:text="Button"
