@@ -51,12 +51,13 @@ public class ViewCardActivity extends AppCompatActivity {
 
 
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        int id = intent.getIntExtra("userID",0);
+        int id;
+        SharedPreferences pref = getSharedPreferences("MyPref",MODE_PRIVATE);
+        id = pref.getInt("userID'",0);
 
 
 
-        String retrieveURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/:" + id + "/cards";// for server validation of payment
+        String retrieveURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/:" + id + "/cards";
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest =  new StringRequest(Request.Method.GET, retrieveURL, new com.android.volley.Response.Listener<String>() {
 
@@ -83,9 +84,8 @@ public class ViewCardActivity extends AppCompatActivity {
                     }
 
 
-
                     if(cardNumber.equals(null))
-                    {
+                    {/*
                         //create new card using the value
                         Card card =  cardMultilineWidget.getCard();
                         if(card == null){
@@ -98,6 +98,7 @@ public class ViewCardActivity extends AppCompatActivity {
                                 CreateToken(card);
                             }
                         }
+                        */
                     }
                     else if(!cardNumber.equals(null)){
                         //SHOW CARD DETAILS

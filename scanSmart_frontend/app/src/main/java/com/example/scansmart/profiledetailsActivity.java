@@ -39,11 +39,11 @@ public class profiledetailsActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_edit_name);
         etPassword = findViewById(R.id.et_edit_password);
         Button save = findViewById(R.id.save);
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        SharedPreferences pref = getSharedPreferences("MyPref",MODE_PRIVATE);
 
-        etEmail.setText(intent.getStringExtra("email"));
-        etName.setText(intent.getStringExtra("name"));
-        etPassword.setText(intent.getStringExtra("password"));
+        etEmail.setText(pref.getString("email","0"));
+        etName.setText(pref.getString("name","0"));
+        etPassword.setText(pref.getString("password","0"));
 
 
         save.setOnClickListener(v -> {

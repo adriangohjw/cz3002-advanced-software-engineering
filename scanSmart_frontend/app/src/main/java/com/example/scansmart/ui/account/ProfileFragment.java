@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,19 +71,28 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setUp() {
+        Log.e("um","good");
 
 
         etEmail = getView().findViewById(R.id.et_edit_email);
         etName = getView().findViewById(R.id.et_edit_name);
         etPassword = getView().findViewById(R.id.et_edit_password);
         Button save = getView().findViewById(R.id.save);
-
+/*
         Log.wtf("started", "started");
         String userName = ((MainActivity2)getActivity()).getName();
         String email = ((MainActivity2)getActivity()).getEmail();
         String password = ((MainActivity2)getActivity()).getPassword();
         Log.wtf("userName", userName);
         Log.e("?","?");
+
+ */
+
+        SharedPreferences pref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String userName = pref.getString("name","0");
+        String password = pref.getString("password","0");
+        String email = pref.getString("email","0");
+
         System.out.println(userName);
         etName.setText(userName);
         etEmail.setText(email);

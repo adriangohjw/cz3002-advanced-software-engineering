@@ -1,6 +1,7 @@
 package com.example.scansmart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -86,7 +87,13 @@ public class AddPayment  extends AppCompatActivity {
                         //intent.putExtra("donationInfo", extras);
                         intent.putExtra("cardtype",token.getCard().getBrand());
 
-                        int id_ = getIntent().getIntExtra("userID",0);
+                        int id_;
+                        SharedPreferences prefs = getSharedPreferences("MyPref",MODE_PRIVATE);
+                        id_ = prefs.getInt("userID",0);
+                        Log.e("HOW","HOW");
+                        System.out.println(id_);
+
+
 
 
 
@@ -114,7 +121,10 @@ public class AddPayment  extends AppCompatActivity {
                             protected Map<String, String> getParams() {
                                 Map<String, String> params = new HashMap<>();
                                 params.put("card_token_id", token.getId());
+
                                 Log.d("yayyy","yayyyy");
+                                Log.e("pls","pls");
+                                System.out.println(token.getId());
                                 return params;
                             }
                         };

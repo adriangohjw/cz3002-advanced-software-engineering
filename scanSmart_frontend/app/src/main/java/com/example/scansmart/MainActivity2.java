@@ -42,6 +42,7 @@ public class MainActivity2 extends AppCompatActivity {
 
 
         }
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

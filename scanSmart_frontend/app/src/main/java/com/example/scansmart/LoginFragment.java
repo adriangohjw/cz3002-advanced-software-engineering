@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 public class LoginFragment extends Fragment {
     private static final String KEY_EMPTY = "";
+
     private static View root;
     private EditText etEmail;
     private EditText etPassword;
@@ -73,6 +74,7 @@ public class LoginFragment extends Fragment {
     }
 
 
+
     private void loginUser() {
         String url = String.format("https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/authenticate/?email=%1$s&password=%2$s",
                 email,
@@ -97,16 +99,46 @@ public class LoginFragment extends Fragment {
                           String name =  obj.getString("name");
                           String password = obj.getString("password_digest");
 
-                           b.putString("email",email_);
-                           b.putString("password",password);
-                          b.putString("name",name);
-                          b.putString("stripe_customer_identifier",stripe_customer_identifier);
+
+                            SharedPreferences pref = getContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+                            Editor editor = pref.edit();
+                            editor.putInt("userID",id);
+                            editor.putString("stripe_customer_identifier",stripe_customer_identifier);
+                            editor.putString("email",email_);
+                            editor.putString("name",name);
+                            editor.putString("password",password);
+
+
+                            editor.apply();
+/*
+                            SharedPreferences pref1  = getContext().getSharedPreferences("MyPref1",Context.MODE_PRIVATE);
+                            Editor editor1 = pref1.edit();
+                            editor.putString("stripe_customer_identifier",stripe_customer_identifier);
+                            Log.e("yes","waht");
+                            System.out.println(stripe_customer_identifier);
+                            editor1.apply();
+
+                            SharedPreferences pref2 = getContext().getSharedPreferences("MyPref2", Context.MODE_PRIVATE);
+                            Editor editor2 = pref2.edit();
+                            editor2.putString("name",name);
+                            editor2.putString("password",password);
+                            editor2.putString("email",email_);
+                            editor2.apply();
+
+ */
+
+
+
+
 
 
 
                             Intent i = new Intent(getActivity(), MainActivity2.class);
                             i.putExtras(b);
+
+
                             startActivity(i);
+
                         } catch (JSONException e) {
                             Log.v("cmi", "cmi lah");
                         }
