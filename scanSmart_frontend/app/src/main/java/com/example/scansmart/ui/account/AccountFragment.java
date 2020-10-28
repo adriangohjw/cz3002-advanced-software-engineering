@@ -25,19 +25,6 @@ public class AccountFragment extends Fragment {
     private AccountViewModel accountViewModel;
     View root;
 
-
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        accountViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_account, container, false);
-        // refer pls
-        /*
-         * accountViewModel.getText().observe(getViewLifecycleOwner(), new
-         * Observer<String>() {
-         * 
-         * @Override public void onChanged(@Nullable String s) { textView.setText(s); }
-         * });
-         */
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // accountViewModel = ViewModelProviders.of(this).get(AccountViewModel.class);
@@ -58,12 +45,11 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                    Intent nextIntent = new Intent(getActivity(), profiledetailsActivity.class);
-                    startActivity(nextIntent);
+                Intent nextIntent = new Intent(getActivity(), profiledetailsActivity.class);
+                startActivity(nextIntent);
 
             }
         });
-
 
         Button card_btn = getView().findViewById(R.id.btn_card_details);
         card_btn.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +62,13 @@ public class AccountFragment extends Fragment {
         });
 
 
+
+
+
+
+
+
     }
+
 
 }

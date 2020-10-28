@@ -1,5 +1,6 @@
 package com.example.scansmart.ui.cart;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.scansmart.CheckoutActivity;
 import com.example.scansmart.MainActivity2;
 import com.example.scansmart.R;
 import com.example.scansmart.RequestSingleton;
@@ -131,6 +133,15 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
         });
 
         Button check_out = root.findViewById(R.id.check_out);
+        check_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //move to CheckoutActivity
+                Intent i = new Intent(getActivity(), CheckoutActivity.class);
+                startActivity(i);
+                ((Activity) getActivity()).overridePendingTransition(0, 0);
+            }});
+
 
         Button clear = root.findViewById(R.id.clear);
 

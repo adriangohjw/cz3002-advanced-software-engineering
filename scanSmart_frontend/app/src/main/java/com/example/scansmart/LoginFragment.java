@@ -95,12 +95,8 @@ public class LoginFragment extends Fragment {
                           String email_ = obj.getString("email");
                            String stripe_customer_identifier = obj.getString("stripe_customer_identifier");
                           String name =  obj.getString("name");
-                          String password = obj.getString("password");
+                          String password = obj.getString("password_digest");
 
-
-
-                            Bundle b = new Bundle();
-                            b.putInt("userID", id);
                            b.putString("email",email_);
                            b.putString("password",password);
                           b.putString("name",name);
@@ -142,6 +138,4 @@ public class LoginFragment extends Fragment {
 }
 
 
-
-}
 

@@ -101,19 +101,19 @@ public class RegisterFragment extends Fragment {
                     Log.d("user result is:", String.valueOf(userResult));
 
 
-                    if (String.valueOf(userResult)!=null && userResult != null) {
+                    if (String.valueOf(userResult) != null && userResult != null) {
                         if (userResult.getCode() == 201) {
                             Log.v("great", "yay");
 
                             //startActivity(new Intent(getContext(), MainActivity.class));
                             //getActivity().finish();
-                            Toast.makeText(getContext(), "You've registered successfully" , Toast.LENGTH_SHORT).show();
-                            a=1;
+                            Toast.makeText(getContext(), "You've registered successfully", Toast.LENGTH_SHORT).show();
+                            a = 1;
 
-                        } else if(userResult.getCode() !=201) {
-                            Log.v("w2","w2");
-                            Toast.makeText(getContext(), "You've registered successfully" , Toast.LENGTH_SHORT).show();
-                            a=1;
+                        } else if (userResult.getCode() != 201) {
+                            Log.v("w2", "w2");
+                            Toast.makeText(getContext(), "You've registered successfully", Toast.LENGTH_SHORT).show();
+                            a = 1;
 
                             Fragment fragment = new LoginFragment();
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -122,18 +122,15 @@ public class RegisterFragment extends Fragment {
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
 
-                        } } else if(String.valueOf(userResult)==null || userResult==null){
-                        Log.v("w3","w3");
-                        Toast.makeText(getContext(), "Please enter correct details" , Toast.LENGTH_SHORT).show();
-                        a=0;
+                        }
+                    } else if (String.valueOf(userResult) == null || userResult == null) {
+                        Log.v("w3", "w3");
+                        Toast.makeText(getContext(), "Please enter correct details", Toast.LENGTH_SHORT).show();
+                        a = 0;
 
                     }
-
-
 
                 }
-
-                    }
 
                 else {
                     a=0;
