@@ -70,7 +70,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setUp() {
-        Intent intent = new Intent(getContext(), MainActivity.class);
 
 
         etEmail = getView().findViewById(R.id.et_edit_email);
@@ -78,9 +77,13 @@ public class ProfileFragment extends Fragment {
         etPassword = getView().findViewById(R.id.et_edit_password);
         Button save = getView().findViewById(R.id.save);
 
-        String userName = intent.getStringExtra("name");
-        String email = intent.getStringExtra("email");
-        String password = intent.getStringExtra("password");
+        Log.wtf("started", "started");
+        String userName = ((MainActivity2)getActivity()).getName();
+        String email = ((MainActivity2)getActivity()).getEmail();
+        String password = ((MainActivity2)getActivity()).getPassword();
+        Log.wtf("userName", userName);
+        Log.e("?","?");
+        System.out.println(userName);
         etName.setText(userName);
         etEmail.setText(email);
         etPassword.setText(password);

@@ -133,6 +133,7 @@ public class ShoppingCartFragment extends Fragment implements CartAdapter.EventL
         });
 
         Button check_out = root.findViewById(R.id.check_out);
+
         check_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

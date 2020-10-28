@@ -14,6 +14,10 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity2 extends AppCompatActivity {
     int userID;
+    String email;
+    String name;
+    String password;
+    String stripe_customer_identifier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +26,21 @@ public class MainActivity2 extends AppCompatActivity {
         try{
             Bundle b = getIntent().getExtras();
             userID = b.getInt("userID");
+            email = b.getString("email");
+            password = b.getString("password");
+            name = b.getString("name");
+            stripe_customer_identifier = b.getString("stripe_customer_identifier");
+
+
         } catch(Exception ex){
             userID = 0;
+            email = "";
+            password ="";
+            name ="";
+            stripe_customer_identifier ="";
+
+
+
         }
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -39,5 +56,10 @@ public class MainActivity2 extends AppCompatActivity {
     public int getUserID() {
         return userID;
     }
+    public String getEmail(){return email;}
+    public String getPassword(){return password;}
+    public String getName(){return name;}
+    public String getStripe_customer_identifier(){return stripe_customer_identifier;}
+
 
 }
