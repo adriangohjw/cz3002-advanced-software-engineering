@@ -51,13 +51,16 @@ public class ViewCardActivity extends AppCompatActivity {
 
 
 
-        int id;
-        SharedPreferences pref = getSharedPreferences("MyPref",MODE_PRIVATE);
-        id = pref.getInt("userID'",0);
+
+        int id_;
+        SharedPreferences prefs = getSharedPreferences("MyPref",MODE_PRIVATE);
+        id_ = prefs.getInt("userID",0);
+        Log.e("lol","HOW");
+        System.out.println(id_);
 
 
 
-        String retrieveURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/:" + id + "/cards";
+        String retrieveURL = "https://cz-3002-scansmart-api-7ndhk.ondigitalocean.app/users/" + id_+ "/cards";
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest =  new StringRequest(Request.Method.GET, retrieveURL, new com.android.volley.Response.Listener<String>() {
 
@@ -65,12 +68,15 @@ public class ViewCardActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 System.out.println("SUCCESS");
                 try {
-                    int month;
-                    int year;
+                    int month = 0;
+                    int year =0;
                     String cardNumber;
                     cardNumber = "";
-                    month = 0;
-                    year = 0;
+                    String country;
+
+                    //month = null;
+                   // year = null;
+                    Log.e("card","cardd");
 
                     JSONObject jsonObj = new JSONObject(response);
                     JSONArray ja_data = jsonObj.getJSONArray("cards");
@@ -80,12 +86,15 @@ public class ViewCardActivity extends AppCompatActivity {
                          month = orderjsonObj.getInt("exp_month");
                          year = orderjsonObj.getInt("exp_year");
                          cardNumber = orderjsonObj.getString("last4");
+                         country =  orderjsonObj.getString("country");
+
+
 
                     }
 
 
-                    if(cardNumber.equals(null))
-                    {/*
+                    if(cardNumber.equals(null) && month == 0  && year ==0)
+                    {
                         //create new card using the value
                         Card card =  cardMultilineWidget.getCard();
                         if(card == null){
@@ -98,9 +107,10 @@ public class ViewCardActivity extends AppCompatActivity {
                                 CreateToken(card);
                             }
                         }
-                        */
+
                     }
-                    else if(!cardNumber.equals(null)){
+                    else if(!(cardNumber.equals(null)) &&  month!=0 &&  year!=0){
+
                         //SHOW CARD DETAILS
                         cardMultilineWidget.setCardNumber(cardNumber);
                         cardMultilineWidget.setCvcCode("***");
