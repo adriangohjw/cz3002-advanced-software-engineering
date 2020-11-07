@@ -1,5 +1,6 @@
 package com.example.scansmart;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -27,7 +28,12 @@ public class profiledetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Profile Details");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_profiledetails);
+
 
         setUp();
     }
@@ -37,13 +43,13 @@ public class profiledetailsActivity extends AppCompatActivity {
 
         etEmail = findViewById(R.id.et_edit_email);
         etName = findViewById(R.id.et_edit_name);
-        etPassword = findViewById(R.id.et_edit_password);
+       // etPassword = findViewById(R.id.et_edit_password);
         Button save = findViewById(R.id.save);
         SharedPreferences pref = getSharedPreferences("MyPref",MODE_PRIVATE);
 
         etEmail.setText(pref.getString("email","0"));
         etName.setText(pref.getString("name","0"));
-        etPassword.setText(pref.getString("password","0"));
+        //etPassword.setText(pref.getString("password","0"));
 
 
         save.setOnClickListener(v -> {

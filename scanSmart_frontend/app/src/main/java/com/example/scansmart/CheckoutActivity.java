@@ -1,5 +1,6 @@
 package com.example.scansmart;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -45,10 +46,14 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
         Token token;
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Checkout");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         addPayment = (CardView) findViewById(R.id.addPayment);
         creditCardText = (TextView) findViewById(R.id.credit_card_text);
-        //amount = (EditText) findViewById(R.id.input);
+        //amount = (EditText) findViewById(R.id.textview);
         creditcard = (CardView) findViewById(R.id.credit_card);
         checkOut = (Button) findViewById(R.id.checkout);
 
