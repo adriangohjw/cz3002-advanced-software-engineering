@@ -38,7 +38,12 @@ public class ViewCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Card Details");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_view_card);
+
 
         cardMultilineWidget = findViewById(R.id.card_input_widget);
         retrieveCard();

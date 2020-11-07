@@ -56,11 +56,11 @@ public class CustomListAdapter extends BaseAdapter {
 
         holder.uName.setText(listData.get(position).getName());
         holder.uDiscPrice.setText(listData.get(position).getDiscounted_price());
-        holder.uPrice.setText("price: " + listData.get(position).getPrice());
+        holder.uPrice.setText("Price: $" + listData.get(position).getPrice()+"0");
         if (listData.get(position).getDiscounted_price()!=null)
         {//holder.uPrice.setPaintFlags(holder.uPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.uPrice.setText("original price: "+ listData.get(position).getPrice());
-        holder.uDiscPrice.setText("discounted price: "+listData.get(position).getPrice());
+        holder.uPrice.setText("Original price: $"+ listData.get(position).getPrice()+"0");
+        holder.uDiscPrice.setText("Discounted price: $"+listData.get(position).getPrice()+"0");
         }
         //holder.uProdImage.setImageResource(listData.get(position).getImageUrl());
         holder.uProdImage.setImageResource(R.drawable.icon1);
