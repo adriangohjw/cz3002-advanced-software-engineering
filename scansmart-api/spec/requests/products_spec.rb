@@ -117,4 +117,33 @@ RSpec.describe 'Products API', type: :request do
       end
     end
   end
+
+  describe "GET /products/:id" do
+    context "no product found" do
+      let (:id) { 10000 }
+      before { get "/products/#{id}" }
+
+      it 'returns status code 400' do
+        expect(response).to have_http_status(400)
+      end
+    end
+
+    context "product found" do
+      let (:id) { @product_1.id }
+      before { get "/products/#{id}" }
+
+      it "return the correct response" do
+        json_response = JSON.parse(response.body)
+        expect(json_response["id"]).to eq(@product_1.id)
+        expect(json_response["name"]).to eq(@product_1.name)
+        expect(json_response["category"]).to eq(@product_1.product_category.name)
+        expect(json_response["undiscounted_price"]).to eq(10)
+        expect(json_response["total_quantity_purchased_last_30_days"]).to eq(0)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+  end 
 end
